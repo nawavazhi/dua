@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     // 1. Fetch the master JSON data
-    fetch('../../assets/data/database.json')
+    fetch('../assets/data/database.json')
         .then(response => response.json())
         .then(data => {
             buildSchedule(data.salah_guide.schedule);
