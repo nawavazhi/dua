@@ -1,16 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salah Guide - Project Dua</title>
-    <link rel="stylesheet" href="../../assets/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salah Guide - Project Dua Demo</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600&display=swap');
+    
+    :root {
+        --primary: #1f4e3d;
+        --secondary: #c79c60;
+        --bg-light: #f4f7f6;
+        --surface: #ffffff;
+        --text: #333333;
+        --text-light: #555555;
+    }
+
+    body { 
+        font-family: 'Inter', 'Segoe UI', sans-serif; 
+        background-color: var(--bg-light); 
+        color: var(--text);
+        margin: 0; 
+        padding: 0;
+        line-height: 1.5;
+    }
+
+    header {
+        background-color: var(--primary);
+        color: white;
+        padding: 20px 15px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 { margin: 0; font-size: 1.5rem; }
+    header p { margin: 5px 0 0 0; font-size: 0.9rem; opacity: 0.9; }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    .card {
+        background: var(--surface);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        margin-bottom: 25px;
+        padding: 20px;
+        overflow: hidden;
+    }
+
+    h2 { 
+        color: var(--primary); 
+        font-size: 1.25rem; 
+        margin-top: 0;
+        border-left: 4px solid var(--secondary); 
+        padding-left: 10px; 
+    }
+
+    .study-tip {
+        background-color: rgba(199, 156, 96, 0.15);
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        border-left: 4px solid var(--secondary);
+    }
+
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        font-size: 0.9rem;
+        min-width: 500px; 
+    }
+    
+    th { background-color: var(--primary); color: white; padding: 10px; text-align: left; }
+    td { border-bottom: 1px solid #eee; padding: 10px; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background-color: #fafafa; }
+    
+    .arabic { 
+        font-family: 'Amiri', serif;
+        font-size: 1.6rem; 
+        text-align: right; 
+        direction: rtl; 
+        color: var(--primary);
+    }
+    .trans { font-style: italic; color: var(--text-light); }
+    .eng { font-weight: 600; }
+    .malayalam { font-size: 0.85rem; }
+
+    .print-btn {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        width: 56px;
+        height: 56px;
+        font-size: 1.5rem;
+        border-radius: 50%;
+        cursor: pointer;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        box-shadow: 0 4px 15px rgba(31, 78, 61, 0.4);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.2s;
+    }
+    .print-btn:active { transform: scale(0.95); }
+
+    @media print {
+        body { background-color: white; color: black; }
+        .container { max-width: 100%; margin: 0; padding: 0; }
+        .card { 
+            box-shadow: none; 
+            border-radius: 0; 
+            padding: 10px 0; 
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+        }
+        .print-btn { display: none; }
+        table { min-width: 100%; }
+        .arabic { color: black; }
+        h2 { color: black; border-left-color: #999; }
+        th { background-color: #eee; color: black; border: 1px solid #ccc; }
+        td { border: 1px solid #ccc; }
+    }
+</style>
 </head>
 <body>
 
     <header>
         <h1>🕌 Project Dua</h1>
-        <p>Interactive Salah Guide</p>
+        <p>Interactive Salah Guide - Full Demo</p>
     </header>
 
     <button class="print-btn" onclick="window.print()" title="Print to A4">🖨️</button>
@@ -19,15 +150,472 @@
         
         <div class="card">
             <h2>Daily Prayer Schedule</h2>
-            <div class="table-responsive" id="schedule-container">
-                </div>
+            <div class="study-tip">
+                <strong>💡 Tip:</strong> Try to memorize just 3-4 words a day. Practice them in your actual prayers, thinking of the English or Malayalam meaning as you pronounce the Arabic to build <em>Khushoo</em> (focus).
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr><th>Prayer (Salah)</th><th>Time of Day</th><th>Sunnah (Before)</th><th>Fardh (Obligatory)</th><th>Sunnah (After)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Fajr</strong></td><td>Dawn</td><td>2 Rak'ahs</td><td>2 Rak'ahs</td><td>None</td></tr>
+                        <tr><td><strong>Dhuhr</strong></td><td>Midday</td><td>4 Rak'ahs</td><td>4 Rak'ahs</td><td>2 Rak'ahs</td></tr>
+                        <tr><td><strong>Asr</strong></td><td>Late Afternoon</td><td>4 Rak'ahs (Optional)</td><td>4 Rak'ahs</td><td>None</td></tr>
+                        <tr><td><strong>Maghrib</strong></td><td>Just after Sunset</td><td>None</td><td>3 Rak'ahs</td><td>2 Rak'ahs</td></tr>
+                        <tr><td><strong>Isha</strong></td><td>Nighttime</td><td>None</td><td>4 Rak'ahs</td><td>2 Rak'ahs</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size: 0.9rem; margin-top: 15px;"><strong>Closing the Night (Witr):</strong> After completing the Fardh and Sunnah of Isha, you conclude your daily prayers with the Witr prayer. This is an odd number of Rak'ahs, most commonly performed as 3 Rak'ahs.</p>
         </div>
 
-        <div id="sections-container">
+        <div class="card">
+            <h2>1. The Opening (Takbeer & Sana)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>اللَّهُ</td><td class='trans'>Allahu</td><td class='eng'>Allah</td><td class='malayalam'>അല്ലാഹു</td></tr>
+                        <tr><td class='arabic'>أَكْبَرُ</td><td class='trans'>Akbar</td><td class='eng'>is the Greatest</td><td class='malayalam'>ഏറ്റവും വലിയവനാകുന്നു</td></tr>
+                        <tr><td class='arabic'>سُبْحَانَكَ</td><td class='trans'>Subhanaka</td><td class='eng'>Glory be to You</td><td class='malayalam'>നിനക്ക് സ്തുതി (നിന്നെ ഞാൻ വാഴ്ത്തുന്നു)</td></tr>
+                        <tr><td class='arabic'>اللَّهُمَّ</td><td class='trans'>Allahumma</td><td class='eng'>O Allah</td><td class='malayalam'>അല്ലാഹുവേ</td></tr>
+                        <tr><td class='arabic'>وَبِحَمْدِكَ</td><td class='trans'>wa bihamdika</td><td class='eng'>and with Your praise</td><td class='malayalam'>നിന്റെ സ്തുതിയോടെ</td></tr>
+                        <tr><td class='arabic'>وَتَبَارَكَ</td><td class='trans'>wa tabaraka</td><td class='eng'>and blessed is</td><td class='malayalam'>അനുഗ്രഹീതമാണ്</td></tr>
+                        <tr><td class='arabic'>اسْمُكَ</td><td class='trans'>ismuka</td><td class='eng'>Your name</td><td class='malayalam'>നിന്റെ നാമം</td></tr>
+                        <tr><td class='arabic'>وَتَعَالَى</td><td class='trans'>wa ta'ala</td><td class='eng'>and high is</td><td class='malayalam'>ഉന്നതമാണ്</td></tr>
+                        <tr><td class='arabic'>جَدُّكَ</td><td class='trans'>jadduka</td><td class='eng'>Your majesty</td><td class='malayalam'>നിന്റെ മഹത്വം</td></tr>
+                        <tr><td class='arabic'>وَلَا إِلَهَ</td><td class='trans'>wa la ilaha</td><td class='eng'>and there is no deity</td><td class='malayalam'>വേറെ ആരാധ്യനില്ല</td></tr>
+                        <tr><td class='arabic'>غَيْرُكَ</td><td class='trans'>ghayruka</td><td class='eng'>other than You</td><td class='malayalam'>നീയല്ലാതെ</td></tr>
+                    </tbody>
+                </table>
             </div>
+        </div>
+
+        <div class="card">
+            <h2>Alternative Extended Opening Supplication (Wajjahtu)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>وَجَّهْتُ</td><td class='trans'>Wajjahtu</td><td class='eng'>I have turned / directed</td><td class='malayalam'>ഞാൻ തിരിച്ചു (അഭിമുഖമാക്കി)</td></tr>
+                        <tr><td class='arabic'>وَجْهِيَ</td><td class='trans'>wajhiya</td><td class='eng'>my face</td><td class='malayalam'>എന്റെ മുഖം</td></tr>
+                        <tr><td class='arabic'>لِلَّذِي</td><td class='trans'>lilladhi</td><td class='eng'>to the One who</td><td class='malayalam'>യാതൊരുവനിലേക്ക്</td></tr>
+                        <tr><td class='arabic'>فَطَرَ</td><td class='trans'>fatara</td><td class='eng'>created (originated)</td><td class='malayalam'>സൃഷ്ടിച്ച</td></tr>
+                        <tr><td class='arabic'>السَّمَاوَاتِ</td><td class='trans'>as-samawati</td><td class='eng'>the heavens</td><td class='malayalam'>ആകാശങ്ങളെ</td></tr>
+                        <tr><td class='arabic'>وَالْأَرْضَ</td><td class='trans'>wal-arda</td><td class='eng'>and the earth</td><td class='malayalam'>ഭൂമിയെയും</td></tr>
+                        <tr><td class='arabic'>حَنِيفًا</td><td class='trans'>hanifan</td><td class='eng'>inclining to truth / upright</td><td class='malayalam'>നേരായവനായിക്കൊണ്ട്</td></tr>
+                        <tr><td class='arabic'>وَمَا</td><td class='trans'>wama</td><td class='eng'>and I am not</td><td class='malayalam'>ഞാനല്ല</td></tr>
+                        <tr><td class='arabic'>أَنَا</td><td class='trans'>ana</td><td class='eng'>I</td><td class='malayalam'>ഞാൻ</td></tr>
+                        <tr><td class='arabic'>مِنَ</td><td class='trans'>mina</td><td class='eng'>of</td><td class='malayalam'>പെട്ടവൻ</td></tr>
+                        <tr><td class='arabic'>الْمُشْرِكِينَ</td><td class='trans'>al-mushrikeen</td><td class='eng'>the polytheists</td><td class='malayalam'>പങ്കുചേർക്കുന്നവരിൽ (മുശ്‌രിക്കുകളിൽ)</td></tr>
+                        <tr><td class='arabic'>إِنَّ</td><td class='trans'>Inna</td><td class='eng'>Indeed</td><td class='malayalam'>തീർച്ചയായും</td></tr>
+                        <tr><td class='arabic'>صَلَاتِي</td><td class='trans'>salati</td><td class='eng'>my prayer</td><td class='malayalam'>എന്റെ നമസ്കാരം</td></tr>
+                        <tr><td class='arabic'>وَنُسُكِي</td><td class='trans'>wa nusuki</td><td class='eng'>and my sacrifice / rites</td><td class='malayalam'>എന്റെ ആരാധനാ കർമ്മങ്ങൾ</td></tr>
+                        <tr><td class='arabic'>وَمَحْيَايَ</td><td class='trans'>wa mahyaya</td><td class='eng'>and my living</td><td class='malayalam'>എന്റെ ജീവിതവും</td></tr>
+                        <tr><td class='arabic'>وَمَمَاتِي</td><td class='trans'>wa mamati</td><td class='eng'>and my dying</td><td class='malayalam'>എന്റെ മരണവും</td></tr>
+                        <tr><td class='arabic'>لِلَّهِ</td><td class='trans'>lillahi</td><td class='eng'>are for Allah</td><td class='malayalam'>അല്ലാഹുവിനാകുന്നു</td></tr>
+                        <tr><td class='arabic'>رَبِّ</td><td class='trans'>rabbi</td><td class='eng'>Lord</td><td class='malayalam'>രക്ഷിതാവായ</td></tr>
+                        <tr><td class='arabic'>الْعَالَمِينَ</td><td class='trans'>al-'alameen</td><td class='eng'>of the worlds</td><td class='malayalam'>ലോകങ്ങളുടെ</td></tr>
+                        <tr><td class='arabic'>لَا</td><td class='trans'>La</td><td class='eng'>No</td><td class='malayalam'>ഇല്ല</td></tr>
+                        <tr><td class='arabic'>شَرِيكَ</td><td class='trans'>sharika</td><td class='eng'>partner</td><td class='malayalam'>ഒരു പങ്കാളിയും</td></tr>
+                        <tr><td class='arabic'>لَهُ</td><td class='trans'>lahu</td><td class='eng'>for Him</td><td class='malayalam'>അവന്</td></tr>
+                        <tr><td class='arabic'>وَبِذَلِكَ</td><td class='trans'>wa bidhalika</td><td class='eng'>and with that</td><td class='malayalam'>അതുകൊണ്ട്</td></tr>
+                        <tr><td class='arabic'>أُمِرْتُ</td><td class='trans'>umirtu</td><td class='eng'>I have been commanded</td><td class='malayalam'>ഞാൻ കൽപ്പിക്കപ്പെട്ടിരിക്കുന്നു</td></tr>
+                        <tr><td class='arabic'>وَأَنَا</td><td class='trans'>wa ana</td><td class='eng'>and I am</td><td class='malayalam'>ഞാനാകുന്നു</td></tr>
+                        <tr><td class='arabic'>مِنَ</td><td class='trans'>mina</td><td class='eng'>of (the first of)</td><td class='malayalam'>പെട്ടവൻ</td></tr>
+                        <tr><td class='arabic'>الْمُسْلِمِينَ</td><td class='trans'>al-muslimeen</td><td class='eng'>the Muslims</td><td class='malayalam'>കീഴ്‌പ്പെട്ടവരിൽ (മുസ്ലീങ്ങളിൽ)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>2. Surah Al-Fatihah (The Opening Chapter)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>بِسْمِ</td><td class='trans'>Bismi</td><td class='eng'>In the name</td><td class='malayalam'>നാമത്തിൽ</td></tr>
+                        <tr><td class='arabic'>اللَّهِ</td><td class='trans'>-llahi</td><td class='eng'>of Allah</td><td class='malayalam'>അല്ലാഹുവിന്റെ</td></tr>
+                        <tr><td class='arabic'>الرَّحْمَنِ</td><td class='trans'>Ar-Rahman</td><td class='eng'>The Most Gracious</td><td class='malayalam'>പരമകാരുണികൻ</td></tr>
+                        <tr><td class='arabic'>الرَّحِيمِ</td><td class='trans'>Ar-Raheem</td><td class='eng'>The Most Merciful</td><td class='malayalam'>കരുണാനിധി</td></tr>
+                        <tr><td class='arabic'>الْحَمْدُ</td><td class='trans'>Alhamdu</td><td class='eng'>All praise</td><td class='malayalam'>സർവ്വ സ്തുതിയും</td></tr>
+                        <tr><td class='arabic'>لِلَّهِ</td><td class='trans'>lillahi</td><td class='eng'>is for Allah</td><td class='malayalam'>അല്ലാഹുവിനാകുന്നു</td></tr>
+                        <tr><td class='arabic'>رَبِّ</td><td class='trans'>Rabbi</td><td class='eng'>Lord</td><td class='malayalam'>രക്ഷിതാവ്</td></tr>
+                        <tr><td class='arabic'>الْعَالَمِينَ</td><td class='trans'>al-'alamin</td><td class='eng'>of the worlds</td><td class='malayalam'>ലോകങ്ങളുടെ</td></tr>
+                        <tr><td class='arabic'>الرَّحْمَنِ الرَّحِيمِ</td><td class='trans'>Ar-Rahman Ar-Raheem</td><td class='eng'>The Most Gracious, Merciful</td><td class='malayalam'>പരമകാരുണികനും കരുണാനിധിയും</td></tr>
+                        <tr><td class='arabic'>مَالِكِ</td><td class='trans'>Maliki</td><td class='eng'>Master / Owner</td><td class='malayalam'>ഉടമസ്ഥൻ</td></tr>
+                        <tr><td class='arabic'>يَوْمِ</td><td class='trans'>yawmi</td><td class='eng'>(of the) Day</td><td class='malayalam'>ദിവസത്തിന്റെ</td></tr>
+                        <tr><td class='arabic'>الدِّينِ</td><td class='trans'>ad-deen</td><td class='eng'>(of) Judgment</td><td class='malayalam'>പ്രതിഫല (ന്യായവിധി)</td></tr>
+                        <tr><td class='arabic'>إِيَّاكَ</td><td class='trans'>Iyyaka</td><td class='eng'>You alone</td><td class='malayalam'>നിന്നെ മാത്രം</td></tr>
+                        <tr><td class='arabic'>نَعْبُدُ</td><td class='trans'>na'budu</td><td class='eng'>we worship</td><td class='malayalam'>ഞങ്ങൾ ആരാധിക്കുന്നു</td></tr>
+                        <tr><td class='arabic'>وَإِيَّاكَ</td><td class='trans'>wa iyyaka</td><td class='eng'>and You alone</td><td class='malayalam'>നിന്നോട് മാത്രം</td></tr>
+                        <tr><td class='arabic'>نَسْتَعِينُ</td><td class='trans'>nasta'een</td><td class='eng'>we ask for help</td><td class='malayalam'>ഞങ്ങൾ സഹായം തേടുന്നു</td></tr>
+                        <tr><td class='arabic'>اهْدِنَا</td><td class='trans'>Ihdina</td><td class='eng'>Guide us</td><td class='malayalam'>ഞങ്ങളെ നയിക്കേണമേ</td></tr>
+                        <tr><td class='arabic'>الصِّرَاطَ</td><td class='trans'>as-sirata</td><td class='eng'>(to) the path</td><td class='malayalam'>വഴിയിൽ</td></tr>
+                        <tr><td class='arabic'>الْمُسْتَقِيمَ</td><td class='trans'>al-mustaqim</td><td class='eng'>the straight</td><td class='malayalam'>നേരായ</td></tr>
+                        <tr><td class='arabic'>صِرَاطَ</td><td class='trans'>Sirata</td><td class='eng'>The path</td><td class='malayalam'>വഴിയിൽ</td></tr>
+                        <tr><td class='arabic'>الَّذِينَ</td><td class='trans'>alladhina</td><td class='eng'>(of) those</td><td class='malayalam'>യാതൊരുവരുടെ</td></tr>
+                        <tr><td class='arabic'>أَنْعَمْتَ</td><td class='trans'>an'amta</td><td class='eng'>You have bestowed favor</td><td class='malayalam'>നീ അനുഗ്രഹിച്ച</td></tr>
+                        <tr><td class='arabic'>عَلَيْهِمْ</td><td class='trans'>'alayhim</td><td class='eng'>upon them</td><td class='malayalam'>അവരുടെ മേൽ</td></tr>
+                        <tr><td class='arabic'>غَيْرِ</td><td class='trans'>ghayri</td><td class='eng'>not (of)</td><td class='malayalam'>അല്ല (കൂടാതെ)</td></tr>
+                        <tr><td class='arabic'>الْمَغْضُوبِ</td><td class='trans'>al-maghdubi</td><td class='eng'>those who earned anger</td><td class='malayalam'>കോപിക്കപ്പെട്ടവരുടെ</td></tr>
+                        <tr><td class='arabic'>عَلَيْهِمْ</td><td class='trans'>'alayhim</td><td class='eng'>upon them</td><td class='malayalam'>അവരുടെ മേൽ</td></tr>
+                        <tr><td class='arabic'>وَلَا</td><td class='trans'>wa la</td><td class='eng'>and not</td><td class='malayalam'>അല്ല</td></tr>
+                        <tr><td class='arabic'>الضَّالِّينَ</td><td class='trans'>ad-dallin</td><td class='eng'>of those who went astray</td><td class='malayalam'>വഴിപിഴച്ചുപോയവരുടെ</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>3. Ruku (Bowing) & Standing Up</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>سُبْحَانَ</td><td class='trans'>Subhana</td><td class='eng'>Glory be to</td><td class='malayalam'>സ്തുതി</td></tr>
+                        <tr><td class='arabic'>رَبِّيَ</td><td class='trans'>Rabbiyal</td><td class='eng'>my Lord</td><td class='malayalam'>എന്റെ രക്ഷിതാവിന്</td></tr>
+                        <tr><td class='arabic'>الْعَظِيمِ</td><td class='trans'>al-'Azeem</td><td class='eng'>the Almighty</td><td class='malayalam'>മഹാനായ</td></tr>
+                        <tr><td class='arabic'>سَمِعَ</td><td class='trans'>Sami'a</td><td class='eng'>Listens / Hears</td><td class='malayalam'>കേൾക്കുന്നു</td></tr>
+                        <tr><td class='arabic'>اللَّهُ</td><td class='trans'>Allahu</td><td class='eng'>Allah</td><td class='malayalam'>അല്ലാഹു</td></tr>
+                        <tr><td class='arabic'>لِمَنْ</td><td class='trans'>liman</td><td class='eng'>to those who</td><td class='malayalam'>യാതൊരാളുടെ (ആളുകളെ)</td></tr>
+                        <tr><td class='arabic'>حَمِدَهُ</td><td class='trans'>hamidah</td><td class='eng'>praise Him</td><td class='malayalam'>അവനെ സ്തുതിച്ച</td></tr>
+                        <tr><td class='arabic'>رَبَّنَا</td><td class='trans'>Rabbana</td><td class='eng'>Our Lord</td><td class='malayalam'>ഞങ്ങളുടെ രക്ഷിതാവേ</td></tr>
+                        <tr><td class='arabic'>وَلَكَ</td><td class='trans'>wa lakal</td><td class='eng'>and to You belongs</td><td class='malayalam'>നിനക്കാകുന്നു</td></tr>
+                        <tr><td class='arabic'>الْحَمْدُ</td><td class='trans'>al-hamd</td><td class='eng'>all praise</td><td class='malayalam'>സർവ്വ സ്തുതിയും</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Extended Praise After Ruku (Mil'as-samawati)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>مِلْءَ</td><td class='trans'>mil'a</td><td class='eng'>filling</td><td class='malayalam'>നിറയെ</td></tr>
+                        <tr><td class='arabic'>السَّمَاوَاتِ</td><td class='trans'>as-samawati</td><td class='eng'>the heavens</td><td class='malayalam'>ആകാശങ്ങൾ</td></tr>
+                        <tr><td class='arabic'>وَمِلْءَ</td><td class='trans'>wa mil'a</td><td class='eng'>and filling</td><td class='malayalam'>നിറയെ</td></tr>
+                        <tr><td class='arabic'>الْأَرْضِ</td><td class='trans'>al-ardi</td><td class='eng'>the earth</td><td class='malayalam'>ഭൂമി</td></tr>
+                        <tr><td class='arabic'>وَمِلْءَ</td><td class='trans'>wa mil'a</td><td class='eng'>and filling</td><td class='malayalam'>നിറയെ</td></tr>
+                        <tr><td class='arabic'>مَا</td><td class='trans'>ma</td><td class='eng'>whatever</td><td class='malayalam'>യാതൊന്ന്</td></tr>
+                        <tr><td class='arabic'>شِئْتَ</td><td class='trans'>shi'ta</td><td class='eng'>You will / please</td><td class='malayalam'>നീ ഉദ്ദേശിച്ചവ</td></tr>
+                        <tr><td class='arabic'>مِنْ</td><td class='trans'>min</td><td class='eng'>of</td><td class='malayalam'>ൽ</td></tr>
+                        <tr><td class='arabic'>شَيْءٍ</td><td class='trans'>shay'in</td><td class='eng'>anything</td><td class='malayalam'>ഏതൊരു വസ്തുവും</td></tr>
+                        <tr><td class='arabic'>بَعْدُ</td><td class='trans'>ba'du</td><td class='eng'>afterwards</td><td class='malayalam'>ഇതിനു ശേഷം</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>4. Sujood (Prostration)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>سُبْحَانَ</td><td class='trans'>Subhana</td><td class='eng'>Glory be to</td><td class='malayalam'>സ്തുതി</td></tr>
+                        <tr><td class='arabic'>رَبِّيَ</td><td class='trans'>Rabbiyal</td><td class='eng'>my Lord</td><td class='malayalam'>എന്റെ രക്ഷിതാവിന്</td></tr>
+                        <tr><td class='arabic'>الْأَعْلَى</td><td class='trans'>al-A'la</td><td class='eng'>the Most High</td><td class='malayalam'>അത്യുന്നതനായ</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>5. Sitting Between the Two Sujoods (Rabbighfir li)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>رَبِّ</td><td class='trans'>Rabbi</td><td class='eng'>O my Lord</td><td class='malayalam'>എന്റെ രക്ഷിതാവേ</td></tr>
+                        <tr><td class='arabic'>اغْفِرْ</td><td class='trans'>ighfir</td><td class='eng'>forgive</td><td class='malayalam'>പൊറുത്തുതരേണമേ</td></tr>
+                        <tr><td class='arabic'>لِي</td><td class='trans'>li</td><td class='eng'>me</td><td class='malayalam'>എനിക്ക്</td></tr>
+                        <tr><td class='arabic'>وَارْحَمْنِي</td><td class='trans'>warhamni</td><td class='eng'>and have mercy on me</td><td class='malayalam'>എന്നോട് കരുണ കാണിക്കേണമേ</td></tr>
+                        <tr><td class='arabic'>وَاهْدِنِي</td><td class='trans'>wahdini</td><td class='eng'>and guide me</td><td class='malayalam'>എന്നെ നേർവഴിയിലാക്കേണമേ</td></tr>
+                        <tr><td class='arabic'>وَاجْبُرْنِي</td><td class='trans'>wajburni</td><td class='eng'>and mend me / enrich me</td><td class='malayalam'>എന്റെ കുറവുകൾ പരിഹരിക്കേണമേ</td></tr>
+                        <tr><td class='arabic'>وَعَافِنِي</td><td class='trans'>wa 'afini</td><td class='eng'>and grant me well-being</td><td class='malayalam'>എനിക്ക് സൗഖ്യം (ആരോഗ്യം) നൽകേണമേ</td></tr>
+                        <tr><td class='arabic'>وَارْزُقْنِي</td><td class='trans'>warzuqni</td><td class='eng'>and provide for me</td><td class='malayalam'>എനിക്ക് ഉപജീവനം നൽകേണമേ</td></tr>
+                        <tr><td class='arabic'>وَارْفَعْنِي</td><td class='trans'>warfa'ni</td><td class='eng'>and elevate me</td><td class='malayalam'>എന്നെ ഉയർത്തേണമേ</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>6. Tashahhud (Attahiyat - The Sitting)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>التَّحِيَّاتُ</td><td class='trans'>At-tahiyyatu</td><td class='eng'>All greetings/salutations</td><td class='malayalam'>എല്ലാ അഭിവാദനങ്ങളും</td></tr>
+                        <tr><td class='arabic'>لِلَّهِ</td><td class='trans'>lillahi</td><td class='eng'>are for Allah</td><td class='malayalam'>അല്ലാഹുവിനാകുന്നു</td></tr>
+                        <tr><td class='arabic'>وَالصَّلَوَاتُ</td><td class='trans'>was-salawatu</td><td class='eng'>and all prayers</td><td class='malayalam'>പ്രാർത്ഥനകളും</td></tr>
+                        <tr><td class='arabic'>وَالطَّيِّبَاتُ</td><td class='trans'>wat-tayyibatu</td><td class='eng'>and all pure/good things</td><td class='malayalam'>നല്ല കാര്യങ്ങളും</td></tr>
+                        <tr><td class='arabic'>السَّلَامُ</td><td class='trans'>As-salamu</td><td class='eng'>Peace</td><td class='malayalam'>സമാധാനം</td></tr>
+                        <tr><td class='arabic'>عَلَيْكَ</td><td class='trans'>'alayka</td><td class='eng'>be upon you</td><td class='malayalam'>നിന്റെ മേൽ ഉണ്ടാകട്ടെ</td></tr>
+                        <tr><td class='arabic'>أَيُّهَا</td><td class='trans'>ayyuha</td><td class='eng'>O</td><td class='malayalam'>ഓ</td></tr>
+                        <tr><td class='arabic'>النَّبِيُّ</td><td class='trans'>an-nabiyyu</td><td class='eng'>Prophet</td><td class='malayalam'>പ്രവാചകനേ</td></tr>
+                        <tr><td class='arabic'>وَرَحْمَةُ</td><td class='trans'>wa rahmatu</td><td class='eng'>and the mercy</td><td class='malayalam'>കാരുണ്യവും</td></tr>
+                        <tr><td class='arabic'>اللَّهِ</td><td class='trans'>llahi</td><td class='eng'>of Allah</td><td class='malayalam'>അല്ലാഹുവിന്റെ</td></tr>
+                        <tr><td class='arabic'>وَبَرَكَاتُهُ</td><td class='trans'>wa barakatuhu</td><td class='eng'>and His blessings</td><td class='malayalam'>അവന്റെ അനുഗ്രഹങ്ങളും</td></tr>
+                        <tr><td class='arabic'>السَّلَامُ</td><td class='trans'>As-salamu</td><td class='eng'>Peace</td><td class='malayalam'>സമാധാനം</td></tr>
+                        <tr><td class='arabic'>عَلَيْنَا</td><td class='trans'>'alayna</td><td class='eng'>be upon us</td><td class='malayalam'>ഞങ്ങളുടെ മേൽ ഉണ്ടാകട്ടെ</td></tr>
+                        <tr><td class='arabic'>وَعَلَى</td><td class='trans'>wa 'ala</td><td class='eng'>and upon</td><td class='malayalam'>മേലും (ആളുകളിലും)</td></tr>
+                        <tr><td class='arabic'>عِبَادِ</td><td class='trans'>'ibadi</td><td class='eng'>the slaves</td><td class='malayalam'>അടിമകളുടെ</td></tr>
+                        <tr><td class='arabic'>اللَّهِ</td><td class='trans'>llahi</td><td class='eng'>of Allah</td><td class='malayalam'>അല്ലാഹുവിന്റെ</td></tr>
+                        <tr><td class='arabic'>الصَّالِحِينَ</td><td class='trans'>as-saliheen</td><td class='eng'>the righteous</td><td class='malayalam'>സജ്ജനങ്ങളായ</td></tr>
+                        <tr><td class='arabic'>أَشْهَدُ</td><td class='trans'>Ash-hadu</td><td class='eng'>I bear witness</td><td class='malayalam'>ഞാൻ സാക്ഷ്യം വഹിക്കുന്നു</td></tr>
+                        <tr><td class='arabic'>أَنْ</td><td class='trans'>an</td><td class='eng'>that</td><td class='malayalam'>എന്ന്</td></tr>
+                        <tr><td class='arabic'>لَا إِلَهَ</td><td class='trans'>la ilaha</td><td class='eng'>there is no deity</td><td class='malayalam'>വേറെ ആരാധ്യനില്ല</td></tr>
+                        <tr><td class='arabic'>إِلَّا</td><td class='trans'>illa</td><td class='eng'>except</td><td class='malayalam'>ഒഴികെ</td></tr>
+                        <tr><td class='arabic'>اللَّهُ</td><td class='trans'>llahu</td><td class='eng'>Allah</td><td class='malayalam'>അല്ലാഹു</td></tr>
+                        <tr><td class='arabic'>وَأَشْهَدُ</td><td class='trans'>wa ash-hadu</td><td class='eng'>and I bear witness</td><td class='malayalam'>ഞാൻ സാക്ഷ്യം വഹിക്കുന്നു</td></tr>
+                        <tr><td class='arabic'>أَنَّ</td><td class='trans'>anna</td><td class='eng'>that</td><td class='malayalam'>എന്ന്</td></tr>
+                        <tr><td class='arabic'>مُحَمَّدًا</td><td class='trans'>Muhammadan</td><td class='eng'>Muhammad</td><td class='malayalam'>മുഹമ്മദ് (നബി)</td></tr>
+                        <tr><td class='arabic'>عَبْدُهُ</td><td class='trans'>'abduhu</td><td class='eng'>is His slave</td><td class='malayalam'>അവന്റെ അടിമയാണ്</td></tr>
+                        <tr><td class='arabic'>وَرَسُولُهُ</td><td class='trans'>wa rasuluh</td><td class='eng'>and His Messenger</td><td class='malayalam'>അവന്റെ ദൂതനുമാണ്</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>7. Durood (Salawat - Sending Blessings)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>اللَّهُمَّ</td><td class='trans'>Allahumma</td><td class='eng'>O Allah</td><td class='malayalam'>അല്ലാഹുവേ</td></tr>
+                        <tr><td class='arabic'>صَلِّ</td><td class='trans'>salli</td><td class='eng'>send blessings</td><td class='malayalam'>നീ അനുഗ്രഹിക്കേണമേ</td></tr>
+                        <tr><td class='arabic'>عَلَى</td><td class='trans'>'ala</td><td class='eng'>upon</td><td class='malayalam'>മേൽ</td></tr>
+                        <tr><td class='arabic'>مُحَمَّدٍ</td><td class='trans'>Muhammadin</td><td class='eng'>Muhammad</td><td class='malayalam'>മുഹമ്മദ് നബിയുടെ</td></tr>
+                        <tr><td class='arabic'>وَعَلَى</td><td class='trans'>wa 'ala</td><td class='eng'>and upon</td><td class='malayalam'>മേലും</td></tr>
+                        <tr><td class='arabic'>آلِ</td><td class='trans'>ali</td><td class='eng'>the family</td><td class='malayalam'>കുടുംബത്തിന്റെ</td></tr>
+                        <tr><td class='arabic'>مُحَمَّدٍ</td><td class='trans'>Muhammadin</td><td class='eng'>of Muhammad</td><td class='malayalam'>മുഹമ്മദ് നബിയുടെ</td></tr>
+                        <tr><td class='arabic'>كَمَا</td><td class='trans'>kama</td><td class='eng'>as</td><td class='malayalam'>പോലെ</td></tr>
+                        <tr><td class='arabic'>صَلَّيْتَ</td><td class='trans'>sallayta</td><td class='eng'>You sent blessings</td><td class='malayalam'>നീ അനുഗ്രഹിച്ചതു</td></tr>
+                        <tr><td class='arabic'>عَلَى</td><td class='trans'>'ala</td><td class='eng'>upon</td><td class='malayalam'>മേൽ</td></tr>
+                        <tr><td class='arabic'>إِبْرَاهِيمَ</td><td class='trans'>Ibrahima</td><td class='eng'>Ibrahim</td><td class='malayalam'>ഇബ്രാഹിം നബിയുടെ</td></tr>
+                        <tr><td class='arabic'>وَعَلَى</td><td class='trans'>wa 'ala</td><td class='eng'>and upon</td><td class='malayalam'>മേലും</td></tr>
+                        <tr><td class='arabic'>آلِ</td><td class='trans'>ali</td><td class='eng'>the family</td><td class='malayalam'>കുടുംബത്തിന്റെ</td></tr>
+                        <tr><td class='arabic'>إِبْرَاهِيمَ</td><td class='trans'>Ibrahima</td><td class='eng'>of Ibrahim</td><td class='malayalam'>ഇബ്രാഹിം നബിയുടെ</td></tr>
+                        <tr><td class='arabic'>إِنَّكَ</td><td class='trans'>innaka</td><td class='eng'>Indeed You</td><td class='malayalam'>തീർച്ചയായും നീ</td></tr>
+                        <tr><td class='arabic'>حَمِيدٌ</td><td class='trans'>Hameedun</td><td class='eng'>are Praiseworthy</td><td class='malayalam'>സ്തുത്യർഹനാണ്</td></tr>
+                        <tr><td class='arabic'>مَجِيدٌ</td><td class='trans'>Majeedun</td><td class='eng'>Most Glorious</td><td class='malayalam'>മഹത്വമുള്ളവനാണ്</td></tr>
+                        <tr><td class='arabic'>اللَّهُمَّ</td><td class='trans'>Allahumma</td><td class='eng'>O Allah</td><td class='malayalam'>അല്ലാഹുവേ</td></tr>
+                        <tr><td class='arabic'>بَارِكْ</td><td class='trans'>barik</td><td class='eng'>send blessings (barakah)</td><td class='malayalam'>നീ നന്മ (ബർക്കത്ത്) ചൊരിയേണമേ</td></tr>
+                        <tr><td class='arabic'>عَلَى</td><td class='trans'>'ala</td><td class='eng'>upon</td><td class='malayalam'>മേൽ</td></tr>
+                        <tr><td class='arabic'>مُحَمَّدٍ</td><td class='trans'>Muhammadin</td><td class='eng'>Muhammad</td><td class='malayalam'>മുഹമ്മദ് നബിയുടെ</td></tr>
+                        <tr><td class='arabic'>وَعَلَى</td><td class='trans'>wa 'ala</td><td class='eng'>and upon</td><td class='malayalam'>മേലും</td></tr>
+                        <tr><td class='arabic'>آلِ</td><td class='trans'>ali</td><td class='eng'>the family</td><td class='malayalam'>കുടുംബത്തിന്റെ</td></tr>
+                        <tr><td class='arabic'>مُحَمَّدٍ</td><td class='trans'>Muhammadin</td><td class='eng'>of Muhammad</td><td class='malayalam'>മുഹമ്മദ് നബിയുടെ</td></tr>
+                        <tr><td class='arabic'>كَمَا</td><td class='trans'>kama</td><td class='eng'>as</td><td class='malayalam'>പോലെ</td></tr>
+                        <tr><td class='arabic'>بَارَكْتَ</td><td class='trans'>barakta</td><td class='eng'>You sent blessings (barakah)</td><td class='malayalam'>നീ നന്മ ചൊരിഞ്ഞതു</td></tr>
+                        <tr><td class='arabic'>عَلَى</td><td class='trans'>'ala</td><td class='eng'>upon</td><td class='malayalam'>മേൽ</td></tr>
+                        <tr><td class='arabic'>إِبْرَاهِيمَ</td><td class='trans'>Ibrahima</td><td class='eng'>Ibrahim</td><td class='malayalam'>ഇബ്രാഹിം നബിയുടെ</td></tr>
+                        <tr><td class='arabic'>وَعَلَى</td><td class='trans'>wa 'ala</td><td class='eng'>and upon</td><td class='malayalam'>മേലും</td></tr>
+                        <tr><td class='arabic'>آلِ</td><td class='trans'>ali</td><td class='eng'>the family</td><td class='malayalam'>കുടുംബത്തിന്റെ</td></tr>
+                        <tr><td class='arabic'>إِبْرَاهِيمَ</td><td class='trans'>Ibrahima</td><td class='eng'>of Ibrahim</td><td class='malayalam'>ഇബ്രാഹിം നബിയുടെ</td></tr>
+                        <tr><td class='arabic'>إِنَّكَ</td><td class='trans'>innaka</td><td class='eng'>Indeed You</td><td class='malayalam'>തീർച്ചയായും നീ</td></tr>
+                        <tr><td class='arabic'>حَمِيدٌ</td><td class='trans'>Hameedun</td><td class='eng'>are Praiseworthy</td><td class='malayalam'>സ്തുത്യർഹനാണ്</td></tr>
+                        <tr><td class='arabic'>مَجِيدٌ</td><td class='trans'>Majeedun</td><td class='eng'>Most Glorious</td><td class='malayalam'>മഹത്വമുള്ളവനാണ്</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>8. Dua Before Tasleem (Allahummaghfirli ma qaddamtu)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>اللَّهُمَّ</td><td class='trans'>Allahumma</td><td class='eng'>O Allah</td><td class='malayalam'>അല്ലാഹുവേ</td></tr>
+                        <tr><td class='arabic'>اغْفِرْ</td><td class='trans'>ighfir</td><td class='eng'>forgive</td><td class='malayalam'>പൊറുത്തുതരേണമേ</td></tr>
+                        <tr><td class='arabic'>لِي</td><td class='trans'>li</td><td class='eng'>me</td><td class='malayalam'>എനിക്ക്</td></tr>
+                        <tr><td class='arabic'>مَا</td><td class='trans'>ma</td><td class='eng'>what</td><td class='malayalam'>യാതൊന്ന്</td></tr>
+                        <tr><td class='arabic'>قَدَّمْتُ</td><td class='trans'>qaddamtu</td><td class='eng'>I have sent before (past)</td><td class='malayalam'>ഞാൻ മുൻകൂട്ടി ചെയ്തവ</td></tr>
+                        <tr><td class='arabic'>وَمَا</td><td class='trans'>wa ma</td><td class='eng'>and what</td><td class='malayalam'>യാതൊന്ന്</td></tr>
+                        <tr><td class='arabic'>أَخَّرْتُ</td><td class='trans'>akhkhartu</td><td class='eng'>I have left behind (future)</td><td class='malayalam'>ഞാൻ പിന്തിച്ചു ചെയ്തവ</td></tr>
+                        <tr><td class='arabic'>وَمَا</td><td class='trans'>wa ma</td><td class='eng'>and what</td><td class='malayalam'>യാതൊന്ന്</td></tr>
+                        <tr><td class='arabic'>أَسْرَرْتُ</td><td class='trans'>asrartu</td><td class='eng'>I have hidden</td><td class='malayalam'>ഞാൻ രഹസ്യമായി ചെയ്തവ</td></tr>
+                        <tr><td class='arabic'>وَمَا</td><td class='trans'>wa ma</td><td class='eng'>and what</td><td class='malayalam'>യാതൊന്ന്</td></tr>
+                        <tr><td class='arabic'>أَعْلَنْتُ</td><td class='trans'>a'lantu</td><td class='eng'>I have declared (openly)</td><td class='malayalam'>ഞാൻ പരസ്യമായി ചെയ്തവ</td></tr>
+                        <tr><td class='arabic'>وَمَا</td><td class='trans'>wa ma</td><td class='eng'>and what</td><td class='malayalam'>യാതൊന്ന്</td></tr>
+                        <tr><td class='arabic'>أَسْرَفْتُ</td><td class='trans'>asraftu</td><td class='eng'>I have exceeded in</td><td class='malayalam'>ഞാൻ അതിരുകവിഞ്ഞവ</td></tr>
+                        <tr><td class='arabic'>وَمَا</td><td class='trans'>wa ma</td><td class='eng'>and what</td><td class='malayalam'>യാതൊന്ന്</td></tr>
+                        <tr><td class='arabic'>أَنْتَ</td><td class='trans'>Anta</td><td class='eng'>You</td><td class='malayalam'>നീ</td></tr>
+                        <tr><td class='arabic'>أَعْلَمُ</td><td class='trans'>a'lamu</td><td class='eng'>know better</td><td class='malayalam'>കൂടുതൽ അറിയുന്നവൻ</td></tr>
+                        <tr><td class='arabic'>بِهِ</td><td class='trans'>bihi</td><td class='eng'>of it</td><td class='malayalam'>അതിനെക്കുറിച്ച്</td></tr>
+                        <tr><td class='arabic'>مِنِّي</td><td class='trans'>minni</td><td class='eng'>than me</td><td class='malayalam'>എന്നെക്കാൾ</td></tr>
+                        <tr><td class='arabic'>أَنْتَ</td><td class='trans'>Anta</td><td class='eng'>You are</td><td class='malayalam'>നീയാകുന്നു</td></tr>
+                        <tr><td class='arabic'>الْمُقَدِّمُ</td><td class='trans'>al-muqaddimu</td><td class='eng'>the One who brings forward</td><td class='malayalam'>മുന്തിക്കുന്നവൻ</td></tr>
+                        <tr><td class='arabic'>وَأَنْتَ</td><td class='trans'>wa Anta</td><td class='eng'>and You are</td><td class='malayalam'>നീയാകുന്നു</td></tr>
+                        <tr><td class='arabic'>الْمُؤَخِّرُ</td><td class='trans'>al-mu'akhkhiru</td><td class='eng'>the One who delays</td><td class='malayalam'>പിന്തിക്കുന്നവൻ</td></tr>
+                        <tr><td class='arabic'>لَا إِلَهَ</td><td class='trans'>la ilaha</td><td class='eng'>there is no deity</td><td class='malayalam'>വേറെ ആരാധ്യനില്ല</td></tr>
+                        <tr><td class='arabic'>إِلَّا</td><td class='trans'>illa</td><td class='eng'>except</td><td class='malayalam'>ഒഴികെ</td></tr>
+                        <tr><td class='arabic'>أَنْتَ</td><td class='trans'>Anta</td><td class='eng'>You</td><td class='malayalam'>നീ</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>9. Tasleem (The Conclusion)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>السَّلَامُ</td><td class='trans'>As-salamu</td><td class='eng'>Peace</td><td class='malayalam'>സമാധാനം</td></tr>
+                        <tr><td class='arabic'>عَلَيْكُمْ</td><td class='trans'>'alaykum</td><td class='eng'>be upon you</td><td class='malayalam'>നിങ്ങളുടെ മേൽ ഉണ്ടാകട്ടെ</td></tr>
+                        <tr><td class='arabic'>وَرَحْمَةُ</td><td class='trans'>wa rahmatu</td><td class='eng'>and the mercy</td><td class='malayalam'>കാരുണ്യവും</td></tr>
+                        <tr><td class='arabic'>اللَّهِ</td><td class='trans'>llahi</td><td class='eng'>of Allah</td><td class='malayalam'>അല്ലാഹുവിന്റെ</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>10. Surah Al-Ikhlas (Chapter 112)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>قُلْ</td><td class='trans'>Qul</td><td class='eng'>Say</td><td class='malayalam'>പറയുക</td></tr>
+                        <tr><td class='arabic'>هُوَ</td><td class='trans'>huwa</td><td class='eng'>He is</td><td class='malayalam'>അവൻ</td></tr>
+                        <tr><td class='arabic'>اللَّهُ</td><td class='trans'>Allahu</td><td class='eng'>Allah</td><td class='malayalam'>അല്ലാഹു</td></tr>
+                        <tr><td class='arabic'>أَحَدٌ</td><td class='trans'>Ahad</td><td class='eng'>One</td><td class='malayalam'>ഏകനാണ്</td></tr>
+                        <tr><td class='arabic'>اللَّهُ</td><td class='trans'>Allahu</td><td class='eng'>Allah</td><td class='malayalam'>അല്ലാഹു</td></tr>
+                        <tr><td class='arabic'>الصَّمَدُ</td><td class='trans'>As-Samad</td><td class='eng'>the Self-Sufficient Master</td><td class='malayalam'>ആശ്രയമായിട്ടുള്ളവൻ (ആരെയും ആശ്രയിക്കാത്തവൻ)</td></tr>
+                        <tr><td class='arabic'>لَمْ</td><td class='trans'>lam</td><td class='eng'>He neither</td><td class='malayalam'>ഇല്ല</td></tr>
+                        <tr><td class='arabic'>يَلِدْ</td><td class='trans'>yalid</td><td class='eng'>begets</td><td class='malayalam'>അവൻ ജന്മം നൽകിയിട്ട്</td></tr>
+                        <tr><td class='arabic'>وَلَمْ</td><td class='trans'>wa lam</td><td class='eng'>and nor</td><td class='malayalam'>ഇല്ല</td></tr>
+                        <tr><td class='arabic'>يُولَدْ</td><td class='trans'>yulad</td><td class='eng'>is He begotten</td><td class='malayalam'>അവന് ജന്മം നൽകപ്പെട്ടിട്ടും</td></tr>
+                        <tr><td class='arabic'>وَلَمْ</td><td class='trans'>wa lam</td><td class='eng'>And there is none</td><td class='malayalam'>ആരുമില്ല</td></tr>
+                        <tr><td class='arabic'>يَكُنْ</td><td class='trans'>yakun</td><td class='eng'>is</td><td class='malayalam'>ആകുന്നു</td></tr>
+                        <tr><td class='arabic'>لَهُ</td><td class='trans'>lahu</td><td class='eng'>unto Him</td><td class='malayalam'>അവന്</td></tr>
+                        <tr><td class='arabic'>كُفُوًا</td><td class='trans'>kufuwan</td><td class='eng'>equivalent / comparable</td><td class='malayalam'>തുല്യനായിട്ട്</td></tr>
+                        <tr><td class='arabic'>أَحَدٌ</td><td class='trans'>ahad</td><td class='eng'>anyone</td><td class='malayalam'>ഒരാളും</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>11. Surah Al-Falaq (Chapter 113)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>قُلْ</td><td class='trans'>Qul</td><td class='eng'>Say</td><td class='malayalam'>പറയുക</td></tr>
+                        <tr><td class='arabic'>أَعُوذُ</td><td class='trans'>a'udhu</td><td class='eng'>I seek refuge</td><td class='malayalam'>ഞാൻ അഭയം തേടുന്നു</td></tr>
+                        <tr><td class='arabic'>بِرَبِّ</td><td class='trans'>bi-rabbi</td><td class='eng'>in the Lord</td><td class='malayalam'>രക്ഷിതാവിനോട്</td></tr>
+                        <tr><td class='arabic'>الْفَلَقِ</td><td class='trans'>al-falaq</td><td class='eng'>of the daybreak</td><td class='malayalam'>പുലരിയുടെ</td></tr>
+                        <tr><td class='arabic'>مِنْ</td><td class='trans'>min</td><td class='eng'>From</td><td class='malayalam'>ൽ നിന്ന്</td></tr>
+                        <tr><td class='arabic'>شَرِّ</td><td class='trans'>sharri</td><td class='eng'>the evil</td><td class='malayalam'>തിന്മയിൽ</td></tr>
+                        <tr><td class='arabic'>مَا</td><td class='trans'>ma</td><td class='eng'>of that which</td><td class='malayalam'>യാതൊന്നിന്റെ</td></tr>
+                        <tr><td class='arabic'>خَلَقَ</td><td class='trans'>khalaqa</td><td class='eng'>He created</td><td class='malayalam'>അവൻ സൃഷ്ടിച്ച</td></tr>
+                        <tr><td class='arabic'>وَمِنْ</td><td class='trans'>wa min</td><td class='eng'>And from</td><td class='malayalam'>ൽ നിന്നും</td></tr>
+                        <tr><td class='arabic'>شَرِّ</td><td class='trans'>sharri</td><td class='eng'>the evil</td><td class='malayalam'>തിന്മയിൽ</td></tr>
+                        <tr><td class='arabic'>غَاسِقٍ</td><td class='trans'>ghasiqin</td><td class='eng'>of darkness</td><td class='malayalam'>കൂരിരുട്ടിന്റെ</td></tr>
+                        <tr><td class='arabic'>إِذَا</td><td class='trans'>idha</td><td class='eng'>when</td><td class='malayalam'>ആകുമ്പോൾ</td></tr>
+                        <tr><td class='arabic'>وَقَبَ</td><td class='trans'>waqab</td><td class='eng'>it settles</td><td class='malayalam'>അത് പരന്നാൽ</td></tr>
+                        <tr><td class='arabic'>وَمِنْ</td><td class='trans'>wa min</td><td class='eng'>And from</td><td class='malayalam'>ൽ നിന്നും</td></tr>
+                        <tr><td class='arabic'>شَرِّ</td><td class='trans'>sharri</td><td class='eng'>the evil</td><td class='malayalam'>തിന്മയിൽ</td></tr>
+                        <tr><td class='arabic'>النَّفَّاثَاتِ</td><td class='trans'>an-naffathati</td><td class='eng'>of the blowers</td><td class='malayalam'>ഊതുന്നവരായ സ്ത്രീകളുടെ</td></tr>
+                        <tr><td class='arabic'>فِي</td><td class='trans'>fi</td><td class='eng'>in</td><td class='malayalam'>ൽ</td></tr>
+                        <tr><td class='arabic'>الْعُقَدِ</td><td class='trans'>al-'uqad</td><td class='eng'>the knots</td><td class='malayalam'>കെട്ടുകളിൽ</td></tr>
+                        <tr><td class='arabic'>وَمِنْ</td><td class='trans'>wa min</td><td class='eng'>And from</td><td class='malayalam'>ൽ നിന്നും</td></tr>
+                        <tr><td class='arabic'>شَرِّ</td><td class='trans'>sharri</td><td class='eng'>the evil</td><td class='malayalam'>തിന്മയിൽ</td></tr>
+                        <tr><td class='arabic'>حَاسِدٍ</td><td class='trans'>hasidin</td><td class='eng'>of an envier</td><td class='malayalam'>അസൂയാലുവിന്റെ</td></tr>
+                        <tr><td class='arabic'>إِذَا</td><td class='trans'>idha</td><td class='eng'>when</td><td class='malayalam'>ആകുമ്പോൾ</td></tr>
+                        <tr><td class='arabic'>حَسَدَ</td><td class='trans'>hasada</td><td class='eng'>he envies</td><td class='malayalam'>അവൻ അസൂയപ്പെട്ടാൽ</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>12. Surah An-Nas (Chapter 114)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>قُلْ</td><td class='trans'>Qul</td><td class='eng'>Say</td><td class='malayalam'>പറയുക</td></tr>
+                        <tr><td class='arabic'>أَعُوذُ</td><td class='trans'>a'udhu</td><td class='eng'>I seek refuge</td><td class='malayalam'>ഞാൻ അഭയം തേടുന്നു</td></tr>
+                        <tr><td class='arabic'>بِرَبِّ</td><td class='trans'>bi-rabbi</td><td class='eng'>in the Lord</td><td class='malayalam'>രക്ഷിതാവിനോട്</td></tr>
+                        <tr><td class='arabic'>النَّاسِ</td><td class='trans'>an-nas</td><td class='eng'>of mankind</td><td class='malayalam'>മനുഷ്യരുടെ</td></tr>
+                        <tr><td class='arabic'>مَلِكِ</td><td class='trans'>maliki</td><td class='eng'>The Sovereign / King</td><td class='malayalam'>രാജാവായ</td></tr>
+                        <tr><td class='arabic'>النَّاسِ</td><td class='trans'>an-nas</td><td class='eng'>of mankind</td><td class='malayalam'>മനുഷ്യരുടെ</td></tr>
+                        <tr><td class='arabic'>إِلَهِ</td><td class='trans'>ilahi</td><td class='eng'>The God</td><td class='malayalam'>ആരാധ്യനായ</td></tr>
+                        <tr><td class='arabic'>النَّاسِ</td><td class='trans'>an-nas</td><td class='eng'>of mankind</td><td class='malayalam'>മനുഷ്യരുടെ</td></tr>
+                        <tr><td class='arabic'>مِنْ</td><td class='trans'>min</td><td class='eng'>From</td><td class='malayalam'>ൽ നിന്ന്</td></tr>
+                        <tr><td class='arabic'>شَرِّ</td><td class='trans'>sharri</td><td class='eng'>the evil</td><td class='malayalam'>തിന്മയിൽ</td></tr>
+                        <tr><td class='arabic'>الْوَسْوَاسِ</td><td class='trans'>al-waswas</td><td class='eng'>of the whisperer</td><td class='malayalam'>ദുർബോധനം ചെയ്യുന്നവന്റെ</td></tr>
+                        <tr><td class='arabic'>الْخَنَّاسِ</td><td class='trans'>al-khannas</td><td class='eng'>who withdraws</td><td class='malayalam'>പിന്മാറിപ്പോകുന്ന</td></tr>
+                        <tr><td class='arabic'>الَّذِي</td><td class='trans'>alladhi</td><td class='eng'>Who</td><td class='malayalam'>യാതൊരുവൻ</td></tr>
+                        <tr><td class='arabic'>يُوَسْوِسُ</td><td class='trans'>yuwaswisu</td><td class='eng'>whispers</td><td class='malayalam'>ദുർബോധനം ചെയ്യുന്നു</td></tr>
+                        <tr><td class='arabic'>فِي</td><td class='trans'>fi</td><td class='eng'>into</td><td class='malayalam'>ൽ</td></tr>
+                        <tr><td class='arabic'>صُدُورِ</td><td class='trans'>suduri</td><td class='eng'>the breasts / hearts</td><td class='malayalam'>ഹൃദയങ്ങളിൽ</td></tr>
+                        <tr><td class='arabic'>النَّاسِ</td><td class='trans'>an-nas</td><td class='eng'>of mankind</td><td class='malayalam'>മനുഷ്യരുടെ</td></tr>
+                        <tr><td class='arabic'>مِنَ</td><td class='trans'>mina</td><td class='eng'>From (among)</td><td class='malayalam'>ൽ നിന്നും</td></tr>
+                        <tr><td class='arabic'>الْجِنَّةِ</td><td class='trans'>al-jinnati</td><td class='eng'>the jinn</td><td class='malayalam'>ജിന്നുകളിൽ</td></tr>
+                        <tr><td class='arabic'>وَالنَّاسِ</td><td class='trans'>wan-nas</td><td class='eng'>and mankind</td><td class='malayalam'>മനുഷ്യരിലും</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>13. Surah Al-Asr (Chapter 103)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>وَالْعَصْرِ</td><td class='trans'>Wal-'asr</td><td class='eng'>By time</td><td class='malayalam'>കാലം തന്നെയാണെ സത്യം</td></tr>
+                        <tr><td class='arabic'>إِنَّ</td><td class='trans'>inna</td><td class='eng'>Indeed</td><td class='malayalam'>തീർച്ചയായും</td></tr>
+                        <tr><td class='arabic'>الْإِنْسَانَ</td><td class='trans'>al-insana</td><td class='eng'>mankind</td><td class='malayalam'>മനുഷ്യൻ</td></tr>
+                        <tr><td class='arabic'>لَفِي</td><td class='trans'>lafi</td><td class='eng'>is in</td><td class='malayalam'>ആകുന്നു</td></tr>
+                        <tr><td class='arabic'>خُسْرٍ</td><td class='trans'>khusr</td><td class='eng'>loss</td><td class='malayalam'>നഷ്ടത്തിൽ</td></tr>
+                        <tr><td class='arabic'>إِلَّا</td><td class='trans'>illa</td><td class='eng'>Except</td><td class='malayalam'>ഒഴികെ</td></tr>
+                        <tr><td class='arabic'>الَّذِينَ</td><td class='trans'>alladhina</td><td class='eng'>those who</td><td class='malayalam'>യാതൊരുവർ</td></tr>
+                        <tr><td class='arabic'>آمَنُوا</td><td class='trans'>amanu</td><td class='eng'>have believed</td><td class='malayalam'>വിശ്വസിച്ചു</td></tr>
+                        <tr><td class='arabic'>وَعَمِلُوا</td><td class='trans'>wa 'amilu</td><td class='eng'>and done</td><td class='malayalam'>പ്രവർത്തിക്കുകയും ചെയ്തു</td></tr>
+                        <tr><td class='arabic'>الصَّالِحَاتِ</td><td class='trans'>as-salihati</td><td class='eng'>righteous deeds</td><td class='malayalam'>സൽകർമ്മങ്ങൾ</td></tr>
+                        <tr><td class='arabic'>وَتَوَاصَوْا</td><td class='trans'>wa tawasaw</td><td class='eng'>and advised each other</td><td class='malayalam'>പരസ്പരം ഉപദേശിച്ചു</td></tr>
+                        <tr><td class='arabic'>بِالْحَقِّ</td><td class='trans'>bil-haqqi</td><td class='eng'>to the truth</td><td class='malayalam'>സത്യം കൊണ്ട്</td></tr>
+                        <tr><td class='arabic'>وَتَوَاصَوْا</td><td class='trans'>wa tawasaw</td><td class='eng'>and advised each other</td><td class='malayalam'>പരസ്പരം ഉപദേശിച്ചു</td></tr>
+                        <tr><td class='arabic'>بِالصَّبْرِ</td><td class='trans'>bis-sabr</td><td class='eng'>to patience</td><td class='malayalam'>ക്ഷമ കൊണ്ട്</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>14. Surah Al-Kawtar (Chapter 108)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic (അറബി)</th><th>Transliteration</th><th>English Meaning</th><th>Malayalam (മലയാളം)</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>إِنَّا</td><td class='trans'>Inna</td><td class='eng'>Indeed, We</td><td class='malayalam'>തീർച്ചയായും നാം</td></tr>
+                        <tr><td class='arabic'>أَعْطَيْنَاكَ</td><td class='trans'>a'taynaka</td><td class='eng'>have granted you</td><td class='malayalam'>നിനക്ക് നൽകിയിരിക്കുന്നു</td></tr>
+                        <tr><td class='arabic'>الْكَوْثَرَ</td><td class='trans'>al-kawtar</td><td class='eng'>Al-Kauthar (abundant good)</td><td class='malayalam'>കൗഥർ (ധാരാളം നന്മ)</td></tr>
+                        <tr><td class='arabic'>فَصَلِّ</td><td class='trans'>fa-salli</td><td class='eng'>So pray</td><td class='malayalam'>അതിനാൽ നീ നമസ്കരിക്കുക</td></tr>
+                        <tr><td class='arabic'>لِرَبِّكَ</td><td class='trans'>li-rabbika</td><td class='eng'>to your Lord</td><td class='malayalam'>നിന്റെ രക്ഷിതാവിനായി</td></tr>
+                        <tr><td class='arabic'>وَانْحَرْ</td><td class='trans'>wanhar</td><td class='eng'>and sacrifice</td><td class='malayalam'>ബലിയറുക്കുകയും ചെയ്യുക</td></tr>
+                        <tr><td class='arabic'>إِنَّ</td><td class='trans'>inna</td><td class='eng'>Indeed</td><td class='malayalam'>തീർച്ചയായും</td></tr>
+                        <tr><td class='arabic'>شَانِئَكَ</td><td class='trans'>shani'aka</td><td class='eng'>your enemy</td><td class='malayalam'>നിന്നോട് വിദ്വേഷം വെക്കുന്നവൻ</td></tr>
+                        <tr><td class='arabic'>هُوَ</td><td class='trans'>huwa</td><td class='eng'>he is</td><td class='malayalam'>അവൻ തന്നെ</td></tr>
+                        <tr><td class='arabic'>الْأَبْتَرُ</td><td class='trans'>al-abtar</td><td class='eng'>the one cut off</td><td class='malayalam'>വാലറ്റവൻ (സന്താനമില്ലാത്തവൻ)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
-
-    <script src="../../assets/js/builder.js"></script>
 </body>
 </html>
