@@ -1,50 +1,62 @@
 /**
- * Project Dua — builder.js
- * Reads assets/data/database.json and dynamically builds the Salah Guide.
- * Features: dark mode, progress tracking, sidebar nav, complete dua blocks,
- *           pronunciation notes, audio placeholders, active section highlight.
+ * Project Dua — builder.js  v2.0
+ * Fetches dictionary.json + salah.json and builds the Salah Guide.
  *
- * Path: assets/js/builder.js
- * Used by: salah/index.html (fetch path = '../assets/data/database.json')
+ * Data files:
+ *   ../assets/data/dictionary.json  — shared word bank (all modules)
+ *   ../assets/data/salah.json       — salah sections, sequences, duas
+ *
+ * Features: sidebar nav, dark mode, progress tracking,
+ *           complete dua blocks, notes, audio placeholders, scroll spy.
  */
 
 'use strict';
 
-const DB_PATH = '../assets/data/database.json';
-const TOTAL_SECTIONS = 16; // update if sections are added
-
-/* ── STATE ── */
-let db = null;
+const DICT_PATH  = '../assets/data/dictionary.json';
+const SALAH_PATH = '../assets/data/salah.json';
+const TOTAL_SECTIONS = 16;
 
 /* ── BOOT ── */
 document.addEventListener('DOMContentLoaded', () => {
   applyStoredPreferences();
-  fetch(DB_PATH)
-    .then(r => {
-      if (!r.ok) throw new Error(`HTTP ${r.status} loading database`);
+
+  Promise.all([
+    fetch(DICT_PATH).then(r => {
+      if (!r.ok) throw new Error(`dictionary.json: HTTP ${r.status}`);
+      return r.json();
+    }),
+    fetch(SALAH_PATH).then(r => {
+      if (!r.ok) throw new Error(`salah.json: HTTP ${r.status}`);
       return r.json();
     })
-    .then(data => {
-      db = data;
-      buildPage(data);
-      restoreProgress();
-      updateProgress();
-      activateScrollSpy();
-    })
-    .catch(err => {
-      document.getElementById('main-content').innerHTML =
-        `<div class="error-box">⚠️ Could not load database.json<br><code>${err.message}</code></div>`;
-      console.error('[Dua builder]', err);
-    });
+  ])
+  .then(([dictData, salahData]) => {
+    const dict = dictData.words;   // { key: { ar, tr, en, ml } }
+    buildPage(salahData, dict);
+    restoreProgress();
+    updateProgress();
+    activateScrollSpy();
+  })
+  .catch(err => {
+    document.getElementById('main-content').innerHTML =
+      `<div class="error-box">
+        ⚠️ Could not load data files.<br>
+        <code>${err.message}</code><br><br>
+        Check that <strong>dictionary.json</strong> and <strong>salah.json</strong>
+        exist in <code>assets/data/</code> and are valid JSON.
+        Paste either file at <a href="https://jsonlint.com" target="_blank">jsonlint.com</a> to check.
+      </div>`;
+    console.error('[Dua builder]', err);
+  });
 });
 
 /* ══════════════════════════════════════════════════════════════
    PAGE BUILD
 ══════════════════════════════════════════════════════════════ */
-function buildPage(data) {
-  buildNav(data.salah_guide.sections);
-  buildScheduleCard(data.salah_guide.schedule);
-  buildSectionCards(data.salah_guide.sections, data.global_dictionary);
+function buildPage(salah, dict) {
+  buildNav(salah.sections);
+  buildScheduleCard(salah.schedule);
+  buildSectionCards(salah.sections, dict);
 }
 
 /* ── SIDEBAR NAV ── */
@@ -52,14 +64,25 @@ function buildNav(sections) {
   const ul = document.getElementById('nav-list');
   if (!ul) return;
 
-  const scheduleLink = `<li><a class="nav-link" href="#intro" onclick="closeNav()"><span class="nav-check" id="nc-0"></span>📋 Schedule</a></li>`;
+  const scheduleLink = `
+    <li>
+      <a class="nav-link" href="#intro" onclick="closeNav()">
+        <span class="nav-check" id="nc-0"></span>📋 Schedule
+      </a>
+    </li>`;
+
   let salahLinks = '';
   let surahLinks = '';
 
   sections.forEach(s => {
-    const isSurah = s.id >= 12;
-    const link = `<li><a class="nav-link" href="#s${s.id}" onclick="closeNav()"><span class="nav-check" id="nc-${s.id}"></span>${s.id}. ${s.title.split('—')[0].split('(')[0].trim()}</a></li>`;
-    if (isSurah) surahLinks += link;
+    const shortTitle = s.title.split('—')[0].split('(')[0].trim();
+    const link = `
+      <li>
+        <a class="nav-link" href="#s${s.id}" onclick="closeNav()">
+          <span class="nav-check" id="nc-${s.id}"></span>${s.id}. ${shortTitle}
+        </a>
+      </li>`;
+    if (s.id >= 12) surahLinks += link;
     else salahLinks += link;
   });
 
@@ -89,12 +112,17 @@ function buildScheduleCard(schedule) {
     <div class="tbl-wrap">
       <table class="sched-table">
         <thead>
-          <tr><th>Prayer</th><th>Time</th><th>Sunnah Before</th><th>Fardh</th><th>Sunnah After</th></tr>
+          <tr>
+            <th>Prayer</th><th>Time</th>
+            <th>Sunnah Before</th><th>Fardh</th><th>Sunnah After</th>
+          </tr>
         </thead>
         <tbody>${rows}</tbody>
       </table>
     </div>
-    <p class="sched-note"><strong>Witr:</strong> After Isha Fardh + Sunnah, conclude with 3 Witr rak'ahs (odd number).</p>`;
+    <p class="sched-note">
+      <strong>Witr:</strong> After Isha Fardh + Sunnah, conclude with 3 Witr rak'ahs (odd number).
+    </p>`;
 }
 
 /* ── SECTION CARDS ── */
@@ -103,8 +131,6 @@ function buildSectionCards(sections, dict) {
   if (!container) return;
 
   let html = '';
-
-  // Insert "Short Surahs" divider before section 12
   sections.forEach(s => {
     if (s.id === 12) {
       html += `<div class="section-divider">📖 Short Surahs — recite after Al-Fatihah</div>`;
@@ -116,9 +142,9 @@ function buildSectionCards(sections, dict) {
 }
 
 function buildCard(section, dict) {
-  const rows = buildWordRows(section.sequence, dict);
-  const duaBlock = buildDuaBlock(section.complete_dua);
-  const notesBlock = buildNotesBlock(section.notes);
+  const rows      = buildWordRows(section.sequence, dict);
+  const duaBlock  = buildDuaBlock(section.complete_dua);
+  const noteBlock = buildNotesBlock(section.notes);
 
   return `
   <article class="card" id="s${section.id}">
@@ -145,7 +171,7 @@ function buildCard(section, dict) {
       </table>
     </div>
     ${duaBlock}
-    ${notesBlock}
+    ${noteBlock}
   </article>`;
 }
 
@@ -154,11 +180,14 @@ function buildWordRows(sequence, dict) {
     const w = dict[key];
     if (!w) {
       console.warn(`[Dua] Missing dictionary key: "${key}"`);
-      return `<tr class="missing-key"><td colspan="4">⚠️ Missing: ${key}</td></tr>`;
+      return `<tr class="missing-key"><td colspan="4">⚠️ Missing word: <code>${key}</code></td></tr>`;
     }
     return `
     <tr>
-      <td class="ar">${w.ar} <button class="aud-btn" data-key="${key}" title="Audio coming soon" onclick="playWord('${key}')">🔊</button></td>
+      <td class="ar">
+        ${w.ar}
+        <button class="aud-btn" onclick="playWord('${key}')" title="Play pronunciation">🔊</button>
+      </td>
       <td class="tr">${w.tr}</td>
       <td class="en">${w.en}</td>
       <td class="ml">${w.ml}</td>
@@ -241,7 +270,7 @@ function updateProgress() {
   let done = 0;
   for (let i = 1; i <= TOTAL_SECTIONS; i++) {
     const saved = localStorage.getItem('dua-memo-' + i);
-    const nc = document.getElementById('nc-' + i);
+    const nc    = document.getElementById('nc-' + i);
     if (saved === '1') {
       done++;
       if (nc) nc.textContent = '✅ ';
@@ -249,23 +278,25 @@ function updateProgress() {
       if (nc) nc.textContent = '';
     }
   }
-  const pct = Math.round((done / TOTAL_SECTIONS) * 100);
-  const fill = document.getElementById('prog-fill');
+  const pct   = Math.round((done / TOTAL_SECTIONS) * 100);
+  const fill  = document.getElementById('prog-fill');
   const label = document.getElementById('prog-label');
-  if (fill) fill.style.width = pct + '%';
+  if (fill)  fill.style.width = pct + '%';
   if (label) label.textContent = `${done}/${TOTAL_SECTIONS} memorised`;
 }
 
 /* ══════════════════════════════════════════════════════════════
    AUDIO
+   Add MP3 files to assets/audio/words/{key}.mp3 to activate.
+   Word audio for Quran words: https://audio.qurancdn.com/wbw/{surah}/{verse}/{word}.mp3
 ══════════════════════════════════════════════════════════════ */
 let toastTimer = null;
 
 function playWord(key) {
-  // When audio files are added to assets/audio/words/{key}.mp3, replace this:
-  const audioPath = `../assets/audio/words/${key}.mp3`;
-  const audio = new Audio(audioPath);
-  audio.play().catch(() => showToast('🔊 Audio coming soon! Add MP3 files to assets/audio/words/'));
+  const audio = new Audio(`../assets/audio/words/${key}.mp3`);
+  audio.play().catch(() => {
+    showToast('🔊 Audio coming soon — add MP3 files to assets/audio/words/');
+  });
 }
 
 function showToast(msg) {
@@ -273,7 +304,14 @@ function showToast(msg) {
   if (!t) {
     t = document.createElement('div');
     t.id = 'dua-toast';
-    t.style.cssText = 'position:fixed;bottom:90px;right:18px;background:#1f4e3d;color:#fff;padding:10px 18px;border-radius:20px;font-size:.82rem;z-index:9999;box-shadow:0 4px 12px rgba(0,0,0,.35);transition:opacity .3s';
+    t.style.cssText = [
+      'position:fixed', 'bottom:90px', 'right:18px',
+      'background:#1f4e3d', 'color:#fff',
+      'padding:10px 18px', 'border-radius:20px',
+      'font-size:.82rem', 'z-index:9999',
+      'box-shadow:0 4px 12px rgba(0,0,0,.35)',
+      'transition:opacity .3s', 'pointer-events:none'
+    ].join(';');
     document.body.appendChild(t);
   }
   t.textContent = msg;
@@ -283,7 +321,7 @@ function showToast(msg) {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   SCROLL SPY (active nav highlight)
+   SCROLL SPY
 ══════════════════════════════════════════════════════════════ */
 function activateScrollSpy() {
   const cards = document.querySelectorAll('[id^="s"], #intro');
