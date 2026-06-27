@@ -1,0 +1,188 @@
+{
+  "meta": {
+    "file": "ablution.json",
+    "purpose": "Step-by-step Wudu (ablution) guide with Arabic duas, transliteration, English and Malayalam meanings.",
+    "version": "1.0.0",
+    "sources": {
+      "fiqh": "Fiqh us-Sunnah, Sayyid Sabiq — Chapter on Purification",
+      "hadith": "Sahih Bukhari, Sahih Muslim — Book of Purification",
+      "dua_wudu": "Sahih Muslim 234, Tirmidhi 55"
+    },
+    "developer": {
+      "name": "Nawavazhi",
+      "email": "nawavazhi@gmail.com",
+      "github": "https://github.com/nawavazhi"
+    }
+  },
+  "intro": {
+    "en": "Wudu (ablution) is the ritual purification required before Salah. Allah says: 'O you who believe! When you intend to offer Salah, wash your faces and hands up to the elbows, wipe your heads, and wash your feet up to the ankles.' (Quran 5:6)",
+    "ml": "നമസ്കാരത്തിന് മുൻപ് ചെയ്യേണ്ട ശുദ്ധിക്രിയയാണ് വുദൂ. 'സത്യവിശ്വാസികളേ, നിങ്ങൾ നമസ്കാരത്തിനായി എഴുന്നേൽക്കുമ്പോൾ, മുഖവും കൈകളും കൈമുട്ടുകൾ വരെ കഴുകുക, തലയിൽ മസ്ഹ് ചെയ്യുക, കണങ്കാൽ വരെ കാലുകൾ കഴുകുക.' (ഖുർആൻ 5:6)"
+  },
+  "steps": [
+    {
+      "id": 1,
+      "title_en": "Intention (Niyyah)",
+      "title_ml": "നിയ്യത്ത്",
+      "action_en": "Make the intention in your heart to perform Wudu for the sake of Allah. No verbal statement is required — the intention is in the heart.",
+      "action_ml": "വുദൂ ചെയ്യുവാൻ ഉള്ള നിയ്യത്ത് മനസ്സിൽ ഉദ്ദേശിക്കുക. ഉച്ചരിക്കേണ്ടതില്ല.",
+      "dua": null,
+      "repeat": 1,
+      "ruling": "Obligatory (Fardh)",
+      "notes": ["Intention must be present in the heart before starting.", "It does not need to be spoken aloud."]
+    },
+    {
+      "id": 2,
+      "title_en": "Say Bismillah",
+      "title_ml": "ബിസ്മില്ലാഹ് പറയുക",
+      "action_en": "Begin by saying Bismillah before starting to wash.",
+      "action_ml": "കഴുകാൻ തുടങ്ങുന്നതിന് മുൻപ് ബിസ്മില്ലാഹ് പറയുക.",
+      "dua": {
+        "ar": "بِسْمِ اللَّهِ",
+        "tr": "Bismillāh",
+        "en": "In the name of Allah",
+        "ml": "അല്ലാഹുവിന്റെ നാമത്തിൽ",
+        "source": "Abu Dawud 101"
+      },
+      "repeat": 1,
+      "ruling": "Sunnah (Recommended)",
+      "notes": ["If forgotten at the start, say it whenever you remember during Wudu."]
+    },
+    {
+      "id": 3,
+      "title_en": "Wash Hands",
+      "title_ml": "കൈ കഴുകുക",
+      "action_en": "Wash both hands up to and including the wrists, making sure water reaches between the fingers.",
+      "action_ml": "കൈത്തണ്ടകൾ ഉൾപ്പെടെ ഇരു കൈകളും കഴുകുക. വിരലുകൾക്കിടയിൽ വെള്ളം കടക്കണം.",
+      "dua": null,
+      "repeat": 3,
+      "ruling": "Sunnah",
+      "notes": ["Start with the right hand.", "Interlace fingers to ensure water reaches between them."]
+    },
+    {
+      "id": 4,
+      "title_en": "Rinse Mouth (Madmadah)",
+      "title_ml": "വായ് കൊഗളിക്കുക",
+      "action_en": "Take water into the mouth, swirl it around thoroughly, and spit it out. Gargling is Sunnah.",
+      "action_ml": "വെള്ളം വായിലേക്ക് എടുത്ത് ഭംഗിയായി കൊഗളിക്കുക. ഗർഗർ ചെയ്യൽ സുന്നത്താണ്.",
+      "dua": null,
+      "repeat": 3,
+      "ruling": "Sunnah",
+      "notes": ["Use the right hand to bring water to the mouth.", "Gargling (gargarah) is Sunnah, especially outside of fasting."]
+    },
+    {
+      "id": 5,
+      "title_en": "Rinse Nose (Istinshaq)",
+      "title_ml": "മൂക്ക് ചീറ്റുക",
+      "action_en": "Sniff water into the nose with the right hand, then blow it out with the left.",
+      "action_ml": "വലത് കൈ ഉപയോഗിച്ച് മൂക്കിലേക്ക് വെള്ളം ശ്വസിക്കുക, ഇടത് കൈ ഉപയോഗിച്ച് ചീറ്റുക.",
+      "dua": null,
+      "repeat": 3,
+      "ruling": "Sunnah",
+      "notes": ["Sniff water firmly during Wudu (not while fasting — be gentle)."]
+    },
+    {
+      "id": 6,
+      "title_en": "Wash Face",
+      "title_ml": "മുഖം കഴുകുക",
+      "action_en": "Wash the entire face from hairline to chin, and from ear to ear. Make sure no dry patch remains.",
+      "action_ml": "മുടിയുടെ ആരംഭം മുതൽ താടിയുടെ അറ്റം വരെ, ഒരു ചെവിയുടെ ലോബ് മുതൽ മറ്റേ ചെവിയുടെ ലോബ് വരെ, മുഖം മുഴുവൻ കഴുകുക.",
+      "dua": null,
+      "repeat": 3,
+      "ruling": "Obligatory (Fardh)",
+      "notes": ["If you have a beard, water must reach the skin beneath it (for Fardh)."]
+    },
+    {
+      "id": 7,
+      "title_en": "Wash Right Arm",
+      "title_ml": "വലത് കൈ കഴുകുക",
+      "action_en": "Wash the right arm from fingertips to just above the elbow, ensuring complete coverage.",
+      "action_ml": "വലത് കൈ വിരൽ തുമ്പ് മുതൽ കൈമുട്ടിന് മുകളിൽ വരെ കഴുകുക.",
+      "dua": null,
+      "repeat": 3,
+      "ruling": "Obligatory (Fardh)",
+      "notes": ["Right arm first — always start with the right side."]
+    },
+    {
+      "id": 8,
+      "title_en": "Wash Left Arm",
+      "title_ml": "ഇടത് കൈ കഴുകുക",
+      "action_en": "Wash the left arm from fingertips to just above the elbow.",
+      "action_ml": "ഇടത് കൈ വിരൽ തുമ്പ് മുതൽ കൈമുട്ടിന് മുകളിൽ വരെ കഴുകുക.",
+      "dua": null,
+      "repeat": 3,
+      "ruling": "Obligatory (Fardh)",
+      "notes": []
+    },
+    {
+      "id": 9,
+      "title_en": "Wipe Head (Masah)",
+      "title_ml": "തലയിൽ മസ്ഹ് ചെയ്യുക",
+      "action_en": "Wet both hands and wipe the entire head once — from the front to the back, then back to the front.",
+      "action_ml": "ഇരു കൈകളും നനച്ച് മുൻ ഭാഗം മുതൽ പിന്നോട്ടും, തിരിച്ച് മുന്നോട്ടും ഒരു തവണ തലയിൽ ഓടിക്കുക.",
+      "dua": null,
+      "repeat": 1,
+      "ruling": "Obligatory (Fardh)",
+      "notes": ["Done once only — not three times like washing.", "Hands must be freshly wet — do not use leftover water from arms."]
+    },
+    {
+      "id": 10,
+      "title_en": "Wipe Ears",
+      "title_ml": "കാതുകൾ മസ്ഹ് ചെയ്യുക",
+      "action_en": "Using the same water from the head masah, insert index fingers into the ear canals and wipe the outer ears with thumbs.",
+      "action_ml": "ചൂണ്ടുവിരൽ കാതിൽ ഇട്ട് ഉള്ളും, പെരുവിരൽ ഉപയോഗിച്ച് കാതിന്റെ പുറവും മസ്ഹ് ചെയ്യുക.",
+      "dua": null,
+      "repeat": 1,
+      "ruling": "Sunnah",
+      "notes": ["Done as part of the head masah — use the same water, no fresh water needed."]
+    },
+    {
+      "id": 11,
+      "title_en": "Wash Right Foot",
+      "title_ml": "വലത് കാൽ കഴുകുക",
+      "action_en": "Wash the right foot thoroughly from toes to just above the ankle, making sure water reaches between the toes.",
+      "action_ml": "വലത് കാൽ വിരൽ തുമ്പ് മുതൽ കണങ്കാലിന് മുകളിൽ വരെ കഴുകുക. വിരലുകൾക്കിടയിൽ വെള്ളം കടക്കണം.",
+      "dua": null,
+      "repeat": 3,
+      "ruling": "Obligatory (Fardh)",
+      "notes": ["Start with the right foot.", "Use the little finger of the left hand to clean between the toes — this is Sunnah."]
+    },
+    {
+      "id": 12,
+      "title_en": "Wash Left Foot",
+      "title_ml": "ഇടത് കാൽ കഴുകുക",
+      "action_en": "Wash the left foot thoroughly from toes to just above the ankle.",
+      "action_ml": "ഇടത് കാൽ വിരൽ തുമ്പ് മുതൽ കണങ്കാലിന് മുകളിൽ വരെ കഴുകുക.",
+      "dua": null,
+      "repeat": 3,
+      "ruling": "Obligatory (Fardh)",
+      "notes": []
+    },
+    {
+      "id": 13,
+      "title_en": "Closing Dua (After Wudu)",
+      "title_ml": "വുദൂ കഴിഞ്ഞ ദുആ",
+      "action_en": "After completing Wudu, look towards the sky and recite this dua.",
+      "action_ml": "വുദൂ പൂർത്തിയാക്കിയ ശേഷം ആകാശത്തേക്ക് നോക്കി ഈ ദുആ ചൊല്ലുക.",
+      "dua": {
+        "ar": "أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ ، وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ ، اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ",
+        "tr": "Ash-hadu allā ilāha illallāhu waḥdahu lā sharīka lahu, wa ash-hadu anna Muḥammadan 'abduhu wa rasūluh. Allāhummaj-'alnī minat-tawwābīna waj-'alnī minal-mutaṭahhirīn",
+        "en": "I bear witness that there is no deity except Allah alone, with no partner, and I bear witness that Muhammad is His servant and Messenger. O Allah, make me of those who repent and make me of those who purify themselves.",
+        "ml": "അല്ലാഹു അല്ലാതെ ആരാധ്യൻ ഇല്ലെന്ന് ഞാൻ സാക്ഷ്യം വഹിക്കുന്നു — ഏകൻ, പങ്കാളിയില്ലാത്തവൻ. മുഹമ്മദ് നബി അവന്റെ ദൂതൻ. അല്ലാഹുവേ, ഞാൻ പശ്ചാത്തപിക്കുന്നവരിലും ശുദ്ധമാകുന്നവരിലും ആക്കേണമേ.",
+        "source": "Sahih Muslim 234, Tirmidhi 55"
+      },
+      "repeat": 1,
+      "ruling": "Sunnah (Highly recommended)",
+      "notes": [
+        "The Prophet ﷺ said: whoever recites this dua after Wudu, the eight gates of Paradise are opened for him.",
+        "Recite while facing the Qiblah if possible."
+      ]
+    }
+  ],
+  "things_that_break_wudu": [
+    {"en": "Anything that exits from the front or back passage", "ml": "മലദ്വാരം / മൂത്രദ്വാരം വഴി പുറത്ത് വരുന്നത്"},
+    {"en": "Deep sleep", "ml": "ഗാഢ നിദ്ര"},
+    {"en": "Loss of consciousness", "ml": "ബോധക്ഷയം"},
+    {"en": "Touching the private parts directly (without barrier)", "ml": "ഗുഹ്യഭാഗം നേരിട്ട് സ്പർശിക്കൽ"},
+    {"en": "Eating camel meat (according to some schools)", "ml": "ഒട്ടകത്തിന്റെ മാംസം ഭക്ഷിക്കൽ (ചില മദ്ഹബ് പ്രകാരം)"}
+  ]
+}
