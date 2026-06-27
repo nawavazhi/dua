@@ -1,220 +1,440 @@
 {
-  "global_dictionary": {
-    "allahu": { "ar": "اللَّهُ", "tr": "Allahu", "en": "Allah", "ml": "അല്ലാഹു" },
-    "akbar": { "ar": "أَكْبَرُ", "tr": "Akbar", "en": "is the Greatest", "ml": "ഏറ്റവും വലിയവനാകുന്നു" },
-    "subhanaka": { "ar": "سُبْحَانَكَ", "tr": "Subhanaka", "en": "Glory be to You", "ml": "നിനക്ക് സ്തുതി" },
-    "allahumma": { "ar": "اللَّهُمَّ", "tr": "Allahumma", "en": "O Allah", "ml": "അല്ലാഹുവേ" },
-    "wa_bihamdika": { "ar": "وَبِحَمْدِكَ", "tr": "wa bihamdika", "en": "and with Your praise", "ml": "നിന്റെ സ്തുതിയോടെ" },
-    "wa_tabaraka": { "ar": "وَتَبَارَكَ", "tr": "wa tabaraka", "en": "and blessed is", "ml": "അനുഗ്രഹീതമാണ്" },
-    "ismuka": { "ar": "اسْمُكَ", "tr": "ismuka", "en": "Your name", "ml": "നിന്റെ നാമം" },
-    "wa_ta_ala": { "ar": "وَتَعَالَى", "tr": "wa ta'ala", "en": "and high is", "ml": "ഉന്നതമാണ്" },
-    "jadduka": { "ar": "جَدُّكَ", "tr": "jadduka", "en": "Your majesty", "ml": "നിന്റെ മഹത്വം" },
-    "wa_la_ilaha": { "ar": "وَلَا إِلَهَ", "tr": "wa la ilaha", "en": "and there is no deity", "ml": "വേറെ ആരാധ്യനില്ല" },
-    "ghayruka": { "ar": "غَيْرُكَ", "tr": "ghayruka", "en": "other than You", "ml": "നീയല്ലാതെ" },
-    "bismi": { "ar": "بِسْمِ", "tr": "Bismi", "en": "In the name", "ml": "നാമത്തിൽ" },
-    "lillahi": { "ar": "لِلَّهِ", "tr": "lillahi", "en": "is for Allah", "ml": "അല്ലാഹുവിനാകുന്നു" },
-    "ar_rahman": { "ar": "الرَّحْمَنِ", "tr": "Ar-Rahman", "en": "The Most Gracious", "ml": "പരമകാരുണികൻ" },
-    "ar_raheem": { "ar": "الرَّحِيمِ", "tr": "Ar-Raheem", "en": "The Most Merciful", "ml": "കരുണാനിധി" },
-    "alhamdu": { "ar": "الْحَمْدُ", "tr": "Alhamdu", "en": "All praise", "ml": "സർവ്വ സ്തുതിയും" },
-    "rabbi": { "ar": "رَبِّ", "tr": "Rabbi", "en": "Lord", "ml": "രക്ഷിതാവ്" },
-    "al_alamin": { "ar": "الْعَالَمِينَ", "tr": "al-'alamin", "en": "of the worlds", "ml": "ലോകങ്ങളുടെ" },
-    "maliki": { "ar": "مَالِكِ", "tr": "Maliki", "en": "Master", "ml": "ഉടമസ്ഥൻ" },
-    "yawmi": { "ar": "يَوْمِ", "tr": "yawmi", "en": "Day", "ml": "ദിവസത്തിന്റെ" },
-    "ad_deen": { "ar": "الدِّينِ", "tr": "ad-deen", "en": "Judgment", "ml": "പ്രതിഫല" },
-    "iyyaka": { "ar": "إِيَّاكَ", "tr": "Iyyaka", "en": "You alone", "ml": "നിന്നെ മാത്രം" },
-    "na_budu": { "ar": "نَعْبُدُ", "tr": "na'budu", "en": "we worship", "ml": "ഞങ്ങൾ ആരാധിക്കുന്നു" },
-    "wa_iyyaka": { "ar": "وَإِيَّاكَ", "tr": "wa iyyaka", "en": "and You alone", "ml": "നിന്നോട് മാത്രം" },
-    "nasta_een": { "ar": "نَسْتَعِينُ", "tr": "nasta'een", "en": "we ask for help", "ml": "ഞങ്ങൾ സഹായം തേടുന്നു" },
-    "ihdina": { "ar": "اهْدِنَا", "tr": "Ihdina", "en": "Guide us", "ml": "ഞങ്ങളെ നയിക്കേണമേ" },
-    "as_sirata": { "ar": "الصِّرَاطَ", "tr": "as-sirata", "en": "the path", "ml": "വഴിയിൽ" },
-    "al_mustaqim": { "ar": "الْمُسْتَقِيمَ", "tr": "al-mustaqim", "en": "the straight", "ml": "നേരായ" },
-    "sirata": { "ar": "صِرَاطَ", "tr": "Sirata", "en": "The path", "ml": "വഴിയിൽ" },
-    "alladhina": { "ar": "الَّذِينَ", "tr": "alladhina", "en": "of those", "ml": "യാതൊരുവരുടെ" },
-    "an_amta": { "ar": "أَنْعَمْتَ", "tr": "an'amta", "en": "You have bestowed favor", "ml": "നീ അനുഗ്രഹിച്ച" },
-    "alayhim": { "ar": "عَلَيْهِمْ", "tr": "'alayhim", "en": "upon them", "ml": "അവരുടെ മേൽ" },
-    "ghayri": { "ar": "غَيْرِ", "tr": "ghayri", "en": "not of", "ml": "അല്ല" },
-    "al_maghdubi": { "ar": "الْمَغْضُوبِ", "tr": "al-maghdubi", "en": "those who earned anger", "ml": "കോപിക്കപ്പെട്ടവരുടെ" },
-    "wa_la": { "ar": "وَلَا", "tr": "wa la", "en": "and not", "ml": "അല്ല" },
-    "ad_dallin": { "ar": "الضَّالِّينَ", "tr": "ad-dallin", "en": "those who went astray", "ml": "വഴിപിഴച്ചുപോയവരുടെ" },
-    "subhana": { "ar": "سُبْحَانَ", "tr": "Subhana", "en": "Glory be to", "ml": "സ്തുതി" },
-    "rabbiyal": { "ar": "رَبِّيَ", "tr": "Rabbiyal", "en": "my Lord", "ml": "എന്റെ രക്ഷിതാവിന്" },
-    "al_azeem": { "ar": "الْعَظِيمِ", "tr": "al-'Azeem", "en": "the Almighty", "ml": "മഹാനായ" },
-    "sami_a": { "ar": "سَمِعَ", "tr": "Sami'a", "en": "Listens", "ml": "കേൾക്കുന്നു" },
-    "liman": { "ar": "لِمَنْ", "tr": "liman", "en": "to those who", "ml": "യാതൊരാളുടെ" },
-    "hamidah": { "ar": "حَمِدَهُ", "tr": "hamidah", "en": "praise Him", "ml": "അവനെ സ്തുതിച്ച" },
-    "rabbana": { "ar": "رَبَّنَا", "tr": "Rabbana", "en": "Our Lord", "ml": "ഞങ്ങളുടെ രക്ഷിതാവേ" },
-    "wa_lakal": { "ar": "وَلَكَ", "tr": "wa lakal", "en": "and to You belongs", "ml": "നിനക്കാകുന്നു" },
-    "al_hamd": { "ar": "الْحَمْدُ", "tr": "al-hamd", "en": "all praise", "ml": "സർവ്വ സ്തുതിയും" },
-    "al_ala": { "ar": "الْأَعْلَى", "tr": "al-A'la", "en": "the Most High", "ml": "അത്യുന്നതനായ" },
-    "ighfir": { "ar": "اغْفِرْ", "tr": "ighfir", "en": "forgive", "ml": "പൊറുത്തുതരേണമേ" },
-    "li": { "ar": "لِي", "tr": "li", "en": "me", "ml": "എനിക്ക്" },
-    "warhamni": { "ar": "وَارْحَمْنِي", "tr": "warhamni", "en": "and have mercy on me", "ml": "എന്നോട് കരുണ കാണിക്കേണമേ" },
-    "wahdini": { "ar": "وَاهْدِنِي", "tr": "wahdini", "en": "and guide me", "ml": "എന്നെ നേർവഴിയിലാക്കേണമേ" },
-    "warzuqni": { "ar": "وَارْزُقْنِي", "tr": "warzuqni", "en": "and provide for me", "ml": "എനിക്ക് ഉപജീവനം നൽകേണമേ" },
-    "at_tahiyyatu": { "ar": "التَّحِيَّاتُ", "tr": "At-tahiyyatu", "en": "All greetings", "ml": "എല്ലാ അഭിവാദനങ്ങളും" },
-    "was_salawatu": { "ar": "وَالصَّلَوَاتُ", "tr": "was-salawatu", "en": "and all prayers", "ml": "പ്രാർത്ഥനകളും" },
-    "wat_tayyibatu": { "ar": "وَالطَّيِّبَاتُ", "tr": "wat-tayyibatu", "en": "and all good things", "ml": "നല്ല കാര്യങ്ങളും" },
-    "as_salamu": { "ar": "السَّلَامُ", "tr": "As-salamu", "en": "Peace", "ml": "സമാധാനം" },
-    "alayka": { "ar": "عَلَيْكَ", "tr": "'alayka", "en": "be upon you", "ml": "നിന്റെ മേൽ ഉണ്ടാകട്ടെ" },
-    "ayyuha": { "ar": "أَيُّهَا", "tr": "ayyuha", "en": "O", "ml": "ഓ" },
-    "an_nabiyyu": { "ar": "النَّبِيُّ", "tr": "an-nabiyyu", "en": "Prophet", "ml": "പ്രവാചകനേ" },
-    "wa_rahmatu": { "ar": "وَرَحْمَةُ", "tr": "wa rahmatu", "en": "and the mercy", "ml": "കാരുണ്യവും" },
-    "llahi": { "ar": "اللَّهِ", "tr": "llahi", "en": "of Allah", "ml": "അല്ലാഹുവിന്റെ" },
-    "wa_barakatuhu": { "ar": "وَبَرَكَاتُهُ", "tr": "wa barakatuhu", "en": "and His blessings", "ml": "അവന്റെ അനുഗ്രഹങ്ങളും" },
-    "alayna": { "ar": "عَلَيْنَا", "tr": "'alayna", "en": "be upon us", "ml": "ഞങ്ങളുടെ മേൽ ഉണ്ടാകട്ടെ" },
-    "wa_ala": { "ar": "وَعَلَى", "tr": "wa 'ala", "en": "and upon", "ml": "മേലും" },
-    "ibadi": { "ar": "عِبَادِ", "tr": "'ibadi", "en": "the slaves", "ml": "അടിമകളുടെ" },
-    "as_saliheen": { "ar": "الصَّالِحِينَ", "tr": "as-saliheen", "en": "the righteous", "ml": "സജ്ജനങ്ങളായ" },
-    "ash_hadu": { "ar": "أَشْهَدُ", "tr": "Ash-hadu", "en": "I bear witness", "ml": "ഞാൻ സാക്ഷ്യം വഹിക്കുന്നു" },
-    "an": { "ar": "أَنْ", "tr": "an", "en": "that", "ml": "എന്ന്" },
-    "illa": { "ar": "إِلَّا", "tr": "illa", "en": "except", "ml": "ഒഴികെ" },
-    "wa_ash_hadu": { "ar": "وَأَشْهَدُ", "tr": "wa ash-hadu", "en": "and I bear witness", "ml": "ഞാൻ സാക്ഷ്യം വഹിക്കുന്നു" },
-    "anna": { "ar": "أَنَّ", "tr": "anna", "en": "that", "ml": "എന്ന്" },
-    "muhammadan": { "ar": "مُحَمَّدًا", "tr": "Muhammadan", "en": "Muhammad", "ml": "മുഹമ്മദ് (നബി)" },
-    "abduhu": { "ar": "عَبْدُهُ", "tr": "'abduhu", "en": "is His slave", "ml": "അവന്റെ അടിമയാണ്" },
-    "wa_rasuluh": { "ar": "وَرَسُولُهُ", "tr": "wa rasuluh", "en": "and His Messenger", "ml": "അവന്റെ ദൂതനുമാണ്" },
-    "salli": { "ar": "صَلِّ", "tr": "salli", "en": "send blessings", "ml": "നീ അനുഗ്രഹിക്കേണമേ" },
-    "ala": { "ar": "عَلَى", "tr": "'ala", "en": "upon", "ml": "മേൽ" },
-    "muhammadin": { "ar": "مُحَمَّدٍ", "tr": "Muhammadin", "en": "Muhammad", "ml": "മുഹമ്മദ് നബിയുടെ" },
-    "ali": { "ar": "آلِ", "tr": "ali", "en": "the family", "ml": "കുടുംബത്തിന്റെ" },
-    "kama": { "ar": "كَمَا", "tr": "kama", "en": "as", "ml": "പോലെ" },
-    "sallayta": { "ar": "صَلَّيْتَ", "tr": "sallayta", "en": "You sent blessings", "ml": "നീ അനുഗ്രഹിച്ചതു" },
-    "ibrahima": { "ar": "إِبْرَاهِيمَ", "tr": "Ibrahima", "en": "Ibrahim", "ml": "ഇബ്രാഹിം നബിയുടെ" },
-    "innaka": { "ar": "إِنَّكَ", "tr": "innaka", "en": "Indeed You", "ml": "തീർച്ചയായും നീ" },
-    "hameedun": { "ar": "حَمِيدٌ", "tr": "Hameedun", "en": "are Praiseworthy", "ml": "സ്തുത്യർഹനാണ്" },
-    "majeedun": { "ar": "مَجِيدٌ", "tr": "Majeedun", "en": "Most Glorious", "ml": "മഹത്വമുള്ളവനാണ്" },
-    "barik": { "ar": "بَارِكْ", "tr": "barik", "en": "send blessings (barakah)", "ml": "നീ നന്മ ചൊരിയേണമേ" },
-    "barakta": { "ar": "بَارَكْتَ", "tr": "barakta", "en": "You sent blessings (barakah)", "ml": "നീ നന്മ ചൊരിഞ്ഞതു" },
-    "qul": { "ar": "قُلْ", "tr": "Qul", "en": "Say", "ml": "പറയുക" },
-    "huwa": { "ar": "هُوَ", "tr": "huwa", "en": "He is", "ml": "അവൻ" },
-    "ahad": { "ar": "أَحَدٌ", "tr": "Ahad", "en": "One", "ml": "ഏകനാണ്" },
-    "as_samad": { "ar": "الصَّمَدُ", "tr": "As-Samad", "en": "the Self-Sufficient Master", "ml": "ആശ്രയമായിട്ടുള്ളവൻ" },
-    "lam": { "ar": "لَمْ", "tr": "lam", "en": "He neither", "ml": "ഇല്ല" },
-    "yalid": { "ar": "يَلِدْ", "tr": "yalid", "en": "begets", "ml": "അവൻ ജന്മം നൽകിയിട്ട്" },
-    "wa_lam": { "ar": "وَلَمْ", "tr": "wa lam", "en": "and nor", "ml": "ഇല്ല" },
-    "yulad": { "ar": "يُولَدْ", "tr": "yulad", "en": "is He begotten", "ml": "അവന് ജന്മം നൽകപ്പെട്ടിട്ടും" },
-    "yakun": { "ar": "يَكُنْ", "tr": "yakun", "en": "is", "ml": "ആകുന്നു" },
-    "lahu": { "ar": "لَهُ", "tr": "lahu", "en": "unto Him", "ml": "അവന്" },
-    "kufuwan": { "ar": "كُفُوًا", "tr": "kufuwan", "en": "equivalent", "ml": "തുല്യനായിട്ട്" },
-    "a_udhu": { "ar": "أَعُوذُ", "tr": "a'udhu", "en": "I seek refuge", "ml": "ഞാൻ അഭയം തേടുന്നു" },
-    "bi_rabbi": { "ar": "بِرَبِّ", "tr": "bi-rabbi", "en": "in the Lord", "ml": "രക്ഷിതാവിനോട്" },
-    "al_falaq": { "ar": "الْفَلَقِ", "tr": "al-falaq", "en": "of the daybreak", "ml": "പുലരിയുടെ" },
-    "min": { "ar": "مِنْ", "tr": "min", "en": "From", "ml": "ൽ നിന്ന്" },
-    "sharri": { "ar": "شَرِّ", "tr": "sharri", "en": "the evil", "ml": "തിന്മയിൽ" },
-    "ma": { "ar": "مَا", "tr": "ma", "en": "of that which", "ml": "യാതൊന്നിന്റെ" },
-    "khalaqa": { "ar": "خَلَقَ", "tr": "khalaqa", "en": "He created", "ml": "അവൻ സൃഷ്ടിച്ച" },
-    "wa_min": { "ar": "وَمِنْ", "tr": "wa min", "en": "And from", "ml": "ൽ നിന്നും" },
-    "ghasiqin": { "ar": "غَاسِقٍ", "tr": "ghasiqin", "en": "of darkness", "ml": "കൂരിരുട്ടിന്റെ" },
-    "idha": { "ar": "إِذَا", "tr": "idha", "en": "when", "ml": "ആകുമ്പോൾ" },
-    "waqab": { "ar": "وَقَبَ", "tr": "waqab", "en": "it settles", "ml": "അത് പരന്നാൽ" },
-    "an_naffathati": { "ar": "النَّفَّاثَاتِ", "tr": "an-naffathati", "en": "of the blowers", "ml": "ഊതുന്നവരായ സ്ത്രീകളുടെ" },
-    "fi": { "ar": "فِي", "tr": "fi", "en": "in", "ml": "ൽ" },
-    "al_uqad": { "ar": "الْعُقَدِ", "tr": "al-'uqad", "en": "the knots", "ml": "കെട്ടുകളിൽ" },
-    "hasidin": { "ar": "حَاسِدٍ", "tr": "hasidin", "en": "of an envier", "ml": "അസൂയാലുവിന്റെ" },
-    "hasada": { "ar": "حَسَدَ", "tr": "hasada", "en": "he envies", "ml": "അവൻ അസൂയപ്പെട്ടാൽ" },
-    "an_nas": { "ar": "النَّاسِ", "tr": "an-nas", "en": "of mankind", "ml": "മനുഷ്യരുടെ" },
-    "ilahi": { "ar": "إِلَهِ", "tr": "ilahi", "en": "The God", "ml": "ആരാധ്യനായ" },
-    "al_waswas": { "ar": "الْوَسْوَاسِ", "tr": "al-waswas", "en": "of the whisperer", "ml": "ദുർബോധനം ചെയ്യുന്നവന്റെ" },
-    "al_khannas": { "ar": "الْخَنَّاسِ", "tr": "al-khannas", "en": "who withdraws", "ml": "പിന്മാറിപ്പോകുന്ന" },
-    "alladhi": { "ar": "الَّذِي", "tr": "alladhi", "en": "Who", "ml": "യാതൊരുവൻ" },
-    "yuwaswisu": { "ar": "يُوَسْوِسُ", "tr": "yuwaswisu", "en": "whispers", "ml": "ദുർബോധനം ചെയ്യുന്നു" },
-    "suduri": { "ar": "صُدُورِ", "tr": "suduri", "en": "the breasts", "ml": "ഹൃദയങ്ങളിൽ" },
-    "mina": { "ar": "مِنَ", "tr": "mina", "en": "From", "ml": "ൽ നിന്നും" },
-    "al_jinnati": { "ar": "الْجِنَّةِ", "tr": "al-jinnati", "en": "the jinn", "ml": "ജിന്നുകളിൽ" },
-    "wan_nas": { "ar": "وَالنَّاسِ", "tr": "wan-nas", "en": "and mankind", "ml": "മനുഷ്യരിലും" },
-    "wal_asr": { "ar": "وَالْعَصْرِ", "tr": "Wal-'asr", "en": "By time", "ml": "കാലം തന്നെയാണെ സത്യം" },
-    "inna": { "ar": "إِنَّ", "tr": "inna", "en": "Indeed", "ml": "തീർച്ചയായും" },
-    "al_insana": { "ar": "الْإِنْسَانَ", "tr": "al-insana", "en": "mankind", "ml": "മനുഷ്യൻ" },
-    "lafi": { "ar": "لَفِي", "tr": "lafi", "en": "is in", "ml": "ആകുന്നു" },
-    "khusr": { "ar": "خُسْرٍ", "tr": "khusr", "en": "loss", "ml": "നഷ്ടത്തിൽ" },
-    "amanu": { "ar": "آمَنُوا", "tr": "amanu", "en": "have believed", "ml": "വിശ്വസിച്ചു" },
-    "wa_amilu": { "ar": "وَعَمِلُوا", "tr": "wa 'amilu", "en": "and done", "ml": "പ്രവർത്തിക്കുകയും ചെയ്തു" },
-    "as_salihati": { "ar": "الصَّالِحَاتِ", "tr": "as-salihati", "en": "righteous deeds", "ml": "സൽകർമ്മങ്ങൾ" },
-    "wa_tawasaw": { "ar": "وَتَوَاصَوْا", "tr": "wa tawasaw", "en": "and advised each other", "ml": "പരസ്പരം ഉപദേശിച്ചു" },
-    "bil_haqqi": { "ar": "بِالْحَقِّ", "tr": "bil-haqqi", "en": "to the truth", "ml": "സത്യം കൊണ്ട്" },
-    "bis_sabr": { "ar": "بِالصَّبْرِ", "tr": "bis-sabr", "en": "to patience", "ml": "ക്ഷമ കൊണ്ട്" },
-    "inna_we": { "ar": "إِنَّا", "tr": "Inna", "en": "Indeed, We", "ml": "തീർച്ചയായും നാം" },
-    "a_taynaka": { "ar": "أَعْطَيْنَاكَ", "tr": "a'taynaka", "en": "have granted you", "ml": "നിനക്ക് നൽകിയിരിക്കുന്നു" },
-    "al_kawtar": { "ar": "الْكَوْثَرَ", "tr": "al-kawtar", "en": "Al-Kauthar", "ml": "കൗഥർ" },
-    "fa_salli": { "ar": "فَصَلِّ", "tr": "fa-salli", "en": "So pray", "ml": "അതിനാൽ നീ നമസ്കരിക്കുക" },
-    "li_rabbika": { "ar": "لِرَبِّكَ", "tr": "li-rabbika", "en": "to your Lord", "ml": "നിന്റെ രക്ഷിതാവിനായി" },
-    "wanhar": { "ar": "وَانْحَرْ", "tr": "wanhar", "en": "and sacrifice", "ml": "ബലിയറുക്കുകയും ചെയ്യുക" },
-    "shani_aka": { "ar": "شَانِئَكَ", "tr": "shani'aka", "en": "your enemy", "ml": "നിന്നോട് വിദ്വേഷം വെക്കുന്നവൻ" },
-    "al_abtar": { "ar": "الْأَبْتَرُ", "tr": "al-abtar", "en": "the one cut off", "ml": "വാലറ്റവൻ" }
+  "meta": {
+    "project": "Project Dua",
+    "version": "1.0.0",
+    "description": "Master database for all Islamic learning content. global_dictionary contains every unique word/phrase keyed by ID. Sections reference keys so the same word can be reused across Salah, Quran, Ablution modules without duplication.",
+    "languages": ["ar", "tr", "en", "ml"],
+    "language_names": {"ar": "Arabic", "tr": "Transliteration", "en": "English", "ml": "Malayalam"}
   },
+
+  "global_dictionary": {
+
+    "allahu":           {"ar": "اللَّهُ",              "tr": "Allahu",              "en": "Allah",                              "ml": "അല്ലാഹു"},
+    "akbar":            {"ar": "أَكْبَرُ",              "tr": "Akbar",               "en": "is the Greatest",                   "ml": "ഏറ്റവും വലിയവനാകുന്നു"},
+    "subhanaka":        {"ar": "سُبْحَانَكَ",           "tr": "Subhānaka",           "en": "Glory be to You",                    "ml": "നിനക്ക് സ്തുതി"},
+    "allahumma":        {"ar": "اللَّهُمَّ",            "tr": "Allāhumma",           "en": "O Allah",                            "ml": "അല്ലാഹുവേ"},
+    "wa_bihamdika":     {"ar": "وَبِحَمْدِكَ",          "tr": "wa biḥamdika",        "en": "and with Your praise",               "ml": "നിന്റെ സ്തുതിയോടെ"},
+    "wa_tabaraka":      {"ar": "وَتَبَارَكَ",           "tr": "wa tabāraka",         "en": "and blessed is",                     "ml": "അനുഗ്രഹീതമാണ്"},
+    "ismuka":           {"ar": "اسْمُكَ",               "tr": "ismuka",              "en": "Your name",                          "ml": "നിന്റെ നാമം"},
+    "wa_taala":         {"ar": "وَتَعَالَى",            "tr": "wa ta'ālā",           "en": "and exalted / high is",              "ml": "ഉന്നതമാണ്"},
+    "jadduka":          {"ar": "جَدُّكَ",               "tr": "jadduka",             "en": "Your majesty",                       "ml": "നിന്റെ മഹത്വം"},
+    "wa_la_ilaha":      {"ar": "وَلَا إِلَهَ",          "tr": "wa lā ilāha",         "en": "and there is no deity",              "ml": "വേറെ ആരാധ്യനില്ല"},
+    "ghayruka":         {"ar": "غَيْرُكَ",              "tr": "ghayruka",            "en": "other than You",                     "ml": "നിന്നെ അല്ലാതെ"},
+
+    "wajjahtu":         {"ar": "وَجَّهْتُ",             "tr": "Wajjahtu",            "en": "I have directed / turned",           "ml": "ഞാൻ തിരിക്കുന്നു"},
+    "wajhiya":          {"ar": "وَجْهِيَ",              "tr": "wajhiya",             "en": "my face",                            "ml": "എന്റെ മുഖം"},
+    "lilladhi":         {"ar": "لِلَّذِي",              "tr": "lilladhi",            "en": "to the One who",                     "ml": "യാതൊരുവനിലേക്ക്"},
+    "fatara":           {"ar": "فَطَرَ",                "tr": "faṭara",              "en": "created / originated",               "ml": "സൃഷ്ടിച്ച"},
+    "as_samawati":      {"ar": "السَّمَاوَاتِ",         "tr": "as-samāwāti",         "en": "the heavens",                        "ml": "ആകാശങ്ങളെ"},
+    "wal_arda":         {"ar": "وَالْأَرْضَ",           "tr": "wal-arḍa",            "en": "and the earth",                      "ml": "ഭൂമിയെയും"},
+    "hanifan":          {"ar": "حَنِيفًا",              "tr": "ḥanīfan",             "en": "inclining to truth / upright",        "ml": "നേരായവനായിക്കൊണ്ട്"},
+    "wa_ma_ana":        {"ar": "وَمَا أَنَا",           "tr": "wa mā ana",           "en": "and I am not",                       "ml": "ഞാൻ അല്ല"},
+    "minal_mushrikeen": {"ar": "مِنَ الْمُشْرِكِينَ",   "tr": "minal-mushrikīn",     "en": "of the polytheists",                 "ml": "മുശ്‌രിക്കുകളിൽ പെട്ടവൻ"},
+    "inna_salati":      {"ar": "إِنَّ صَلَاتِي",        "tr": "Inna ṣalātī",         "en": "Indeed my prayer",                   "ml": "തീർച്ചയായും എന്റെ നമസ്കാരം"},
+    "wa_nusuki":        {"ar": "وَنُسُكِي",             "tr": "wa nusukī",           "en": "and my worship / rites",             "ml": "എന്റെ ആരാധനകൾ"},
+    "wa_mahyaya":       {"ar": "وَمَحْيَايَ",           "tr": "wa maḥyāya",          "en": "and my living",                      "ml": "എന്റെ ജീവിതവും"},
+    "wa_mamati":        {"ar": "وَمَمَاتِي",            "tr": "wa mamātī",           "en": "and my dying",                       "ml": "എന്റെ മരണവും"},
+    "lillahi_rabbil":   {"ar": "لِلَّهِ رَبِّ الْعَالَمِينَ", "tr": "lillāhi Rabbil-'ālamīn", "en": "are for Allah, Lord of the worlds", "ml": "ലോകങ്ങളുടെ രക്ഷിതാവ് അല്ലാഹുവിനാകുന്നു"},
+    "la_sharika_lahu":  {"ar": "لَا شَرِيكَ لَهُ",     "tr": "lā sharīka lahu",     "en": "He has no partner",                  "ml": "അവന് ഒരു പങ്കാളിയും ഇല്ല"},
+    "wa_bidhalika_umirtu": {"ar": "وَبِذَلِكَ أُمِرْتُ", "tr": "wa bidhālika umirtu", "en": "and with that I have been commanded", "ml": "അതിനാൽ ഞാൻ കൽപ്പിക്കപ്പെട്ടിരിക്കുന്നു"},
+    "wa_ana_min_muslimeen": {"ar": "وَأَنَا مِنَ الْمُسْلِمِينَ", "tr": "wa ana minal-muslimīn", "en": "and I am of the Muslims", "ml": "ഞാൻ മുസ്ലിങ്ങളിൽ ഒരുവൻ"},
+
+    "bismi":            {"ar": "بِسْمِ",                "tr": "Bismi",               "en": "In the name",                        "ml": "നാമത്തിൽ"},
+    "llahi":            {"ar": "اللَّهِ",               "tr": "-llāhi",              "en": "of Allah",                           "ml": "അല്ലാഹുവിന്റെ"},
+    "ar_rahman":        {"ar": "الرَّحْمَنِ",           "tr": "Ar-Raḥmān",           "en": "The Most Gracious",                  "ml": "പരമകാരുണികൻ"},
+    "ar_raheem":        {"ar": "الرَّحِيمِ",            "tr": "Ar-Raḥīm",            "en": "The Most Merciful",                  "ml": "കരുണാനിധി"},
+    "ar_rahman_ar_raheem": {"ar": "الرَّحْمَنِ الرَّحِيمِ", "tr": "Ar-Raḥmāni Ar-Raḥīm", "en": "The Most Gracious, Most Merciful", "ml": "പരമകാരുണികനും കരുണാനിധിയും"},
+    "alhamdu":          {"ar": "الْحَمْدُ",             "tr": "Al-ḥamdu",            "en": "All praise",                         "ml": "സർവ്വ സ്തുതിയും"},
+    "lillahi":          {"ar": "لِلَّهِ",               "tr": "lillāhi",             "en": "is for Allah",                       "ml": "അല്ലാഹുവിനാകുന്നു"},
+    "rabbi":            {"ar": "رَبِّ",                 "tr": "Rabbi",               "en": "Lord",                               "ml": "രക്ഷിതാവ്"},
+    "al_alamin":        {"ar": "الْعَالَمِينَ",         "tr": "al-'ālamīn",          "en": "of the worlds",                      "ml": "ലോകങ്ങളുടെ"},
+    "maliki":           {"ar": "مَالِكِ",               "tr": "Māliki",              "en": "Master / Owner",                     "ml": "ഉടമസ്ഥൻ"},
+    "yawmi":            {"ar": "يَوْمِ",                "tr": "yawmi",               "en": "Day",                                "ml": "ദിവസത്തിന്റെ"},
+    "ad_deen":          {"ar": "الدِّينِ",              "tr": "ad-dīn",              "en": "Judgment / Recompense",               "ml": "ന്യായവിധിയുടെ"},
+    "iyyaka":           {"ar": "إِيَّاكَ",              "tr": "Iyyāka",              "en": "You alone",                          "ml": "നിന്നെ മാത്രം"},
+    "na_budu":          {"ar": "نَعْبُدُ",              "tr": "na'budu",             "en": "we worship",                         "ml": "ഞങ്ങൾ ആരാധിക്കുന്നു"},
+    "wa_iyyaka":        {"ar": "وَإِيَّاكَ",            "tr": "wa iyyāka",           "en": "and You alone",                      "ml": "നിന്നോട് മാത്രം"},
+    "nasta_een":        {"ar": "نَسْتَعِينُ",           "tr": "nasta'īn",            "en": "we ask for help",                    "ml": "ഞങ്ങൾ സഹായം തേടുന്നു"},
+    "ihdina":           {"ar": "اهْدِنَا",              "tr": "Ihdinā",              "en": "Guide us",                           "ml": "ഞങ്ങളെ നയിക്കേണമേ"},
+    "as_sirata":        {"ar": "الصِّرَاطَ",            "tr": "aṣ-ṣirāṭa",          "en": "the path",                           "ml": "വഴിയിൽ"},
+    "al_mustaqim":      {"ar": "الْمُسْتَقِيمَ",        "tr": "al-mustaqīm",         "en": "the straight",                       "ml": "നേരായ"},
+    "sirata":           {"ar": "صِرَاطَ",               "tr": "Ṣirāṭa",             "en": "The path",                           "ml": "വഴിയിൽ"},
+    "alladhina":        {"ar": "الَّذِينَ",             "tr": "alladhīna",           "en": "of those who",                       "ml": "യാതൊരുവരുടെ"},
+    "an_amta":          {"ar": "أَنْعَمْتَ",            "tr": "an'amta",             "en": "You have bestowed favour",            "ml": "നീ അനുഗ്രഹിച്ച"},
+    "alayhim":          {"ar": "عَلَيْهِمْ",            "tr": "'alayhim",            "en": "upon them",                          "ml": "അവരുടെ മേൽ"},
+    "ghayri":           {"ar": "غَيْرِ",                "tr": "ghayri",              "en": "not of",                             "ml": "ഒഴിവാക്കി"},
+    "al_maghdubi":      {"ar": "الْمَغْضُوبِ",          "tr": "al-maghḍūbi",         "en": "those who earned anger",              "ml": "കോപിക്കപ്പെട്ടവരുടെ"},
+    "wa_la_ad_dallin":  {"ar": "وَلَا الضَّالِّينَ",   "tr": "wa laḍ-ḍāllīn",      "en": "and not of those who went astray",    "ml": "വഴിതെറ്റിയവരുടെ"},
+
+    "subhana":          {"ar": "سُبْحَانَ",             "tr": "Subḥāna",             "en": "Glory be to",                        "ml": "സ്തുതി"},
+    "rabbiyal":         {"ar": "رَبِّيَ",               "tr": "Rabbiyal",            "en": "my Lord",                            "ml": "എന്റെ രക്ഷിതാവിന്"},
+    "al_azeem":         {"ar": "الْعَظِيمِ",            "tr": "al-'Aẓīm",            "en": "the Almighty / Most Great",           "ml": "മഹാനായ"},
+    "sami_a":           {"ar": "سَمِعَ",                "tr": "Sami'a",              "en": "Allah hears",                        "ml": "കേൾക്കുന്നു"},
+    "liman_hamidah":    {"ar": "لِمَنْ حَمِدَهُ",       "tr": "liman ḥamidah",       "en": "those who praise Him",               "ml": "അവനെ സ്തുതിക്കുന്നവരെ"},
+    "rabbana":          {"ar": "رَبَّنَا",               "tr": "Rabbanā",             "en": "Our Lord",                           "ml": "ഞങ്ങളുടെ രക്ഷിതാവേ"},
+    "wa_lakal_hamd":    {"ar": "وَلَكَ الْحَمْدُ",      "tr": "wa lakal-ḥamd",       "en": "and to You belongs all praise",       "ml": "നിനക്കാണ് സർവ്വ സ്തുതിയും"},
+
+    "mil_a":            {"ar": "مِلْءَ",                "tr": "mil'a",               "en": "filling",                            "ml": "നിറഞ്ഞ"},
+    "was_samawati":     {"ar": "السَّمَاوَاتِ",         "tr": "as-samāwāti",         "en": "the heavens",                        "ml": "ആകാശങ്ങൾ"},
+    "wa_mil_al_ardi":   {"ar": "وَمِلْءَ الْأَرْضِ",   "tr": "wa mil'al-arḍi",      "en": "and filling the earth",              "ml": "ഭൂമിയും നിറഞ്ഞ"},
+    "wa_mil_a_ma":      {"ar": "وَمِلْءَ مَا",          "tr": "wa mil'a mā",         "en": "and filling whatever",               "ml": "നിറഞ്ഞ"},
+    "shi_ta":           {"ar": "شِئْتَ",                "tr": "shi'ta",              "en": "You will / please",                  "ml": "നീ ഉദ്ദേശിച്ചത്"},
+    "min_shay_ba_du":   {"ar": "مِنْ شَيْءٍ بَعْدُ",   "tr": "min shay'in ba'du",   "en": "of anything after that",             "ml": "ഇതിനു ശേഷമുള്ള ഏതൊന്നിൽ"},
+
+    "al_ala":           {"ar": "الْأَعْلَى",            "tr": "al-A'lā",             "en": "the Most High",                      "ml": "അത്യുന്നതനായ"},
+
+    "ighfir":           {"ar": "اغْفِرْ",               "tr": "ighfir",              "en": "forgive",                            "ml": "പൊറുത്തുതരേണമേ"},
+    "li":               {"ar": "لِي",                   "tr": "lī",                  "en": "me",                                 "ml": "എനിക്ക്"},
+    "warhamni":         {"ar": "وَارْحَمْنِي",          "tr": "warḥamnī",            "en": "and have mercy on me",               "ml": "എന്നോട് കരുണ കാണിക്കേണമേ"},
+    "wahdini":          {"ar": "وَاهْدِنِي",            "tr": "wahdinī",             "en": "and guide me",                       "ml": "എന്നെ നേർവഴിയിലാക്കേണമേ"},
+    "wajburni":         {"ar": "وَاجْبُرْنِي",          "tr": "wajburnī",            "en": "and mend / enrich me",               "ml": "എന്റെ കുറവുകൾ പരിഹരിക്കേണമേ"},
+    "wa_afini":         {"ar": "وَعَافِنِي",            "tr": "wa 'āfinī",           "en": "and grant me well-being",            "ml": "എനിക്ക് ആരോഗ്യം നൽകേണമേ"},
+    "warzuqni":         {"ar": "وَارْزُقْنِي",          "tr": "warzuqnī",            "en": "and provide for me",                 "ml": "എനിക്ക് ഉപജീവനം നൽകേണമേ"},
+    "warfa_ni":         {"ar": "وَارْفَعْنِي",          "tr": "warfa'nī",            "en": "and elevate / raise me",             "ml": "എന്നെ ഉയർത്തേണമേ"},
+
+    "at_tahiyyatu":     {"ar": "التَّحِيَّاتُ",         "tr": "At-taḥiyyātu",        "en": "All greetings / salutations",         "ml": "എല്ലാ അഭിവാദനങ്ങളും"},
+    "was_salawatu":     {"ar": "وَالصَّلَوَاتُ",        "tr": "waṣ-ṣalawātu",        "en": "and all prayers",                    "ml": "പ്രാർത്ഥനകളും"},
+    "wat_tayyibatu":    {"ar": "وَالطَّيِّبَاتُ",       "tr": "waṭ-ṭayyibātu",       "en": "and all pure / good things",          "ml": "നല്ല കാര്യങ്ങളും"},
+    "as_salamu":        {"ar": "السَّلَامُ",             "tr": "As-salāmu",           "en": "Peace",                              "ml": "സമാധാനം"},
+    "alayka":           {"ar": "عَلَيْكَ",              "tr": "'alayka",             "en": "be upon you",                        "ml": "നിന്റെ മേൽ ഉണ്ടാകട്ടെ"},
+    "ayyuhan_nabiyy":   {"ar": "أَيُّهَا النَّبِيُّ",   "tr": "ayyuhan-nabiyyu",     "en": "O Prophet",                          "ml": "ഓ പ്രവാചകരേ"},
+    "wa_rahmatullahi":  {"ar": "وَرَحْمَةُ اللَّهِ",    "tr": "wa raḥmatullāhi",     "en": "and the mercy of Allah",             "ml": "അല്ലാഹുവിന്റെ കാരുണ്യവും"},
+    "wa_barakatuhu":    {"ar": "وَبَرَكَاتُهُ",         "tr": "wa barakātuhu",       "en": "and His blessings",                  "ml": "അവന്റെ അനുഗ്രഹങ്ങളും"},
+    "as_salamu_alayna": {"ar": "السَّلَامُ عَلَيْنَا",  "tr": "As-salāmu 'alaynā",   "en": "Peace be upon us",                   "ml": "ഞങ്ങളുടെ മേൽ സലാം"},
+    "wa_ala_ibad_salihin": {"ar": "وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ", "tr": "wa 'alā 'ibādillāhiṣ-ṣāliḥīn", "en": "and upon the righteous servants of Allah", "ml": "അല്ലാഹുവിന്റെ സജ്ജനങ്ങളായ അടിമകളിലും"},
+    "ash_hadu_an":      {"ar": "أَشْهَدُ أَنْ",         "tr": "Ash-hadu an",         "en": "I bear witness that",                "ml": "ഞാൻ സാക്ഷ്യം വഹിക്കുന്നു"},
+    "la_ilaha_illallah":{"ar": "لَا إِلَهَ إِلَّا اللَّهُ", "tr": "lā ilāha illallāhu", "en": "there is no deity except Allah",  "ml": "അല്ലാഹു അല്ലാതെ ആരാധ്യനില്ല"},
+    "wa_ash_hadu_anna": {"ar": "وَأَشْهَدُ أَنَّ",      "tr": "wa ash-hadu anna",    "en": "and I bear witness that",            "ml": "ഞാൻ സാക്ഷ്യം വഹിക്കുന്നു"},
+    "muhammadan":       {"ar": "مُحَمَّدًا",            "tr": "Muḥammadan",          "en": "Muhammad",                           "ml": "മുഹമ്മദ് നബി"},
+    "abduhu_wa_rasuluh":{"ar": "عَبْدُهُ وَرَسُولُهُ",  "tr": "'abduhu wa rasūluhu", "en": "is His servant and Messenger",       "ml": "അവന്റെ അടിമയും ദൂതനുമാണ്"},
+
+    "allahumma_salli":  {"ar": "اللَّهُمَّ صَلِّ",      "tr": "Allāhumma ṣalli",     "en": "O Allah, send blessings",            "ml": "അല്ലാഹുവേ, അനുഗ്രഹം ചൊരിയേണമേ"},
+    "ala_muhammadin":   {"ar": "عَلَى مُحَمَّدٍ",       "tr": "'alā Muḥammadin",     "en": "upon Muhammad",                      "ml": "മുഹമ്മദ് നബിക്ക്"},
+    "wa_ala_ali_muh":   {"ar": "وَعَلَى آلِ مُحَمَّدٍ", "tr": "wa 'alā āli Muḥammadin", "en": "and upon the family of Muhammad", "ml": "മുഹമ്മദ് നബിയുടെ കുടുംബത്തിനും"},
+    "kama_sallayta":    {"ar": "كَمَا صَلَّيْتَ",       "tr": "kamā ṣallayta",       "en": "as You sent blessings",              "ml": "നീ അനുഗ്രഹിച്ചതുപോലെ"},
+    "ala_ibrahima":     {"ar": "عَلَى إِبْرَاهِيمَ",   "tr": "'alā Ibrāhīma",       "en": "upon Ibrahim",                       "ml": "ഇബ്രാഹിം നബിക്ക്"},
+    "wa_ala_ali_ib":    {"ar": "وَعَلَى آلِ إِبْرَاهِيمَ", "tr": "wa 'alā āli Ibrāhīma", "en": "and upon the family of Ibrahim", "ml": "ഇബ്രാഹിം കുടുംബത്തിനും"},
+    "innaka_hamid_majid": {"ar": "إِنَّكَ حَمِيدٌ مَجِيدٌ", "tr": "innaka Ḥamīdun Majīd", "en": "Indeed, You are Praiseworthy, Most Glorious", "ml": "തീർച്ചയായും നീ സ്തുത്യർഹനും മഹത്വമുള്ളവനുമാണ്"},
+    "allahumma_barik":  {"ar": "اللَّهُمَّ بَارِكْ",    "tr": "Allāhumma bārik",     "en": "O Allah, bless",                     "ml": "അല്ലാഹുവേ, നന്മ ചൊരിയേണമേ"},
+    "kama_barakta":     {"ar": "كَمَا بَارَكْتَ",       "tr": "kamā bārakta",        "en": "as You blessed",                     "ml": "നീ ചൊരിഞ്ഞതുപോലെ"},
+
+    "allahumma_ighfir": {"ar": "اللَّهُمَّ اغْفِرْ لِي", "tr": "Allāhumma ighfir lī", "en": "O Allah, forgive me",              "ml": "അല്ലാഹുവേ, എനിക്ക് പൊറുത്തുതരേണമേ"},
+    "ma_qaddamtu":      {"ar": "مَا قَدَّمْتُ",          "tr": "mā qaddamtu",         "en": "what I have sent ahead (past sins)", "ml": "ഞാൻ മുൻകൂട്ടി ചെയ്തവ"},
+    "wa_ma_akhkhartu":  {"ar": "وَمَا أَخَّرْتُ",       "tr": "wa mā akhkhartu",     "en": "and what I have left behind (future)","ml": "ഞാൻ പിന്നീടു ചെയ്യുന്നവ"},
+    "wa_ma_asrartu":    {"ar": "وَمَا أَسْرَرْتُ",      "tr": "wa mā asrartu",       "en": "and what I have hidden",             "ml": "ഞാൻ രഹസ്യമായി ചെയ്തവ"},
+    "wa_ma_a_lantu":    {"ar": "وَمَا أَعْلَنْتُ",      "tr": "wa mā a'lantu",       "en": "and what I have declared openly",    "ml": "ഞാൻ പരസ്യമായി ചെയ്തവ"},
+    "wa_ma_asraftu":    {"ar": "وَمَا أَسْرَفْتُ",      "tr": "wa mā asraftu",       "en": "and where I have exceeded",          "ml": "ഞാൻ അതിരുകടന്നവ"},
+    "wa_ma_anta_a_lam": {"ar": "وَمَا أَنْتَ أَعْلَمُ بِهِ مِنِّي", "tr": "wa mā Anta a'lamu bihi minnī", "en": "and what You know better than I do", "ml": "നീ എന്നെക്കാൾ അറിയുന്നവ"},
+    "antal_muqaddim":   {"ar": "أَنْتَ الْمُقَدِّمُ",   "tr": "Antal-Muqaddimu",     "en": "You are the One who brings forward", "ml": "നീ മുന്തിക്കുന്നവൻ"},
+    "wa_antal_muakhkhir": {"ar": "وَأَنْتَ الْمُؤَخِّرُ", "tr": "wa Antal-Mu'akhkhiru", "en": "and You are the One who delays",  "ml": "നീ പിന്തിക്കുന്നവൻ"},
+    "la_ilaha_illa_ant": {"ar": "لَا إِلَهَ إِلَّا أَنْتَ", "tr": "lā ilāha illā Anta", "en": "there is no deity except You",   "ml": "നിന്നെ അല്ലാതെ ആരാധ്യനില്ല"},
+
+    "as_salamu_2":      {"ar": "السَّلَامُ",             "tr": "As-salāmu",           "en": "Peace",                              "ml": "സമാധാനം"},
+    "alaykum":          {"ar": "عَلَيْكُمْ",             "tr": "'alaykum",            "en": "be upon you",                        "ml": "നിങ്ങളുടെ മേൽ ഉണ്ടാകട്ടെ"},
+    "wa_rahmatu":       {"ar": "وَرَحْمَةُ",             "tr": "wa raḥmatu",          "en": "and the mercy",                      "ml": "കാരുണ്യവും"},
+
+    "qul":              {"ar": "قُلْ",                   "tr": "Qul",                 "en": "Say",                                "ml": "പറയുക"},
+    "huwa_allahu":      {"ar": "هُوَ اللَّهُ",           "tr": "huwal-lāhu",          "en": "He is Allah",                        "ml": "അവൻ അല്ലാഹുവാകുന്നു"},
+    "ahad":             {"ar": "أَحَدٌ",                 "tr": "Aḥad",                "en": "One / the Only",                     "ml": "ഏകനാണ്"},
+    "allahus_samad":    {"ar": "اللَّهُ الصَّمَدُ",      "tr": "Allāhuṣ-Ṣamad",       "en": "Allah, the Eternal Refuge",           "ml": "അല്ലാഹു ആശ്രയമായിട്ടുള്ളവൻ"},
+    "lam_yalid":        {"ar": "لَمْ يَلِدْ",            "tr": "lam yalid",           "en": "He neither begets",                  "ml": "അവൻ ജന്മം നൽകിയില്ല"},
+    "wa_lam_yulad":     {"ar": "وَلَمْ يُولَدْ",         "tr": "wa lam yūlad",        "en": "nor was He begotten",                "ml": "ജന്മം നൽകപ്പെട്ടിട്ടുമില്ല"},
+    "lam_yakun_kufuwan": {"ar": "وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ", "tr": "wa lam yakun lahu kufuwan aḥad", "en": "and there is none equal to Him", "ml": "അവന് തുല്യൻ ആരുമില്ല"},
+
+    "a_udhu":           {"ar": "أَعُوذُ",                "tr": "a'ūdhu",              "en": "I seek refuge",                      "ml": "ഞാൻ അഭയം തേടുന്നു"},
+    "bi_rabbil_falaq":  {"ar": "بِرَبِّ الْفَلَقِ",     "tr": "bi-rabbil-falaq",     "en": "in the Lord of the daybreak",        "ml": "പുലരിയുടെ രക്ഷിതാവിനോട്"},
+    "min_sharri_ma_khalaq": {"ar": "مِنْ شَرِّ مَا خَلَقَ", "tr": "min sharri mā khalaqa", "en": "from the evil of what He created", "ml": "അവൻ സൃഷ്ടിച്ചതിന്റെ തിന്മയിൽ"},
+    "wa_min_ghasiq":    {"ar": "وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ", "tr": "wa min sharri ghāsiqin idhā waqab", "en": "and from the evil of darkness when it settles", "ml": "കൂരിരുട്ടിൽ നിന്നുള്ള തിന്മ"},
+    "wa_min_naffathat": {"ar": "وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ", "tr": "wa min sharrin-naffāthāti fil-'uqad", "en": "and from the evil of those who blow on knots", "ml": "കെട്ടുകളിൽ ഊതുന്നവരുടെ"},
+    "wa_min_hasid":     {"ar": "وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ", "tr": "wa min sharri ḥāsidin idhā ḥasad", "en": "and from the evil of an envier when he envies", "ml": "അസൂയക്കാരന്റെ ദ്രോഹം"},
+
+    "bi_rabbin_nas":    {"ar": "بِرَبِّ النَّاسِ",       "tr": "bi-rabbin-nās",       "en": "in the Lord of mankind",             "ml": "മനുഷ്യരുടെ രക്ഷിതാവിനോട്"},
+    "malikin_nas":      {"ar": "مَلِكِ النَّاسِ",        "tr": "malikin-nās",         "en": "the Sovereign of mankind",           "ml": "മനുഷ്യരുടെ രാജാവ്"},
+    "ilahin_nas":       {"ar": "إِلَهِ النَّاسِ",        "tr": "ilāhin-nās",          "en": "the God of mankind",                 "ml": "മനുഷ്യരുടെ ആരാധ്യൻ"},
+    "min_waswas_khannas": {"ar": "مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ", "tr": "min sharril-waswāsil-khannās", "en": "from the evil of the retreating whisperer", "ml": "ദുർബോധനക്കാരന്റെ തിന്മ"},
+    "alladhi_yuwaswis": {"ar": "الَّذِي يُوَسْوِسُ",     "tr": "alladhī yuwaswisu",   "en": "who whispers",                       "ml": "ദുർബോധനം ചെയ്യുന്ന"},
+    "fi_sudurin_nas":   {"ar": "فِي صُدُورِ النَّاسِ",   "tr": "fī ṣudūrin-nās",      "en": "into the hearts of mankind",         "ml": "മനുഷ്യ ഹൃദയങ്ങളിൽ"},
+    "minal_jinnati_wan_nas": {"ar": "مِنَ الْجِنَّةِ وَالنَّاسِ", "tr": "minal-jinnati wan-nās", "en": "from among the jinn and mankind", "ml": "ജിന്നിൽ നിന്നും മനുഷ്യരിൽ നിന്നും"},
+
+    "wal_asr":          {"ar": "وَالْعَصْرِ",            "tr": "Wal-'aṣr",            "en": "By Time / the Epoch",                "ml": "കാലം തന്നെ സത്യം"},
+    "innal_insana":     {"ar": "إِنَّ الْإِنْسَانَ",     "tr": "innal-insāna",        "en": "Indeed mankind",                     "ml": "തീർച്ചയായും മനുഷ്യൻ"},
+    "lafi_khusr":       {"ar": "لَفِي خُسْرٍ",           "tr": "lafī khusr",          "en": "is in loss",                         "ml": "നഷ്ടത്തിലാണ്"},
+    "illal_ladhina":    {"ar": "إِلَّا الَّذِينَ آمَنُوا", "tr": "illal-ladhīna āmanū", "en": "except those who believe",         "ml": "വിശ്വസിച്ചവർ ഒഴികെ"},
+    "wa_amilus_salihat": {"ar": "وَعَمِلُوا الصَّالِحَاتِ", "tr": "wa 'amilus-ṣāliḥāt", "en": "and do righteous deeds",         "ml": "സൽകർമ്മങ്ങൾ ചെയ്തവർ"},
+    "wa_tawasaw_haqq":  {"ar": "وَتَوَاصَوْا بِالْحَقِّ", "tr": "wa tawāṣaw bil-ḥaqq", "en": "and advise one another to truth", "ml": "സത്യം കൊണ്ട് ഉപദേശിച്ചവർ"},
+    "wa_tawasaw_sabr":  {"ar": "وَتَوَاصَوْا بِالصَّبْرِ", "tr": "wa tawāṣaw biṣ-ṣabr", "en": "and advise one another to patience", "ml": "ക്ഷമ കൊണ്ട് ഉപദേശിച്ചവർ"},
+
+    "inna_a_tayna":     {"ar": "إِنَّا أَعْطَيْنَاكَ",   "tr": "Innā a'ṭaynāka",     "en": "Indeed, We have granted you",        "ml": "തീർച്ചയായും നാം നിനക്ക് നൽകിയിരിക്കുന്നു"},
+    "al_kawthar":       {"ar": "الْكَوْثَرَ",            "tr": "al-kawthar",          "en": "Al-Kawthar (abundant good)",          "ml": "കൗഥർ (ധാരാളം നന്മ)"},
+    "fa_salli_li_rabb": {"ar": "فَصَلِّ لِرَبِّكَ",      "tr": "fa-ṣalli li-rabbika", "en": "So pray to your Lord",               "ml": "നിന്റെ രക്ഷിതാവിനായി നമസ്കരിക്കുക"},
+    "wanhar":           {"ar": "وَانْحَرْ",              "tr": "wanḥar",              "en": "and sacrifice",                      "ml": "ബലി അർപ്പിക്കുകയും ചെയ്യുക"},
+    "inna_shania_abtar": {"ar": "إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ", "tr": "inna shāni'aka huwal-abtar", "en": "Indeed, your enemy is the one cut off", "ml": "നിന്നോടു ദ്വേഷ്യം വെക്കുന്നവൻ തന്നെ ഭാവിയില്ലാത്തവൻ"}
+  },
+
   "salah_guide": {
     "schedule": [
-      {"prayer": "Fajr", "time": "Dawn", "sunnah_before": "2 Rak'ahs", "fardh": "2 Rak'ahs", "sunnah_after": "None"},
-      {"prayer": "Dhuhr", "time": "Midday", "sunnah_before": "4 Rak'ahs", "fardh": "4 Rak'ahs", "sunnah_after": "2 Rak'ahs"},
-      {"prayer": "Asr", "time": "Late Afternoon", "sunnah_before": "4 Rak'ahs (Optional)", "fardh": "4 Rak'ahs", "sunnah_after": "None"},
-      {"prayer": "Maghrib", "time": "Just after Sunset", "sunnah_before": "None", "fardh": "3 Rak'ahs", "sunnah_after": "2 Rak'ahs"},
-      {"prayer": "Isha", "time": "Nighttime", "sunnah_before": "None", "fardh": "4 Rak'ahs", "sunnah_after": "2 Rak'ahs"}
+      {"prayer": "Fajr",    "time": "Dawn",              "sunnah_before": "2 Rak'ahs",          "fardh": "2 Rak'ahs", "sunnah_after": "—"},
+      {"prayer": "Dhuhr",   "time": "Midday",             "sunnah_before": "4 Rak'ahs",          "fardh": "4 Rak'ahs", "sunnah_after": "2 Rak'ahs"},
+      {"prayer": "Asr",     "time": "Late Afternoon",     "sunnah_before": "4 (Optional)",        "fardh": "4 Rak'ahs", "sunnah_after": "—"},
+      {"prayer": "Maghrib", "time": "After Sunset",       "sunnah_before": "—",                   "fardh": "3 Rak'ahs", "sunnah_after": "2 Rak'ahs"},
+      {"prayer": "Isha",    "time": "Night",              "sunnah_before": "—",                   "fardh": "4 Rak'ahs", "sunnah_after": "2 Rak'ahs + 3 Witr"}
     ],
     "sections": [
       {
         "id": 1,
-        "title": "1. The Opening (Takbeer & Sana)",
-        "sequence": ["allahu", "akbar", "subhanaka", "allahumma", "wa_bihamdika", "wa_tabaraka", "ismuka", "wa_ta_ala", "jadduka", "wa_la_ilaha", "ghayruka"]
+        "title": "The Opening — Takbeer & Sana",
+        "posture": "Qiyam (Standing)",
+        "posture_icon": "🧍",
+        "sequence": ["allahu","akbar","subhanaka","allahumma","wa_bihamdika","wa_tabaraka","ismuka","wa_taala","jadduka","wa_la_ilaha","ghayruka"],
+        "complete_dua": {
+          "ar": "اللَّهُ أَكْبَرُ ، سُبْحَانَكَ اللَّهُمَّ وَبِحَمْدِكَ ، وَتَبَارَكَ اسْمُكَ ، وَتَعَالَى جَدُّكَ ، وَلَا إِلَهَ غَيْرُكَ",
+          "en": "Allah is the Greatest. Glory be to You, O Allah, and with Your praise; and blessed is Your name, and high is Your majesty, and there is no deity other than You.",
+          "ml": "അല്ലാഹു ഏറ്റവും വലിയവൻ. അല്ലാഹുവേ, നിന്നോടൊപ്പം നിനക്ക് സ്തുതി. നിന്റെ നാമം അനുഗ്രഹീതവും മഹത്വം ഉന്നതവുമാണ്. നിന്നെ അല്ലാതെ ആരാധ്യൻ ഇല്ല."
+        },
+        "notes": [
+          "Say Allāhu Akbar aloud — this Takbeer opens the prayer.",
+          "The 'h' in Allāhu comes from deep in the throat — not a soft English 'h'.",
+          "Do not stretch the 'ba' in Akbar — keep it short and crisp.",
+          "The Sana (Thana) is recited silently after Takbeer, in the first rak'ah only."
+        ]
       },
       {
         "id": 2,
-        "title": "2. Surah Al-Fatihah",
-        "sequence": ["bismi", "llahi", "ar_rahman", "ar_raheem", "alhamdu", "lillahi", "rabbi", "al_alamin", "ar_rahman", "ar_raheem", "maliki", "yawmi", "ad_deen", "iyyaka", "na_budu", "wa_iyyaka", "nasta_een", "ihdina", "as_sirata", "al_mustaqim", "sirata", "alladhina", "an_amta", "alayhim", "ghayri", "al_maghdubi", "alayhim", "wa_la", "ad_dallin"]
+        "title": "Alternative Opening — Wajjahtu (Extended)",
+        "posture": "Qiyam (Standing)",
+        "posture_icon": "🧍",
+        "sequence": ["wajjahtu","wajhiya","lilladhi","fatara","as_samawati","wal_arda","hanifan","wa_ma_ana","minal_mushrikeen","inna_salati","wa_nusuki","wa_mahyaya","wa_mamati","lillahi_rabbil","la_sharika_lahu","wa_bidhalika_umirtu","wa_ana_min_muslimeen"],
+        "complete_dua": {
+          "ar": "وَجَّهْتُ وَجْهِيَ لِلَّذِي فَطَرَ السَّمَاوَاتِ وَالْأَرْضَ حَنِيفًا وَمَا أَنَا مِنَ الْمُشْرِكِينَ ، إِنَّ صَلَاتِي وَنُسُكِي وَمَحْيَايَ وَمَمَاتِي لِلَّهِ رَبِّ الْعَالَمِينَ ، لَا شَرِيكَ لَهُ ، وَبِذَلِكَ أُمِرْتُ وَأَنَا مِنَ الْمُسْلِمِينَ",
+          "en": "I have directed my face to the One who created the heavens and the earth, inclining to truth, and I am not of the polytheists. Indeed my prayer, my worship, my living and my dying are all for Allah, Lord of the worlds — He has no partner. With this I am commanded, and I am of the Muslims.",
+          "ml": "ഞാൻ ആകാശ ഭൂമി സൃഷ്ടിച്ചവനിലേക്ക് നേരായ നിലയിൽ മുഖം തിരിക്കുന്നു. ഞാൻ ബഹുദൈവ വിശ്വാസികളിൽ പെട്ടവനല്ല. എന്റെ നമസ്കാരവും ജീവിതവും മരണവും ലോകങ്ങളുടെ രക്ഷിതാവ് അല്ലാഹുവിനാകുന്നു."
+        },
+        "notes": [
+          "This is an alternative, longer opening du'a. Most commonly the shorter Sana is used.",
+          "Ḥanīfan — the 'ḥ' is a strong throat sound, not soft like English 'h'.",
+          "Recited silently after Takbeer-ul-Ihram."
+        ]
       },
       {
         "id": 3,
-        "title": "3. Ruku & Standing Up",
-        "sequence": ["subhana", "rabbiyal", "al_azeem", "sami_a", "allahu", "liman", "hamidah", "rabbana", "wa_lakal", "al_hamd"]
+        "title": "Surah Al-Fatihah — The Opening Chapter (1)",
+        "posture": "Qiyam (Standing)",
+        "posture_icon": "🧍",
+        "sequence": ["bismi","llahi","ar_rahman","ar_raheem","alhamdu","lillahi","rabbi","al_alamin","ar_rahman_ar_raheem","maliki","yawmi","ad_deen","iyyaka","na_budu","wa_iyyaka","nasta_een","ihdina","as_sirata","al_mustaqim","sirata","alladhina","an_amta","alayhim","ghayri","al_maghdubi","alayhim","wa_la_ad_dallin"],
+        "complete_dua": {
+          "ar": "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ۝ الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ ۝ الرَّحْمَنِ الرَّحِيمِ ۝ مَالِكِ يَوْمِ الدِّينِ ۝ إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ ۝ اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ ۝ صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+          "en": "In the name of Allah, the Most Gracious, the Most Merciful. All praise is for Allah, Lord of all the worlds, the Most Gracious, the Most Merciful, Master of the Day of Judgment. You alone we worship, and from You alone we seek help. Guide us to the straight path — the path of those You have blessed, not of those who earned anger, nor of those who went astray.",
+          "ml": "അല്ലാഹുവിന്റെ നാമത്തിൽ, പരമകാരുണികനും കരുണാനിധിയുമായ. സർവ്വ സ്തുതിയും ലോകങ്ങളുടെ രക്ഷിതാവ് അല്ലാഹുവിനാകുന്നു. നിന്നെ മാത്രം ഞങ്ങൾ ആരാധിക്കുന്നു, നിന്നോട് മാത്രം സഹായം തേടുന്നു. നേർവഴിയിൽ നയിക്കേണമേ."
+        },
+        "notes": [
+          "Al-Fatihah is recited in every rak'ah — it is a pillar of Salah.",
+          "The 'ḍ' in الضَّالِّينَ is a unique heavy sound — practice it carefully.",
+          "Stretch long vowels (ā sounds) for 2 counts: Raḥmāān, Raḥīīm, Māāliki.",
+          "Say Āmeen quietly (Hanafi) or aloud (Shafi'i/Hanbali) after finishing.",
+          "In Fajr, Maghrib, and Isha, the Imam recites aloud — listen and follow."
+        ]
       },
       {
         "id": 4,
-        "title": "4. Sujood (Prostration)",
-        "sequence": ["subhana", "rabbiyal", "al_ala"]
+        "title": "Ruku (Bowing) & Standing Up",
+        "posture": "Ruku → I'tidal",
+        "posture_icon": "🙇",
+        "sequence": ["subhana","rabbiyal","al_azeem","sami_a","liman_hamidah","rabbana","wa_lakal_hamd"],
+        "complete_dua": {
+          "ar": "سُبْحَانَ رَبِّيَ الْعَظِيمِ (×3) ← سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ → رَبَّنَا وَلَكَ الْحَمْدُ",
+          "en": "Glory be to my Lord, the Most Great. (×3) — Allah hears those who praise Him. → Our Lord, and to You belongs all praise.",
+          "ml": "മഹാനായ എന്റെ രക്ഷിതാവിന് സ്തുതി. (3 തവണ) — അല്ലാഹു സ്തുതിക്കുന്നവരെ കേൾക്കുന്നു. → ഞങ്ങളുടെ രക്ഷിതാവേ, സർവ്വ സ്തുതി നിനക്ക്."
+        },
+        "notes": [
+          "Recite سُبْحَانَ رَبِّيَ الْعَظِيمِ a minimum of 3 times while bowing.",
+          "Your back should be flat like a table in Ruku.",
+          "The Imam says Sami'a Allāhu aloud; you respond silently with Rabbanā wa lakal-ḥamd."
+        ]
       },
       {
         "id": 5,
-        "title": "5. Sitting Between Sujoods",
-        "sequence": ["rabbi", "ighfir", "li", "warhamni", "wahdini", "warzuqni"]
+        "title": "Extended Praise After Ruku — Mil'as-samawati",
+        "posture": "I'tidal (Standing)",
+        "posture_icon": "🧍",
+        "sequence": ["rabbana","wa_lakal_hamd","mil_a","was_samawati","wa_mil_al_ardi","wa_mil_a_ma","shi_ta","min_shay_ba_du"],
+        "complete_dua": {
+          "ar": "رَبَّنَا لَكَ الْحَمْدُ مِلْءَ السَّمَاوَاتِ وَمِلْءَ الْأَرْضِ وَمِلْءَ مَا شِئْتَ مِنْ شَيْءٍ بَعْدُ",
+          "en": "Our Lord, to You belongs all praise, filling the heavens, filling the earth, and filling whatever else You will.",
+          "ml": "ഞങ്ങളുടെ രക്ഷിതാവേ, ആകാശങ്ങൾ നിറഞ്ഞ, ഭൂമി നിറഞ്ഞ, നീ ഇഛിക്കുന്നത് നിറഞ്ഞ സ്തുതി നിനക്കാണ്."
+        },
+        "notes": [
+          "Recited silently while standing straight after Ruku (I'tidal).",
+          "This is a Sunnah du'a — a beautiful addition after rising from Ruku."
+        ]
       },
       {
         "id": 6,
-        "title": "6. Tashahhud (Attahiyat)",
-        "sequence": ["at_tahiyyatu", "lillahi", "was_salawatu", "wat_tayyibatu", "as_salamu", "alayka", "ayyuha", "an_nabiyyu", "wa_rahmatu", "llahi", "wa_barakatuhu", "as_salamu", "alayna", "wa_ala", "ibadi", "llahi", "as_saliheen", "ash_hadu", "an", "wa_la_ilaha", "illa", "allahu", "wa_ash_hadu", "anna", "muhammadan", "abduhu", "wa_rasuluh"]
+        "title": "Sujood — Prostration",
+        "posture": "Sajdah (Prostration)",
+        "posture_icon": "🕌",
+        "sequence": ["subhana","rabbiyal","al_ala"],
+        "complete_dua": {
+          "ar": "سُبْحَانَ رَبِّيَ الْأَعْلَى (×3)",
+          "en": "Glory be to my Lord, the Most High. (×3)",
+          "ml": "അത്യുന്നതനായ എന്റെ രക്ഷിതാവിന് സ്തുതി. (3 തവണ)"
+        },
+        "notes": [
+          "Recite at least 3 times. The Sujood is the closest you are to Allah — make du'a here!",
+          "Seven body parts must touch the floor: forehead+nose, both palms, both knees, both feet.",
+          "Stretch the final 'ā' in A'lā — al-A'lāā (2 counts)."
+        ]
       },
       {
         "id": 7,
-        "title": "7. Durood (Salawat)",
-        "sequence": ["allahumma", "salli", "ala", "muhammadin", "wa_ala", "ali", "muhammadin", "kama", "sallayta", "ala", "ibrahima", "wa_ala", "ali", "ibrahima", "innaka", "hameedun", "majeedun", "allahumma", "barik", "ala", "muhammadin", "wa_ala", "ali", "muhammadin", "kama", "barakta", "ala", "ibrahima", "wa_ala", "ali", "ibrahima", "innaka", "hameedun", "majeedun"]
+        "title": "Sitting Between Two Sujoods — Rabbighfir li",
+        "posture": "Jalsah (Sitting)",
+        "posture_icon": "🪑",
+        "sequence": ["rabbi","ighfir","li","warhamni","wahdini","wajburni","wa_afini","warzuqni","warfa_ni"],
+        "complete_dua": {
+          "ar": "رَبِّ اغْفِرْ لِي ، وَارْحَمْنِي ، وَاهْدِنِي ، وَاجْبُرْنِي ، وَعَافِنِي ، وَارْزُقْنِي ، وَارْفَعْنِي",
+          "en": "O my Lord, forgive me, have mercy on me, guide me, mend me, grant me well-being, provide for me, and elevate me.",
+          "ml": "എന്റെ രക്ഷിതാവേ, പൊറുത്തുതരേണമേ, കരുണ കാണിക്കേണമേ, നേർവഴിയിലാക്കേണമേ, കുറവുകൾ പരിഹരിക്കേണമേ, ആരോഗ്യം നൽകേണമേ, ഉപജീവനം നൽകേണമേ, ഉയർത്തേണമേ."
+        },
+        "notes": [
+          "Recited while sitting between the two prostrations.",
+          "Each phrase is a complete du'a — think of the meaning as you say it."
+        ]
       },
       {
         "id": 8,
-        "title": "8. Tasleem",
-        "sequence": ["as_salamu", "alaykum", "wa_rahmatu", "llahi"]
+        "title": "Tashahhud — Attahiyyat (The Sitting)",
+        "posture": "Qa'dah (Sitting)",
+        "posture_icon": "🪑",
+        "sequence": ["at_tahiyyatu","lillahi","was_salawatu","wat_tayyibatu","as_salamu","alayka","ayyuhan_nabiyy","wa_rahmatullahi","wa_barakatuhu","as_salamu_alayna","wa_ala_ibad_salihin","ash_hadu_an","la_ilaha_illallah","wa_ash_hadu_anna","muhammadan","abduhu_wa_rasuluh"],
+        "complete_dua": {
+          "ar": "التَّحِيَّاتُ لِلَّهِ وَالصَّلَوَاتُ وَالطَّيِّبَاتُ ، السَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللَّهِ وَبَرَكَاتُهُ ، السَّلَامُ عَلَيْنَا وَعَلَى عِبَادِ اللَّهِ الصَّالِحِينَ ، أَشْهَدُ أَنْ لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ",
+          "en": "All greetings, prayers, and pure words are for Allah. Peace be upon you, O Prophet, and the mercy of Allah and His blessings. Peace be upon us and upon all the righteous servants of Allah. I bear witness that there is no deity except Allah, and I bear witness that Muhammad is His servant and Messenger.",
+          "ml": "എല്ലാ അഭിവാദനങ്ങളും പ്രാർത്ഥനകളും നല്ല കാര്യങ്ങളും അല്ലാഹുവിനുള്ളതാണ്. ഓ പ്രവാചകരേ, നിങ്ങൾക്ക് അല്ലാഹുവിന്റെ കരുണ ഉണ്ടാകട്ടെ. ഞങ്ങൾക്കും സജ്ജനങ്ങൾക്കും സലാം."
+        },
+        "notes": [
+          "Raise your right index finger slightly when saying لَا إِلَهَ إِلَّا اللَّهُ.",
+          "Recited in every sitting — after the 2nd rak'ah and the final rak'ah.",
+          "Memorise this one early — it appears in every single prayer."
+        ]
       },
       {
         "id": 9,
-        "title": "9. Surah Al-Ikhlas",
-        "sequence": ["qul", "huwa", "allahu", "ahad", "allahu", "as_samad", "lam", "yalid", "wa_lam", "yulad", "wa_lam", "yakun", "lahu", "kufuwan", "ahad"]
+        "title": "Durood — Salawat (Sending Blessings)",
+        "posture": "Qa'dah (Final Sitting)",
+        "posture_icon": "🪑",
+        "sequence": ["allahumma_salli","ala_muhammadin","wa_ala_ali_muh","kama_sallayta","ala_ibrahima","wa_ala_ali_ib","innaka_hamid_majid","allahumma_barik","ala_muhammadin","wa_ala_ali_muh","kama_barakta","ala_ibrahima","wa_ala_ali_ib","innaka_hamid_majid"],
+        "complete_dua": {
+          "ar": "اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ ، اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ",
+          "en": "O Allah, send blessings upon Muhammad and the family of Muhammad, as You sent blessings upon Ibrahim and the family of Ibrahim — indeed You are Praiseworthy, Most Glorious. O Allah, bless Muhammad and the family of Muhammad, as You blessed Ibrahim and the family of Ibrahim — indeed You are Praiseworthy, Most Glorious.",
+          "ml": "അല്ലാഹുവേ, ഇബ്‌റാഹിം നബിക്കും കുടുംബത്തിനും ചൊരിഞ്ഞ അനുഗ്രഹം മുഹമ്മദ് നബിക്കും കുടുംബത്തിനും ചൊരിയേണമേ. തീർച്ചയായും നീ സ്തുത്യർഹനും മഹത്വമുള്ളവനുമാണ്."
+        },
+        "notes": []
       },
       {
         "id": 10,
-        "title": "10. Surah Al-Falaq",
-        "sequence": ["qul", "a_udhu", "bi_rabbi", "al_falaq", "min", "sharri", "ma", "khalaqa", "wa_min", "sharri", "ghasiqin", "idha", "waqab", "wa_min", "sharri", "an_naffathati", "fi", "al_uqad", "wa_min", "sharri", "hasidin", "idha", "hasada"]
+        "title": "Dua Before Tasleem — Allahummaghfirli",
+        "posture": "Qa'dah (Final Sitting)",
+        "posture_icon": "🪑",
+        "sequence": ["allahumma_ighfir","ma_qaddamtu","wa_ma_akhkhartu","wa_ma_asrartu","wa_ma_a_lantu","wa_ma_asraftu","wa_ma_anta_a_lam","antal_muqaddim","wa_antal_muakhkhir","la_ilaha_illa_ant"],
+        "complete_dua": {
+          "ar": "اللَّهُمَّ اغْفِرْ لِي مَا قَدَّمْتُ وَمَا أَخَّرْتُ وَمَا أَسْرَرْتُ وَمَا أَعْلَنْتُ وَمَا أَسْرَفْتُ وَمَا أَنْتَ أَعْلَمُ بِهِ مِنِّي ، أَنْتَ الْمُقَدِّمُ وَأَنْتَ الْمُؤَخِّرُ لَا إِلَهَ إِلَّا أَنْتَ",
+          "en": "O Allah, forgive me for what I have sent ahead, what I have left behind, what I have hidden, what I have declared openly, where I have exceeded, and what You know better than I do. You are the One who brings forward and the One who delays. There is no deity except You.",
+          "ml": "അല്ലാഹുവേ, ഞാൻ ചെയ്ത പഴയ, ഭാവി, രഹസ്യ, പരസ്യ, അതിരുകടന്ന, നിനക്ക് അറിയുന്ന എല്ലാ പാപങ്ങളും പൊറുത്തുതരേണമേ. നിന്നെ അല്ലാതെ ആരാധ്യനില്ല."
+        },
+        "notes": [
+          "This comprehensive du'a covers all categories of sins — past, future, hidden, public, excess.",
+          "Recited in the final sitting before turning for Tasleem."
+        ]
       },
       {
         "id": 11,
-        "title": "11. Surah An-Nas",
-        "sequence": ["qul", "a_udhu", "bi_rabbi", "an_nas", "maliki", "an_nas", "ilahi", "an_nas", "min", "sharri", "al_waswas", "al_khannas", "alladhi", "yuwaswisu", "fi", "suduri", "an_nas", "mina", "al_jinnati", "wan_nas"]
+        "title": "Tasleem — The Conclusion",
+        "posture": "Final Sitting → Conclude",
+        "posture_icon": "🔚",
+        "sequence": ["as_salamu_2","alaykum","wa_rahmatu","llahi"],
+        "complete_dua": {
+          "ar": "السَّلَامُ عَلَيْكُمْ وَرَحْمَةُ اللَّهِ",
+          "en": "Peace be upon you and the mercy of Allah. (Turn right, then left.)",
+          "ml": "നിങ്ങൾക്ക് അല്ലാഹുവിന്റെ സലാമും കാരുണ്യവും ഉണ്ടാകട്ടെ. (വലത്, ഇടത്)"
+        },
+        "notes": [
+          "Turn your head to the right first, then to the left — this ends the prayer.",
+          "Congratulations — you have completed a rak'ah! 🌟"
+        ]
       },
       {
         "id": 12,
-        "title": "12. Surah Al-Asr",
-        "sequence": ["wal_asr", "inna", "al_insana", "lafi", "khusr", "illa", "alladhina", "amanu", "wa_amilu", "as_salihati", "wa_tawasaw", "bil_haqqi", "wa_tawasaw", "bis_sabr"]
+        "title": "Surah Al-Ikhlas — Pure Sincerity (112)",
+        "posture": "After Al-Fatihah",
+        "posture_icon": "📖",
+        "sequence": ["qul","huwa_allahu","ahad","allahus_samad","lam_yalid","wa_lam_yulad","lam_yakun_kufuwan"],
+        "complete_dua": {
+          "ar": "قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ",
+          "en": "Say: He is Allah, the One. Allah, the Eternal Refuge. He neither begets nor was He begotten, and there is none equal to Him.",
+          "ml": "പറയുക: അവൻ അല്ലാഹുവാകുന്നു, ഏകൻ. ആശ്രയമായിട്ടുള്ളവൻ. ജന്മം നൽകിയില്ല, ജന്മം നൽകപ്പെട്ടിട്ടുമില്ല, അവന് തുല്യൻ ആരുമില്ല."
+        },
+        "notes": [
+          "Reciting this Surah once equals 1/3 of the Quran in reward. Recite 3× for the full Quran's reward!",
+          "Aṣ-Ṣamad — Allah needs nobody; everything needs Him."
+        ]
       },
       {
         "id": 13,
-        "title": "13. Surah Al-Kawtar",
-        "sequence": ["inna_we", "a_taynaka", "al_kawtar", "fa_salli", "li_rabbika", "wanhar", "inna", "shani_aka", "huwa", "al_abtar"]
+        "title": "Surah Al-Falaq — The Daybreak (113)",
+        "posture": "After Al-Fatihah",
+        "posture_icon": "📖",
+        "sequence": ["qul","a_udhu","bi_rabbil_falaq","min_sharri_ma_khalaq","wa_min_ghasiq","wa_min_naffathat","wa_min_hasid"],
+        "complete_dua": {
+          "ar": "قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِنْ شَرِّ مَا خَلَقَ ۝ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ",
+          "en": "Say: I seek refuge in the Lord of the daybreak, from the evil of what He created, and from the evil of darkness when it settles, and from the evil of those who blow on knots, and from the evil of an envier when he envies.",
+          "ml": "പറയുക: ഞാൻ പുലരിയുടെ രക്ഷിതാവിനോട് അഭയം തേടുന്നു, അവൻ സൃഷ്ടിച്ചതിന്റെ തിന്മയിൽ നിന്നും, കൂരിരുട്ടിൽ നിന്നും, കെട്ടുകളിൽ ഊതുന്നവരിൽ നിന്നും, അസൂയക്കാരന്റെ ദ്രോഹത്തിൽ നിന്നും."
+        },
+        "notes": []
+      },
+      {
+        "id": 14,
+        "title": "Surah An-Nas — Mankind (114)",
+        "posture": "After Al-Fatihah",
+        "posture_icon": "📖",
+        "sequence": ["qul","a_udhu","bi_rabbin_nas","malikin_nas","ilahin_nas","min_waswas_khannas","alladhi_yuwaswis","fi_sudurin_nas","minal_jinnati_wan_nas"],
+        "complete_dua": {
+          "ar": "قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَهِ النَّاسِ ۝ مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ",
+          "en": "Say: I seek refuge in the Lord of mankind, the Sovereign of mankind, the God of mankind, from the evil of the retreating whisperer who whispers into the hearts of mankind — from among the jinn and mankind.",
+          "ml": "പറയുക: മനുഷ്യരുടെ രക്ഷിതാവ്, രാജാവ്, ആരാധ്യനോട് ഞാൻ അഭയം തേടുന്നു — ദുർബോധനം ചെയ്ത് പിൻവലിയുന്ന ശൈത്വാൻ്റെ തിന്മയിൽ നിന്ന്."
+        },
+        "notes": []
+      },
+      {
+        "id": 15,
+        "title": "Surah Al-Asr — The Time (103)",
+        "posture": "After Al-Fatihah",
+        "posture_icon": "📖",
+        "sequence": ["wal_asr","innal_insana","lafi_khusr","illal_ladhina","wa_amilus_salihat","wa_tawasaw_haqq","wa_tawasaw_sabr"],
+        "complete_dua": {
+          "ar": "وَالْعَصْرِ ۝ إِنَّ الْإِنْسَانَ لَفِي خُسْرٍ ۝ إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ",
+          "en": "By Time! Indeed mankind is in loss — except those who believe, do righteous deeds, and advise one another to truth and to patience.",
+          "ml": "കാലം സത്യം! മനുഷ്യൻ നഷ്ടത്തിലാണ് — വിശ്വസിക്കുകയും സൽകർമ്മം ചെയ്യുകയും സത്യവും ക്ഷമയും കൊണ്ട് ഉപദേശിക്കുകയും ചെയ്തവർ ഒഴികെ."
+        },
+        "notes": [
+          "Imam Ash-Shafi'i said: if people pondered this Surah alone, it would suffice them.",
+          "Four qualities of the successful believer — in three short verses."
+        ]
+      },
+      {
+        "id": 16,
+        "title": "Surah Al-Kawtar — Abundance (108)",
+        "posture": "After Al-Fatihah",
+        "posture_icon": "📖",
+        "sequence": ["inna_a_tayna","al_kawthar","fa_salli_li_rabb","wanhar","inna_shania_abtar"],
+        "complete_dua": {
+          "ar": "إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ ۝ فَصَلِّ لِرَبِّكَ وَانْحَرْ ۝ إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ",
+          "en": "Indeed, We have granted you Al-Kawthar. So pray to your Lord and sacrifice. Indeed, your enemy is the one who is cut off.",
+          "ml": "തീർച്ചയായും നാം നിനക്ക് കൗഥർ നൽകിയിരിക്കുന്നു. നിന്റെ രക്ഷിതാവിനായി നമസ്കരിക്കുക, ബലി അർപ്പിക്കുക. നിന്നോടു ദ്വേഷ്യം വെക്കുന്നവൻ തന്നെ ഭാവിയില്ലാത്തവൻ."
+        },
+        "notes": [
+          "Shortest Surah in the Quran — only 3 verses.",
+          "Al-Kawthar is a river in Jannah granted to Prophet Muhammad ﷺ."
+        ]
       }
     ]
   }
