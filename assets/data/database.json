@@ -1,11 +1,53 @@
 {
   "meta": {
     "project": "Project Dua",
+    "module": "salah",
     "version": "1.0.0",
-    "description": "Master database for all Islamic learning content. global_dictionary contains every unique word/phrase keyed by ID. Sections reference keys so the same word can be reused across Salah, Quran, Ablution modules without duplication.",
-    "languages": ["ar", "tr", "en", "ml"],
-    "language_names": {"ar": "Arabic", "tr": "Transliteration", "en": "English", "ml": "Malayalam"}
-  },
+    "description": "Master database for the Salah learning module. global_dictionary holds every unique Arabic word keyed by ID. Sections reference those keys — so the same word is stored once and shared across all modules (salah, ablution, quran). Edit one entry and it updates everywhere.",
+    "developer": {
+      "name": "Nawavazhi",
+      "email": "nawavazhi@gmail.com",
+      "github": "https://github.com/nawavazhi",
+      "mission": "Nawavazhi (നവവഴി — New Path) is a mission of building practical tools — engineering software, apps, games, learning platforms, and utilities — that the developer uses daily and shares freely so others can benefit. This Salah guide is one such tool."
+    },
+    "repository": "https://github.com/nawavazhi/dua",
+    "live_url": "https://nawavazhi.github.io/dua/salah/",
+    "license": "MIT",
+    "languages": {
+      "ar": "Arabic (with full Uthmani diacritics)",
+      "tr": "Transliteration (Latin script, academic standard)",
+      "en": "English",
+      "ml": "Malayalam (മലയാളം)"
+    },
+    "translation_sources": {
+      "quran_english": "Saheeh International / Hilali & Khan — via quran.com and corpus.quran.com",
+      "quran_malayalam": "Abdul Hameed Madani & Parappur / Karakunnu & Elayavur — verify via quranwbw.com (set language to Malayalam)",
+      "prayer_duas_english": "Authenticated Hadith narrations from Sahih Bukhari, Sahih Muslim, Abu Dawud, Tirmidhi — via sunnah.com",
+      "prayer_duas_malayalam": "Verify against IPH (Islamic Publishing House, Kozhikode), SAMASTHA publications, or Niche of Truth (Satyamarga) materials",
+      "arabic_text": "Uthmani Quran script — King Fahd Complex standard (Medina Mushaf). Hadith text from authenticated collections."
+    },
+    "translation_audit_status": {
+      "arabic": "verified — matches Medina Mushaf and authenticated Hadith text",
+      "transliteration": "verified — standard academic notation",
+      "english_quran": "verified — consistent with major English translations",
+      "english_duas": "verified — consistent with authenticated Hadith English translations",
+      "malayalam_quran": "largely verified — standard Kerala Islamic vocabulary; cross-check Quranic words at quranwbw.com",
+      "malayalam_duas": "needs_review — follows common Kerala Islamic usage but should be reviewed by a Kerala Islamic scholar before wide publication",
+      "notes": "Malayalam word-level translations for non-Quranic prayers (Sana, Wajjahtu, Tashahhud, Durood, etc.) should be verified against IPH or SAMASTHA publications. Quranic Surahs should be verified word-by-word at quranwbw.com with language set to Malayalam."
+    },
+    "hadith_references": {
+      "sana": "Abu Dawud 775, Tirmidhi 243",
+      "wajjahtu": "Sahih Muslim 771",
+      "ruku": "Sahih Muslim 772",
+      "mil_as_samawati": "Sahih Muslim 476",
+      "sujood": "Sahih Muslim 772",
+      "rabbighfir_li": "Abu Dawud 850, Ibn Majah 898",
+      "tashahhud": "Sahih Bukhari 6265, Sahih Muslim 402",
+      "durood_ibrahim": "Sahih Bukhari 3370, Sahih Muslim 406",
+      "dua_before_tasleem": "Sahih Muslim 771"
+    }
+  }
+}
 
   "global_dictionary": {
 
