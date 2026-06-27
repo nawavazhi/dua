@@ -1,173 +1,66 @@
-/* --- Global Variables & Reset --- */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600&display=swap');
+
 :root {
-    --primary-color: #1f4e3d;
-    --secondary-color: #c79c60;
-    --bg-color: #f4f7f6;
-    --card-bg: #ffffff;
-    --text-color: #333333;
-    --arabic-font: 'Amiri', serif;
+    --primary: #1f4e3d;
+    --secondary: #c79c60;
+    --bg-light: #f4f7f6;
+    --surface: #ffffff;
+    --text: #333333;
+    --text-light: #555555;
 }
 
-/* Night Mode Colors (Toggled via JS) */
-body.dark-mode {
-    --bg-color: #121212;
-    --card-bg: #1e1e1e;
-    --text-color: #e0e0e0;
-    --primary-color: #2a6953;
+body { 
+    font-family: 'Inter', 'Segoe UI', sans-serif; 
+    background-color: var(--bg-light); 
+    color: var(--text);
+    margin: 0; padding: 0; line-height: 1.5;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    transition: background-color 0.3s, color 0.3s;
+header {
+    background-color: var(--primary); color: white;
+    padding: 20px 15px; text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* --- App Header --- */
-.app-header {
-    background-color: var(--primary-color);
-    color: white;
-    text-align: center;
-    padding: 20px;
-    position: relative;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-#theme-toggle {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    background: transparent;
-    border: 1px solid white;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-/* --- Layout & Cards (Responsive) --- */
-.container {
-    max-width: 1000px;
-    margin: 20px auto;
-    padding: 0 15px;
-}
+.container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
 
 .card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    margin-bottom: 30px;
-    padding: 25px;
-    transition: background 0.3s;
+    background: var(--surface); border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    margin-bottom: 25px; padding: 20px;
 }
 
-.card-header {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--secondary-color);
-    padding-bottom: 10px;
+h2 { 
+    color: var(--primary); font-size: 1.25rem; margin-top: 0;
+    border-left: 4px solid var(--secondary); padding-left: 10px; 
 }
 
-h2 { color: var(--primary-color); font-size: 1.5rem; }
+.table-responsive { width: 100%; overflow-x: auto; }
 
-/* --- Posture Illustrations --- */
-.posture-illustration {
-    text-align: center;
-    margin: 10px 0;
-}
-.posture-illustration img {
-    height: 80px; /* Adjust based on your SVGs */
-    opacity: 0.8;
-}
-.illustration-caption {
-    font-size: 0.8rem;
-    color: #666;
-    font-style: italic;
-}
+table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 500px; }
+th { background-color: var(--primary); color: white; padding: 10px; text-align: left; }
+td { border-bottom: 1px solid #eee; padding: 10px; vertical-align: middle; }
+tr:nth-child(even) { background-color: #fafafa; }
 
-/* --- Responsive Tables --- */
-.table-responsive {
-    overflow-x: auto; /* Allows horizontal scrolling on very small phones */
-}
-
-.salah-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 600px; /* Forces table to hold its shape, scrollable on mobile */
-}
-
-.salah-table th { background-color: var(--primary-color); color: white; padding: 12px; text-align: left; }
-.salah-table td { border-bottom: 1px solid #ddd; padding: 12px; vertical-align: middle; }
-
-/* --- Typography --- */
-.arabic { font-family: var(--arabic-font); font-size: 1.8rem; text-align: right; direction: rtl; color: var(--primary-color); }
-.trans { font-style: italic; color: #555; }
-.eng { font-weight: bold; }
-.malayalam { font-size: 0.95rem; }
-
-/* --- Interactive Elements --- */
-.audio-btn {
-    background: #eef2f0;
-    border: none;
-    border-radius: 50%;
-    padding: 8px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    margin-right: 10px;
-    transition: background 0.2s;
-}
-.audio-btn:hover { background: #d0ded7; }
-
-.complete-dua-section {
-    margin-top: 25px;
-    padding: 15px;
-    background: rgba(199, 156, 96, 0.1); /* Subtle secondary color background */
-    border-radius: 8px;
-}
+.arabic { font-family: 'Amiri', serif; font-size: 1.6rem; text-align: right; direction: rtl; color: var(--primary); }
+.trans { font-style: italic; color: var(--text-light); }
+.eng { font-weight: 600; }
+.malayalam { font-size: 0.85rem; }
 
 .print-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    border-radius: 30px;
-    font-size: 1.1rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    cursor: pointer;
-    z-index: 1000;
+    background-color: var(--primary); color: white; border: none;
+    width: 56px; height: 56px; font-size: 1.5rem; border-radius: 50%;
+    cursor: pointer; position: fixed; bottom: 20px; right: 20px;
+    box-shadow: 0 4px 15px rgba(31, 78, 61, 0.4); z-index: 1000;
 }
 
-/* --- Mobile Specific Tweaks --- */
-@media (max-width: 600px) {
-    .app-header h1 { font-size: 1.5rem; }
-    #theme-toggle { top: 10px; right: 10px; font-size: 0.8rem; }
-    .card { padding: 15px; }
-    .salah-table th, .salah-table td { padding: 8px; }
-    .arabic { font-size: 1.5rem; } /* Slightly smaller Arabic on phones */
-}
-
-/* --- A4 Print Mode Rules --- */
+/* Print settings for A4 */
 @media print {
-    body { background: white !important; margin: 0; padding: 0; }
-    .web-only { display: none !important; }
-    .container { margin: 0; max-width: 100%; padding: 0; }
-    .card { 
-        box-shadow: none; 
-        border: none; 
-        margin: 0; 
-        padding: 0; 
-        page-break-after: always; /* Forces 1 section per A4 page */
-    }
-    /* Ensure table fits A4 width */
-    .salah-table { min-width: 100%; font-size: 10pt; }
-    .arabic { font-size: 16pt; }
+    body { background-color: white; color: black; }
+    .container { max-width: 100%; margin: 0; padding: 0; }
+    .card { box-shadow: none; border-radius: 0; padding: 10px 0; page-break-inside: avoid; }
+    .print-btn { display: none; }
+    .arabic { color: black; }
+    th { background-color: #eee; color: black; border: 1px solid #ccc; }
+    td { border: 1px solid #ccc; }
 }
