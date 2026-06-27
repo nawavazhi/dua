@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salah Guide - Project Dua Demo</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600&display=swap');
+    
+    :root {
+        --primary: #1f4e3d;
+        --secondary: #c79c60;
+        --bg-light: #f4f7f6;
+        --surface: #ffffff;
+        --text: #333333;
+        --text-light: #555555;
+    }
+
+    body { 
+        font-family: 'Inter', 'Segoe UI', sans-serif; 
+        background-color: var(--bg-light); 
+        color: var(--text);
+        margin: 0; 
+        padding: 0;
+        line-height: 1.5;
+    }
+
+    header {
+        background-color: var(--primary);
+        color: white;
+        padding: 20px 15px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 { margin: 0; font-size: 1.5rem; }
+    header p { margin: 5px 0 0 0; font-size: 0.9rem; opacity: 0.9; }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    .card {
+        background: var(--surface);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        margin-bottom: 25px;
+        padding: 20px;
+        overflow: hidden;
+    }
+
+    h2 { 
+        color: var(--primary); 
+        font-size: 1.25rem; 
+        margin-top: 0;
+        border-left: 4px solid var(--secondary); 
+        padding-left: 10px; 
+    }
+
+    .study-tip {
+        background-color: rgba(199, 156, 96, 0.15);
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+        border-left: 4px solid var(--secondary);
+    }
+
+    /* Responsive Table Wrapper */
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table { 
+        width: 100%; 
+        border-collapse: collapse; 
+        font-size: 0.9rem;
+        min-width: 500px; /* Forces scrolling on very small screens instead of squishing */
+    }
+    
+    th { background-color: var(--primary); color: white; padding: 10px; text-align: left; }
+    td { border-bottom: 1px solid #eee; padding: 10px; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) { background-color: #fafafa; }
+    
+    .arabic { 
+        font-family: 'Amiri', serif;
+        font-size: 1.6rem; 
+        text-align: right; 
+        direction: rtl; 
+        color: var(--primary);
+    }
+    .trans { font-style: italic; color: var(--text-light); }
+    .eng { font-weight: 600; }
+    .malayalam { font-size: 0.85rem; }
+
+    /* Floating Print Button */
+    .print-btn {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        width: 56px;
+        height: 56px;
+        font-size: 1.5rem;
+        border-radius: 50%;
+        cursor: pointer;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        box-shadow: 0 4px 15px rgba(31, 78, 61, 0.4);
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: transform 0.2s;
+    }
+    .print-btn:active { transform: scale(0.95); }
+
+    /* Print settings for A4 */
+    @media print {
+        body { background-color: white; color: black; }
+        .container { max-width: 100%; margin: 0; padding: 0; }
+        .card { 
+            box-shadow: none; 
+            border-radius: 0; 
+            padding: 10px 0; 
+            margin-bottom: 20px;
+            page-break-inside: avoid;
+        }
+        .print-btn { display: none; }
+        table { min-width: 100%; }
+        .arabic { color: black; }
+        h2 { color: black; border-left-color: #999; }
+        th { background-color: #eee; color: black; border: 1px solid #ccc; }
+        td { border: 1px solid #ccc; }
+    }
+</style>
+</head>
+<body>
+
+    <header>
+        <h1>🕌 Project Dua</h1>
+        <p>Interactive Salah Guide - Demo</p>
+    </header>
+
+    <button class="print-btn" onclick="window.print()" title="Print to A4">🖨️</button>
+
+    <div class="container">
+        
+        <div class="card">
+            <h2>Daily Prayer Schedule</h2>
+            <div class="study-tip">
+                <strong>💡 Tip:</strong> Memorize 3-4 words a day. Focus on the meaning as you pronounce the Arabic to build <em>Khushoo</em>.
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr><th>Prayer</th><th>Time</th><th>Sunnah (Before)</th><th>Fardh</th><th>Sunnah (After)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Fajr</strong></td><td>Dawn</td><td>2 Rak'ahs</td><td>2 Rak'ahs</td><td>None</td></tr>
+                        <tr><td><strong>Dhuhr</strong></td><td>Midday</td><td>4 Rak'ahs</td><td>4 Rak'ahs</td><td>2 Rak'ahs</td></tr>
+                        <tr><td><strong>Asr</strong></td><td>Late Afternoon</td><td>4 Rak'ahs (Optional)</td><td>4 Rak'ahs</td><td>None</td></tr>
+                        <tr><td><strong>Maghrib</strong></td><td>Sunset</td><td>None</td><td>3 Rak'ahs</td><td>2 Rak'ahs</td></tr>
+                        <tr><td><strong>Isha</strong></td><td>Night</td><td>None</td><td>4 Rak'ahs</td><td>2 Rak'ahs</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>1. The Opening (Takbeer & Sana)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic</th><th>Transliteration</th><th>English</th><th>Malayalam</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>اللَّهُ</td><td class='trans'>Allahu</td><td class='eng'>Allah</td><td class='malayalam'>അല്ലാഹു</td></tr>
+                        <tr><td class='arabic'>أَكْبَرُ</td><td class='trans'>Akbar</td><td class='eng'>is the Greatest</td><td class='malayalam'>ഏറ്റവും വലിയവനാകുന്നു</td></tr>
+                        <tr><td class='arabic'>سُبْحَانَكَ</td><td class='trans'>Subhanaka</td><td class='eng'>Glory be to You</td><td class='malayalam'>നിനക്ക് സ്തുതി</td></tr>
+                        <tr><td class='arabic'>اللَّهُمَّ</td><td class='trans'>Allahumma</td><td class='eng'>O Allah</td><td class='malayalam'>അല്ലാഹുവേ</td></tr>
+                        <tr><td class='arabic'>وَبِحَمْدِكَ</td><td class='trans'>wa bihamdika</td><td class='eng'>and with Your praise</td><td class='malayalam'>നിന്റെ സ്തുതിയോടെ</td></tr>
+                        <tr><td class='arabic'>وَتَبَارَكَ</td><td class='trans'>wa tabaraka</td><td class='eng'>and blessed is</td><td class='malayalam'>അനുഗ്രഹീതമാണ്</td></tr>
+                        <tr><td class='arabic'>اسْمُكَ</td><td class='trans'>ismuka</td><td class='eng'>Your name</td><td class='malayalam'>നിന്റെ നാമം</td></tr>
+                        <tr><td class='arabic'>وَتَعَالَى</td><td class='trans'>wa ta'ala</td><td class='eng'>and high is</td><td class='malayalam'>ഉന്നതമാണ്</td></tr>
+                        <tr><td class='arabic'>جَدُّكَ</td><td class='trans'>jadduka</td><td class='eng'>Your majesty</td><td class='malayalam'>നിന്റെ മഹത്വം</td></tr>
+                        <tr><td class='arabic'>وَلَا إِلَهَ</td><td class='trans'>wa la ilaha</td><td class='eng'>and there is no deity</td><td class='malayalam'>വേറെ ആരാധ്യനില്ല</td></tr>
+                        <tr><td class='arabic'>غَيْرُكَ</td><td class='trans'>ghayruka</td><td class='eng'>other than You</td><td class='malayalam'>നീയല്ലാതെ</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>2. Surah Al-Fatihah</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic</th><th>Transliteration</th><th>English</th><th>Malayalam</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>بِسْمِ اللَّهِ</td><td class='trans'>Bismillahi</td><td class='eng'>In the name of Allah</td><td class='malayalam'>അല്ലാഹുവിന്റെ നാമത്തിൽ</td></tr>
+                        <tr><td class='arabic'>الرَّحْمَنِ الرَّحِيمِ</td><td class='trans'>Ar-Rahman Ar-Raheem</td><td class='eng'>The Most Gracious, Merciful</td><td class='malayalam'>പരമകാരുണികനും കരുണാനിധിയും</td></tr>
+                        <tr><td class='arabic'>الْحَمْدُ لِلَّهِ</td><td class='trans'>Alhamdu lillahi</td><td class='eng'>All praise is for Allah</td><td class='malayalam'>സർവ്വ സ്തുതിയും അല്ലാഹുവിനാകുന്നു</td></tr>
+                        <tr><td class='arabic'>رَبِّ الْعَالَمِينَ</td><td class='trans'>Rabbi al-'alamin</td><td class='eng'>Lord of the worlds</td><td class='malayalam'>ലോകങ്ങളുടെ രക്ഷിതാവ്</td></tr>
+                        <tr><td class='arabic'>مَالِكِ يَوْمِ الدِّينِ</td><td class='trans'>Maliki yawmi ad-deen</td><td class='eng'>Master of the Day of Judgment</td><td class='malayalam'>പ്രതിഫല ദിവസത്തിന്റെ ഉടമസ്ഥൻ</td></tr>
+                        <tr><td class='arabic'>إِيَّاكَ نَعْبُدُ</td><td class='trans'>Iyyaka na'budu</td><td class='eng'>You alone we worship</td><td class='malayalam'>നിന്നെ മാത്രം ഞങ്ങൾ ആരാധിക്കുന്നു</td></tr>
+                        <tr><td class='arabic'>وَإِيَّاكَ نَسْتَعِينُ</td><td class='trans'>wa iyyaka nasta'een</td><td class='eng'>and You alone we ask for help</td><td class='malayalam'>നിന്നോട് മാത്രം ഞങ്ങൾ സഹായം തേടുന്നു</td></tr>
+                        <tr><td class='arabic'>اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ</td><td class='trans'>Ihdina as-sirata al-mustaqim</td><td class='eng'>Guide us to the straight path</td><td class='malayalam'>ഞങ്ങളെ നേരായ വഴിയിൽ നയിക്കേണമേ</td></tr>
+                        <tr><td class='arabic'>صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ</td><td class='trans'>Sirata alladhina an'amta 'alayhim</td><td class='eng'>The path of those You have favored</td><td class='malayalam'>നീ അനുഗ്രഹിച്ച യാതൊരുവരുടെ വഴിയിൽ</td></tr>
+                        <tr><td class='arabic'>غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ</td><td class='trans'>ghayri al-maghdubi 'alayhim</td><td class='eng'>Not of those who earned anger</td><td class='malayalam'>കോപിക്കപ്പെട്ടവരുടെ വഴിയിലല്ല</td></tr>
+                        <tr><td class='arabic'>وَلَا الضَّالِّينَ</td><td class='trans'>wa la ad-dallin</td><td class='eng'>and not of those who went astray</td><td class='malayalam'>വഴിപിഴച്ചുപോയവരുടെ വഴിയിലുമല്ല</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>3. Ruku (Bowing) & Standing Up</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic</th><th>Transliteration</th><th>English</th><th>Malayalam</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>سُبْحَانَ رَبِّيَ الْعَظِيمِ</td><td class='trans'>Subhana Rabbiyal 'Azeem</td><td class='eng'>Glory be to my Lord the Almighty (x3)</td><td class='malayalam'>മഹാനായ എന്റെ രക്ഷിതാവിന് സ്തുതി</td></tr>
+                        <tr><td class='arabic'>سَمِعَ اللَّهُ لِمَنْ حَمِدَهُ</td><td class='trans'>Sami'a Allahu liman hamidah</td><td class='eng'>Allah listens to those who praise Him</td><td class='malayalam'>അല്ലാഹു അവനെ സ്തുതിച്ച ആളുകളെ കേൾക്കുന്നു</td></tr>
+                        <tr><td class='arabic'>رَبَّنَا وَلَكَ الْحَمْدُ</td><td class='trans'>Rabbana wa lakal hamd</td><td class='eng'>Our Lord, and to You belongs all praise</td><td class='malayalam'>ഞങ്ങളുടെ രക്ഷിതാവേ നിനക്കാകുന്നു സർവ്വ സ്തുതിയും</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>4. Sujood (Prostration)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic</th><th>Transliteration</th><th>English</th><th>Malayalam</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>سُبْحَانَ رَبِّيَ الْأَعْلَى</td><td class='trans'>Subhana Rabbiyal A'la</td><td class='eng'>Glory be to my Lord the Most High (x3)</td><td class='malayalam'>അത്യുന്നതനായ എന്റെ രക്ഷിതാവിന് സ്തുതി</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>5. Sitting Between Sujoods</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead><tr><th>Arabic</th><th>Transliteration</th><th>English</th><th>Malayalam</th></tr></thead>
+                    <tbody>
+                        <tr><td class='arabic'>رَبِّ اغْفِرْ لِي</td><td class='trans'>Rabbi ighfir li</td><td class='eng'>O my Lord, forgive me</td><td class='malayalam'>എന്റെ രക്ഷിതാവേ എനിക്ക് പൊറുത്തുതരേണമേ</td></tr>
+                        <tr><td class='arabic'>وَارْحَمْنِي</td><td class='trans'>warhamni</td><td class='eng'>and have mercy on me</td><td class='malayalam'>എന്നോട് കരുണ കാണിക്കേണമേ</td></tr>
+                        <tr><td class='arabic'>وَاهْدِنِي</td><td class='trans'>wahdini</td><td class='eng'>and guide me</td><td class='malayalam'>എന്നെ നേർവഴിയിലാക്കേണമേ</td></tr>
+                        <tr><td class='arabic'>وَارْزُقْنِي</td><td class='trans'>warzuqni</td><td class='eng'>and provide for me</td><td class='malayalam'>എനിക്ക് ഉപജീവനം നൽകേണമേ</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
