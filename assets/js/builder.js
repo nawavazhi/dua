@@ -1,6 +1,8 @@
 /**
- * Project Dua — builder.js  v3.0
+ * Project Dua — builder.js  v3.1 (Merged with Repo Audio Engine)
  * Fetches dictionary.json, salah.json, and quran.json to build the Salah Guide.
+ *
+ * Requires: assets/js/theme.js (loaded first — provides DuaIcons, getPostureIconSvg)
  */
 
 'use strict';
@@ -12,8 +14,6 @@ let TOTAL_SECTIONS = 0;
 
 /* ── BOOT ── */
 document.addEventListener('DOMContentLoaded', () => {
-  applyStoredPreferences();
-
   Promise.all([
     fetch(DICT_PATH).then(r => { if (!r.ok) throw new Error(`dictionary: ${r.status}`); return r.json(); }),
     fetch(SALAH_PATH).then(r => { if (!r.ok) throw new Error(`salah: ${r.status}`); return r.json(); }),
@@ -28,8 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
   })
   .catch(err => {
     const main = document.getElementById('main-content');
-    if(main) main.innerHTML =
-      `<div class="error-box">
+    if (main) main.innerHTML = `
+      <div class="error-box">
+        ${DuaIcons.get('info')}
         ⚠️ Could not load data files.<br>
         <code>${err.message}</code><br>
       </div>`;
@@ -37,88 +38,82 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-function getPostureIcon(posture) {
-  if (!posture) return '🧍';
-  const p = posture.toLowerCase();
-  if (p.includes('stand') || p.includes('qiyam')) return '🧍';
-  if (p.includes('bow') || p.includes('ruku')) return '🙇';
-  if (p.includes('prostrat') || p.includes('sajdah')) return '🛐';
-  if (p.includes('sit') || p.includes('qadah') || p.includes('jalsah')) return '🧎';
-  return '🧍';
-}
-
-/* ══════════════════════════════════════════════════════════════
-   PAGE BUILD
-══════════════════════════════════════════════════════════════ */
+/* ── PAGE BUILD ── */
 function buildPage(salah, quran, ui) {
-  const sections = [];
-  let secId = 1;
-  const seenDuas = new Set();
+  const sections  = [];
+  let   secId     = 1;
+  const seenDuas  = new Set();
   const seenSurahs = new Set();
 
   let sequenceList = [...salah["rak'ah_structure"].standard_sequence];
-  
-  // Insert Wajjahtu (Alternative Opening Dua) right after Sana
-  let sanaIdx = sequenceList.findIndex(s => s.dua_id === 'sana');
+
+  // Inject Wajjahtu right after Sana
+  const sanaIdx = sequenceList.findIndex(s => s.dua_id === 'sana');
   if (sanaIdx !== -1) {
-    sequenceList.splice(sanaIdx + 1, 0, { step: '2b', name: 'Opening Dua (Wajjahtu)', dua_id: 'sana_wajjahtu', posture: 'standing', notes: 'Alternative to Sana' });
+    sequenceList.splice(sanaIdx + 1, 0, {
+      step: '2b',
+      name: 'Opening Dua (Wajjahtu)',
+      dua_id: 'sana_wajjahtu',
+      posture: 'standing',
+      notes: 'Alternative to Sana'
+    });
   }
 
-  // Parse Standard Sequence
+  // Parse standard sequence
   sequenceList.forEach(step => {
     if (step.dua_id && !seenDuas.has(step.dua_id)) {
       seenDuas.add(step.dua_id);
-      let dua = salah.duas[step.dua_id];
+      const dua = salah.duas[step.dua_id];
       if (dua) {
         sections.push({
-          id: secId++,
-          dua_id: step.dua_id,
-          title: step.name || dua.name_en,
-          posture: step.posture || dua.posture,
-          posture_icon: getPostureIcon(step.posture || dua.posture),
-          words: dua.words,
+          id:           secId++,
+          dua_id:       step.dua_id,
+          title:        step.name || dua.name_en,
+          posture:      step.posture || dua.posture,
+          posture_icon: getPostureIconSvg(step.posture || dua.posture),
+          words:        dua.words,
           complete_dua: dua.complete,
-          notes: (dua.notes || []).concat(step.notes ? [step.notes] : []),
-          isSurah: false,
+          notes:        (dua.notes || []).concat(step.notes ? [step.notes] : []),
+          isSurah:      false,
           isShortSurah: false
         });
       }
     } else if (step.surah_id && step.surah_id !== 'any' && !seenSurahs.has(step.surah_id)) {
       seenSurahs.add(step.surah_id);
-      let surah = quran.surahs.find(s => s.number === step.surah_id);
+      const surah = quran.surahs.find(s => s.number === step.surah_id);
       if (surah) {
         sections.push({
-          id: secId++,
+          id:           secId++,
           surah_number: surah.number,
-          title: `Surah ${surah.name_en}`,
-          posture: step.posture || 'standing',
-          posture_icon: getPostureIcon('standing'),
-          verses: surah.verses_data,
+          title:        `Surah ${surah.name_en}`,
+          posture:      step.posture || 'standing',
+          posture_icon: getPostureIconSvg('standing'),
+          verses:       surah.verses_data,
           complete_dua: surah.complete_text,
-          notes: (surah.tajweed_notes || []).concat(step.notes ? [step.notes] : []),
-          isSurah: true,
+          notes:        (surah.tajweed_notes || []).concat(step.notes ? [step.notes] : []),
+          isSurah:      true,
           isShortSurah: false
         });
       }
     }
   });
 
-  // Append Recommended Short Surahs
+  // Append recommended short surahs
   salah.surah_usage.recommended_short.forEach(rec => {
     if (!seenSurahs.has(rec.surah_id)) {
       seenSurahs.add(rec.surah_id);
-      let surah = quran.surahs.find(s => s.number === rec.surah_id);
+      const surah = quran.surahs.find(s => s.number === rec.surah_id);
       if (surah) {
         sections.push({
-          id: secId++,
+          id:           secId++,
           surah_number: surah.number,
-          title: `Surah ${surah.name_en}`,
-          posture: 'standing',
-          posture_icon: getPostureIcon('standing'),
-          verses: surah.verses_data,
+          title:        `Surah ${surah.name_en}`,
+          posture:      'standing',
+          posture_icon: getPostureIconSvg('standing'),
+          verses:       surah.verses_data,
           complete_dua: surah.complete_text,
-          notes: (surah.tajweed_notes || []).concat(rec.note ? [rec.note] : []),
-          isSurah: true,
+          notes:        (surah.tajweed_notes || []).concat(rec.note ? [rec.note] : []),
+          isSurah:      true,
           isShortSurah: true
         });
       }
@@ -140,29 +135,32 @@ function buildNav(sections) {
   const scheduleLink = `
     <li>
       <a class="nav-link" href="#intro" onclick="closeNav()">
-        <span class="nav-check" id="nc-0"></span>📋 Schedule
+        <span class="nav-check" id="nc-0"></span>
+        ${DuaIcons.get('schedule')} Schedule
       </a>
     </li>`;
 
-  let salahLinks = '';
-  let surahLinks = '';
+  let salahLinks  = '';
+  let surahLinks  = '';
 
   sections.forEach(s => {
     const shortTitle = s.title.split('—')[0].split('(')[0].trim();
     const link = `
       <li>
         <a class="nav-link" href="#s${s.id}" onclick="closeNav()">
-          <span class="nav-check" id="nc-${s.id}"></span>${s.id}. ${shortTitle}
+          <span class="nav-check" id="nc-${s.id}"></span>
+          ${s.id}. ${shortTitle}
         </a>
       </li>`;
     if (s.isShortSurah) surahLinks += link;
-    else salahLinks += link;
+    else                salahLinks += link;
   });
 
   ul.innerHTML = `
-    <div class="nav-group-label">🕌 Salah Steps</div>
+    <div class="nav-group-label">${DuaIcons.get('mosque')} Salah Steps</div>
     ${scheduleLink}${salahLinks}
-    <div class="nav-group-label">📖 Short Surahs</div>
+    <div class="nav-separator"></div>
+    <div class="nav-group-label">${DuaIcons.get('quran')} Short Surahs</div>
     ${surahLinks}
   `;
 }
@@ -211,7 +209,10 @@ function buildSectionCards(sections) {
 
   sections.forEach(s => {
     if (s.isShortSurah && !shortSurahHeaderAdded) {
-      html += `<div class="section-divider">📖 Short Surahs — recite after Al-Fatihah</div>`;
+      html += `
+        <div class="section-divider">
+          ${DuaIcons.get('quran')} Short Surahs — recite after Al-Fatihah
+        </div>`;
       shortSurahHeaderAdded = true;
     }
     html += buildCard(s);
@@ -230,7 +231,9 @@ function buildCard(section) {
     <div class="card-head">
       <div class="card-num">${section.id}</div>
       <h2>${section.title}</h2>
-      <span class="posture-pill">${section.posture_icon} ${section.posture}</span>
+      <span class="posture-pill">
+        ${section.posture_icon} ${section.posture || ''}
+      </span>
       <label class="memo-label">
         <input type="checkbox" class="memo" data-id="${section.id}" onchange="markDone(this)">
         Memorised
@@ -258,27 +261,33 @@ function buildWordRows(item) {
   if (item.isSurah) {
     let html = '';
     item.verses.forEach(v => {
-      html += `<tr class="verse-divider"><td colspan="4" style="background:var(--alt-row);font-size:0.75rem;color:var(--green);font-weight:bold;text-align:center;letter-spacing:1px;border-bottom:1px solid var(--border)">Verse ${v.verse}</td></tr>`;
+      html += `<tr class="verse-divider"><td colspan="4" style="background:var(--alt-row);font-size:0.75rem;color:var(--primary);font-weight:bold;text-align:center;letter-spacing:1px;border-bottom:1px solid var(--border)">Verse ${v.verse}</td></tr>`;
       v.words.forEach((w, index) => {
         html += `
         <tr>
           <td class="ar">
+            <button class="aud-btn" onclick="playSurahWord(${item.surah_number}, ${v.verse}, ${index + 1})"
+                    title="Play pronunciation" aria-label="Play word audio">
+              ${DuaIcons.get('audio')}
+            </button>
             ${w.ar}
-            <button class="aud-btn" onclick="playSurahWord(${item.surah_number}, ${v.verse}, ${index + 1})" title="Play pronunciation">🔊</button>
           </td>
-          <td class="tr">${w.tr}</td>
-          <td class="en">${w.en}</td>
-          <td class="ml">${w.ml}</td>
+          <td class="tr">${w.tr || ''}</td>
+          <td class="en">${w.en || ''}</td>
+          <td class="ml">${w.ml || ''}</td>
         </tr>`;
       });
     });
     return html;
   } else {
-    return item.words.map((w, index) => `
+    return (item.words || []).map((w, index) => `
     <tr>
       <td class="ar">
-        ${w.ar}
-        <button class="aud-btn" onclick="playDuaWord('${item.dua_id}', ${index})" title="Play pronunciation">🔊</button>
+        <button class="aud-btn" onclick="playDuaWord('${item.dua_id}', ${index})"
+                title="Play pronunciation" aria-label="Play word audio">
+          ${DuaIcons.get('audio')}
+        </button>
+        ${w.ar || ''}
       </td>
       <td class="tr">${w.tr || ''}</td>
       <td class="en">${w.en || ''}</td>
@@ -291,7 +300,9 @@ function buildDuaBlock(dua) {
   if (!dua) return '';
   return `
   <div class="dua-block">
-    <h3>📜 Complete Recitation</h3>
+    <div class="dua-block-header">
+      ${DuaIcons.get('scroll')} Complete Recitation
+    </div>
     <div class="dua-ar">${dua.ar}</div>
     <div class="dua-row"><strong>English:</strong> ${dua.en}</div>
     <div class="dua-row"><strong>Malayalam:</strong> ${dua.ml}</div>
@@ -300,34 +311,19 @@ function buildDuaBlock(dua) {
 
 function buildNotesBlock(notes) {
   if (!notes || notes.length === 0) return '';
-  const items = notes.map(n => `<li>${n}</li>`).join('');
+  const items = notes.map(n => `
+    <li>${DuaIcons.get('tip')} ${n}</li>`).join('');
   return `
   <div class="note-block">
-    <h4>Pronunciation &amp; Notes</h4>
+    <div class="note-block-header">
+      ${DuaIcons.get('info')} Pronunciation &amp; Notes
+    </div>
     <ul class="note-list">${items}</ul>
   </div>`;
 }
 
 /* ══════════════════════════════════════════════════════════════
-   DARK MODE
-══════════════════════════════════════════════════════════════ */
-function applyStoredPreferences() {
-  if (localStorage.getItem('dua-dark') === '1') {
-    document.body.classList.add('dark');
-    const btn = document.getElementById('dark-toggle');
-    if (btn) btn.textContent = '☀️';
-  }
-}
-
-function toggleDark() {
-  const isDark = document.body.classList.toggle('dark');
-  localStorage.setItem('dua-dark', isDark ? '1' : '0');
-  const btn = document.getElementById('dark-toggle');
-  if (btn) btn.textContent = isDark ? '☀️' : '🌙';
-}
-
-/* ══════════════════════════════════════════════════════════════
-   SIDEBAR NAV
+   SIDEBAR NAV CONTROLS (called from HTML)
 ══════════════════════════════════════════════════════════════ */
 function toggleNav() {
   document.getElementById('sidebar').classList.toggle('open');
@@ -365,9 +361,9 @@ function updateProgress() {
     const nc    = document.getElementById('nc-' + i);
     if (saved === '1') {
       done++;
-      if (nc) nc.textContent = '✅ ';
+      if (nc) nc.innerHTML = DuaIcons.get('check');
     } else {
-      if (nc) nc.textContent = '';
+      if (nc) nc.innerHTML = '';
     }
   }
   const pct   = TOTAL_SECTIONS > 0 ? Math.round((done / TOTAL_SECTIONS) * 100) : 0;
@@ -378,48 +374,55 @@ function updateProgress() {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   AUDIO ENGINE
+   AUDIO ENGINE (Preserved from Working Repo)
 ══════════════════════════════════════════════════════════════ */
 let toastTimer = null;
 
 function playSurahWord(surah, verse, wordNum) {
-  // Pad numbers to 3 digits (e.g., Surah 1 -> "001")
+  // Padded logic that was confirmed working in your repository
   const s = String(surah).padStart(3, '0');
   const v = String(verse).padStart(3, '0');
   const w = String(wordNum).padStart(3, '0');
   
-  // Fetch from the correct padded underscore path
   const audioUrl = `https://audio.qurancdn.com/wbw/${s}_${v}_${w}.mp3`;
   console.log("Attempting to play:", audioUrl);
   
   const audio = new Audio(audioUrl);
   audio.play().catch(err => {
     console.error("Audio playback failed:", err);
-    showToast('🔊 Audio not available. Check browser console.');
+    showToast('Audio not available. Check browser console.');
   });
 }
 
 function playDuaWord(duaId, wordIndex) {
   const audio = new Audio(`../assets/audio/words/${duaId}_${wordIndex}.mp3`);
-  audio.play().catch(() => showToast('🔊 Audio coming soon for prayer duas.'));
+  audio.play().catch(() => showToast('Audio coming soon for prayer duas.'));
 }
 
+/* ── UPDATED TOAST STYLING (V4) ── */
 function showToast(msg) {
   let t = document.getElementById('dua-toast');
   if (!t) {
     t = document.createElement('div');
     t.id = 'dua-toast';
-    t.style.cssText = [
-      'position:fixed', 'bottom:90px', 'right:18px',
-      'background:#1f4e3d', 'color:#fff',
-      'padding:10px 18px', 'border-radius:20px',
-      'font-size:.82rem', 'z-index:9999',
-      'box-shadow:0 4px 12px rgba(0,0,0,.35)',
-      'transition:opacity .3s', 'pointer-events:none'
-    ].join(';');
+    Object.assign(t.style, {
+      position:     'fixed',
+      bottom:       '90px',
+      right:        '18px',
+      background:   'var(--primary)',
+      color:        'var(--primary-fg)',
+      padding:      '10px 18px',
+      borderRadius: 'var(--radius-pill, 100px)',
+      fontSize:     '0.8rem',
+      zIndex:       '9999',
+      boxShadow:    'var(--shadow-card)',
+      transition:   'opacity 0.3s',
+      pointerEvents:'none',
+      fontFamily:   'var(--font-ui)',
+    });
     document.body.appendChild(t);
   }
-  t.textContent = msg;
+  t.textContent  = msg;
   t.style.opacity = '1';
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => { t.style.opacity = '0'; }, 2500);
