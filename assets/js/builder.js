@@ -264,7 +264,7 @@ function buildWordRows(item) {
         <tr>
           <td class="ar">
             ${w.ar}
-            <button class="aud-btn" onclick="playSurahWord(${item.surah_number}, ${v.verse}, ${w.w})" title="Play pronunciation">🔊</button>
+            <button class="aud-btn" onclick="playSurahWord(${item.surah_number}, ${v.verse}, ${index + 1})" title="Play pronunciation">🔊</button>
           </td>
           <td class="tr">${w.tr}</td>
           <td class="en">${w.en}</td>
