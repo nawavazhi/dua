@@ -8,7 +8,8 @@
  * v4.0 changes:
  *   - Removed seenDuas dedup — sequence is now authoritative (fixes missing
  *     Second Sujood and Final Tashahhud cards)
- *   - Fixed Quran word audio URL: slashes + no zero-padding
+ *   - Audio URL: uses zero-padded underscore format (108_001_001.mp3) — confirmed working.
+ *     A slash-based format was tested and reverted because it failed. Do not change.
  *   - Dropped unused dictionary.json fetch
  *   - Fixed scrollspy selector to only observe .card and #intro
  *   - Widened scrollspy rootMargin for small screens
