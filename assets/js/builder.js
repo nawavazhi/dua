@@ -388,15 +388,17 @@ function updateProgress() {
 
 /* ══════════════════════════════════════════════════════════════
    AUDIO ENGINE
-   QuranCDN word audio: /wbw/{surah}/{verse}/{word}.mp3
-   — no zero-padding, forward slashes (not underscores)
+   QuranCDN word audio: /wbw/SSS_VVV_WWW.mp3
+   — zero-padded to 3 digits, underscore-separated.
+   This format was confirmed working in the repository.
 ══════════════════════════════════════════════════════════════ */
 let toastTimer = null;
 
 function playSurahWord(surah, verse, wordNum) {
-  // QuranCDN format: wbw/{surah}/{verse}/{word}.mp3
-  // Numbers are plain integers — no padding, forward slashes
-  const audioUrl = `https://audio.qurancdn.com/wbw/${surah}/${verse}/${wordNum}.mp3`;
+  const s = String(surah).padStart(3, '0');
+  const v = String(verse).padStart(3, '0');
+  const w = String(wordNum).padStart(3, '0');
+  const audioUrl = `https://audio.qurancdn.com/wbw/${s}_${v}_${w}.mp3`;
   console.log('[Dua audio] Playing:', audioUrl);
 
   const audio = new Audio(audioUrl);
