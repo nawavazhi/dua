@@ -12,8 +12,8 @@
 'use strict';
 
 const DuaIcons = (() => {
-  const SVG_ATTR = `xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"`;
+  const SVG_ATTR = `xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none"
+    stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"`;
 
   const icons = {
 
@@ -53,10 +53,10 @@ const DuaIcons = (() => {
     layers:     `<svg ${SVG_ATTR}><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
 
     /* ── Posture icons ── */
-    standing:   `<svg ${SVG_ATTR}><circle cx="12" cy="4" r="2"/><line x1="12" y1="6" x2="12" y2="14"/><polyline points="9 10 12 14 15 10"/><line x1="12" y1="14" x2="10" y2="20"/><line x1="12" y1="14" x2="14" y2="20"/></svg>`,
-    bowing:     `<svg ${SVG_ATTR}><circle cx="6" cy="4" r="2"/><path d="M6 6v4"/><path d="M2 14h10"/><line x1="6" y1="10" x2="10" y2="14"/><line x1="10" y1="14" x2="12" y2="20"/><line x1="10" y1="14" x2="14" y2="20"/></svg>`,
-    sujood:     `<svg ${SVG_ATTR}><circle cx="5" cy="6" r="2"/><path d="M3 20h18"/><path d="M5 8v4l7 4"/><path d="M12 12h7"/></svg>`,
-    sitting:    `<svg ${SVG_ATTR}><circle cx="12" cy="4" r="2"/><path d="M12 6v5"/><path d="M9 18h6"/><path d="M12 11l-3 7"/><path d="M12 11l3 4h4"/></svg>`,
+    standing:   `<svg ${SVG_ATTR}><circle cx="12" cy="5" r="2.5" fill="currentColor" stroke="none"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="12" y1="16" x2="10" y2="22"/><line x1="12" y1="16" x2="14" y2="22"/></svg>`,
+    bowing:     `<svg ${SVG_ATTR}><circle cx="5" cy="5" r="2.5" fill="currentColor" stroke="none"/><line x1="5" y1="8" x2="5" y2="14"/><line x1="5" y1="14" x2="21" y2="14"/><line x1="5" y1="14" x2="3.5" y2="22"/><line x1="5" y1="14" x2="6.5" y2="22"/></svg>`,
+    sujood:     `<svg ${SVG_ATTR}><circle cx="3" cy="18" r="2" fill="currentColor" stroke="none"/><line x1="5" y1="17" x2="13" y2="12"/><line x1="13" y1="12" x2="21" y2="12"/><line x1="21" y1="12" x2="22" y2="20"/><line x1="19" y1="12" x2="20" y2="20"/></svg>`,
+    sitting:    `<svg ${SVG_ATTR}><circle cx="12" cy="5" r="2.5" fill="currentColor" stroke="none"/><line x1="12" y1="8" x2="12" y2="14"/><line x1="12" y1="14" x2="6" y2="20"/><line x1="12" y1="14" x2="18" y2="20"/><line x1="6" y1="20" x2="9" y2="22"/><line x1="18" y1="20" x2="15" y2="22"/></svg>`,
     separator:  `<svg ${SVG_ATTR}><path d="M12 2a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" fill="none"/></svg>`,
   };
 
