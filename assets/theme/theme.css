@@ -1,5 +1,5 @@
 /*
- * Project Dua — assets/css/theme.css
+ * dua — assets/theme/theme.css
  * Noor UI — Islamic Minimal Design System
  *
  * Usage: <html data-theme="noor">  (light | dark | dua | noor)
@@ -9,7 +9,38 @@
 /* ════════════════════════════════════════════════════════════════
    BASE FONT IMPORT (loaded once here, not repeated per module)
 ════════════════════════════════════════════════════════════════ */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap');
+/* UI fonts — Inter and Plus Jakarta Sans from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* ════════════════════════════════════════════════════════════════
+   ARABIC FONTS — self-hosted from assets/fonts/
+   Scheherazade New: all Arabic text, duas, word-by-word table
+   Amiri Quran:      complete recitation display blocks (.dua-ar)
+   SIL Open Font License — free to host and redistribute
+════════════════════════════════════════════════════════════════ */
+@font-face {
+  font-family: 'Scheherazade New';
+  src: url('../assets/fonts/ScheherazadeNew-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Scheherazade New';
+  src: url('../assets/fonts/ScheherazadeNew-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Amiri Quran';
+  src: url('../assets/fonts/AmiriQuran-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 /* ════════════════════════════════════════════════════════════════
    THEME: LIGHT  (default — clean daylight)
@@ -48,7 +79,7 @@
 
   /* Arabic */
   --arabic-color: var(--primary);
-  --arabic-font:  'Noto Naskh Arabic', 'Amiri', serif;
+  --arabic-font:  'Scheherazade New', 'Noto Naskh Arabic', serif;
 
   /* Shadow */
   --shadow-card: 0 4px 16px rgba(0,0,0,0.06);
