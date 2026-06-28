@@ -9,7 +9,6 @@
 </head>
 <body>
 
-<!-- TOP BAR -->
 <header class="topbar">
   <button class="icon-btn" id="nav-toggle" onclick="toggleNav()" aria-label="Menu">☰</button>
   <div class="topbar-title">
@@ -19,20 +18,15 @@
   <button class="icon-btn" id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
 </header>
 
-<!-- PROGRESS -->
 <div class="prog-wrap"><div class="prog-fill" id="prog-fill"></div></div>
-<div class="prog-label" id="prog-label">0 / 16 memorised</div>
+<div class="prog-label" id="prog-label">Loading progress…</div>
 
-<!-- SIDEBAR -->
 <nav class="sidebar" id="sidebar">
-  <ul id="nav-list" class="nav-list"></ul><!-- built by builder.js -->
-</nav>
+  <ul id="nav-list" class="nav-list"></ul></nav>
 <div class="overlay" id="overlay" onclick="closeNav()"></div>
 
-<!-- MAIN -->
 <main class="main" id="main-content">
 
-  <!-- INTRO -->
   <article class="intro-card" id="intro">
     <h1>📿 Comprehensive Salah Guide</h1>
     <p class="intro-tag">Word-by-Word Arabic · English · Malayalam — for deep Khushoo</p>
@@ -46,17 +40,14 @@
     </div>
   </article>
 
-  <!-- SECTIONS (injected by builder.js) -->
   <div id="sections-container">
     <div class="loading">Loading sections…</div>
   </div>
 
 </main>
 
-<!-- PRINT BUTTON -->
 <button class="print-fab" onclick="window.print()">🖨️ Print / Save PDF</button>
 
-<!-- JS ENGINE -->
 <script src="../assets/js/builder.js"></script>
 
 </body>
