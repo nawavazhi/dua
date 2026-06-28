@@ -42,9 +42,10 @@ ul { list-style: none; }
 }
 
 .topbar-logo .dua-icon {
-  width: 28px; height: 28px;
+  width: 22px; height: 22px;
   color: var(--accent);
   flex-shrink: 0;
+  display: block;
 }
 
 .topbar-title {
@@ -241,6 +242,15 @@ ul { list-style: none; }
   border-left-color: var(--primary);
   color: var(--primary);
   font-weight: 600;
+}
+
+/* Constrain inline SVG icons inside nav links — without this they auto-size
+   to their viewBox (24px) which makes the schedule icon much bigger than text */
+.nav-link svg {
+  width: 15px; height: 15px;
+  stroke: currentColor;
+  fill: none;
+  flex-shrink: 0;
 }
 
 .nav-check {
