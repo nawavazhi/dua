@@ -1,53 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salah Guide — Project Dua</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<!-- Noor UI Theme System (loads Inter, Plus Jakarta Sans, Noto Naskh Arabic) -->
+<link rel="stylesheet" href="../assets/css/theme.css">
 <link rel="stylesheet" href="../assets/css/style.css">
+
+<!-- Amiri fallback for Arabic (legacy support) -->
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header class="topbar">
-  <button class="icon-btn" id="nav-toggle" onclick="toggleNav()" aria-label="Menu">☰</button>
+  <!-- theme.js rebuilds this with SVG icons on DOMContentLoaded -->
+  <button class="icon-btn" id="nav-toggle" onclick="toggleNav()" aria-label="Open menu">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <line x1="3" y1="12" x2="21" y2="12"/>
+      <line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
   <div class="topbar-title">
-    🕌 Project Dua
+    Project Dua
     <span>Salah — Interactive Word-by-Word Guide</span>
   </div>
-  <button class="icon-btn" id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
 </header>
 
 <div class="prog-wrap"><div class="prog-fill" id="prog-fill"></div></div>
-<div class="prog-label" id="prog-label">Loading progress…</div>
+<div class="prog-label" id="prog-label">Loading...</div>
 
 <nav class="sidebar" id="sidebar">
-  <ul id="nav-list" class="nav-list"></ul></nav>
+  <ul id="nav-list" class="nav-list"></ul>
+</nav>
 <div class="overlay" id="overlay" onclick="closeNav()"></div>
 
 <main class="main" id="main-content">
 
   <article class="intro-card" id="intro">
-    <h1>📿 Comprehensive Salah Guide</h1>
+    <h1>Comprehensive Salah Guide</h1>
     <p class="intro-tag">Word-by-Word Arabic · English · Malayalam — for deep Khushoo</p>
     <div class="study-tip">
-      <strong>Study Tip:</strong> Memorise 3–4 words a day. As you pray, recall each word's meaning — this is the path to true <em>Khushoo</em> (focus and devotion). ✨
+      <strong>Study Tip:</strong> Memorise 3–4 words a day. As you pray, recall each word's
+      meaning — this is the path to true <em>Khushoo</em> (focus and devotion).
     </div>
 
-    <div class="sec-label">📅 Daily Prayer Schedule</div>
+    <div class="sec-label">Daily Prayer Schedule</div>
     <div id="schedule-container">
-      <div class="loading">Loading schedule…</div>
+      <div class="loading">Loading schedule...</div>
     </div>
   </article>
 
   <div id="sections-container">
-    <div class="loading">Loading sections…</div>
+    <div class="loading">Loading sections...</div>
   </div>
 
 </main>
 
-<button class="print-fab" onclick="window.print()">🖨️</button>
+<button class="print-fab" onclick="window.print()">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 6 2 18 2 18 9"/>
+    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+    <rect x="6" y="14" width="12" height="8"/>
+  </svg>
+  Print
+</button>
 
+<!-- Theme system must load before builder -->
+<script src="../assets/js/theme.js"></script>
 <script src="../assets/js/builder.js"></script>
 
 </body>
