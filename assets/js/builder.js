@@ -382,12 +382,22 @@ function updateProgress() {
 ══════════════════════════════════════════════════════════════ */
 let toastTimer = null;
 
-function playSurahWord(surah, verse, word) {
+function playSurahWord(surah, verse, wordNum) {
   const s = String(surah).padStart(3, '0');
   const v = String(verse).padStart(3, '0');
   const w = String(wordNum).padStart(3, '0');
-  const audio = new Audio(`https://audio.qurancdn.com/wbw/${surah}/${verse}/${word}.mp3`);
-  audio.play().catch(() => showToast('🔊 Audio not available. Check internet connection.'));
+  
+  const audioUrl = `https://audio.qurancdn.com/wbw/${s}_${v}_${w}.mp3`;
+  
+  // 1. Log the URL to the browser console (Press F12 to view)
+  console.log("Attempting to play:", audioUrl);
+  
+  const audio = new Audio(audioUrl);
+  audio.play().catch(err => {
+    // 2. Log exactly why it failed
+    console.error("Audio playback failed:", err);
+    showToast('🔊 Audio not available. Check browser console.');
+  });
 }
 
 function playDuaWord(duaId, wordIndex) {
