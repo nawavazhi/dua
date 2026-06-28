@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DuaIcons Viewer</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #f4f5f7; padding: 40px; color: #333; }
+    h1 { text-align: center; color: #1f4e3d; margin-bottom: 40px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .icon-card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .icon-card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+    .icon-card svg { width: 32px; height: 32px; color: #1f4e3d; margin-bottom: 10px; }
+    .icon-name { font-size: 13px; font-weight: 600; color: #555; }
+  </style>
+</head>
+<body>
+
+  <h1>DuaIcons Database</h1>
+  <div class="grid" id="icon-grid"></div>
+
+  <script src="assets/js/icons.js"></script>
+  
+  <script>
+    // Dynamically generate the grid based on your icons.js file
+    const grid = document.getElementById('icon-grid');
+    Object.entries(DuaIcons.all).forEach(([name, svgCode]) => {
+      const card = document.createElement('div');
+      card.className = 'icon-card';
+      card.innerHTML = `
+        ${svgCode}
+        <div class="icon-name">${name}</div>
+      `;
+      grid.appendChild(card);
+    });
+  </script>
+</body>
+</html>
