@@ -62,9 +62,21 @@ function _buildTopbar() {
   if (!topbar) return;
 
   const existingTitle = topbar.querySelector('.topbar-title');
-  const titleText  = existingTitle ? existingTitle.textContent.trim().replace(/^[\p{Emoji}\s]+/u, '').trim() : 'Project Dua';
-  const titleSpan  = existingTitle ? existingTitle.querySelector('span') : null;
-  const subtitleText = titleSpan ? titleSpan.textContent.trim() : '';
+  let titleText    = 'Project Dua';
+  let subtitleText = '';
+
+  if (existingTitle) {
+    // Read the subtitle from the <span> first
+    const titleSpan = existingTitle.querySelector('span');
+    subtitleText = titleSpan ? titleSpan.textContent.trim() : '';
+
+    // Clone and strip the span so .textContent only contains the main title,
+    // not the subtitle too (bug: textContent includes ALL descendant text).
+    const clone = existingTitle.cloneNode(true);
+    const cloneSpan = clone.querySelector('span');
+    if (cloneSpan) cloneSpan.remove();
+    titleText = clone.textContent.trim() || 'Project Dua';
+  }
 
   topbar.innerHTML = `
     <button class="icon-btn" id="nav-toggle" onclick="toggleNav()" aria-label="Open menu">
