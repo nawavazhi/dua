@@ -383,18 +383,17 @@ function updateProgress() {
 let toastTimer = null;
 
 function playSurahWord(surah, verse, wordNum) {
+  // Pad numbers to 3 digits (e.g., Surah 1 -> "001")
   const s = String(surah).padStart(3, '0');
   const v = String(verse).padStart(3, '0');
   const w = String(wordNum).padStart(3, '0');
   
+  // Fetch from the correct padded underscore path
   const audioUrl = `https://audio.qurancdn.com/wbw/${s}_${v}_${w}.mp3`;
-  
-  // 1. Log the URL to the browser console (Press F12 to view)
   console.log("Attempting to play:", audioUrl);
   
   const audio = new Audio(audioUrl);
   audio.play().catch(err => {
-    // 2. Log exactly why it failed
     console.error("Audio playback failed:", err);
     showToast('🔊 Audio not available. Check browser console.');
   });
