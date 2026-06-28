@@ -1,13 +1,21 @@
 /**
- * Project Dua — builder.js  v3.1 (Merged with Repo Audio Engine)
- * Fetches dictionary.json, salah.json, and quran.json to build the Salah Guide.
+ * Project Dua — assets/js/builder.js  v4.0
+ * Fetches salah.json and quran.json to build the Salah Guide.
  *
- * Requires: assets/js/theme.js (loaded first — provides DuaIcons, getPostureIconSvg)
+ * Requires: assets/icons/icons.js  (must load first)
+ * Requires: assets/theme/theme.js  (must load before this)
+ *
+ * v4.0 changes:
+ *   - Removed seenDuas dedup — sequence is now authoritative (fixes missing
+ *     Second Sujood and Final Tashahhud cards)
+ *   - Fixed Quran word audio URL: slashes + no zero-padding
+ *   - Dropped unused dictionary.json fetch
+ *   - Fixed scrollspy selector to only observe .card and #intro
+ *   - Widened scrollspy rootMargin for small screens
  */
 
 'use strict';
 
-const DICT_PATH  = '../assets/data/dictionary.json';
 const SALAH_PATH = '../assets/data/salah.json';
 const QURAN_PATH = '../assets/data/quran.json';
 let TOTAL_SECTIONS = 0;
@@ -15,13 +23,11 @@ let TOTAL_SECTIONS = 0;
 /* ── BOOT ── */
 document.addEventListener('DOMContentLoaded', () => {
   Promise.all([
-    fetch(DICT_PATH).then(r => { if (!r.ok) throw new Error(`dictionary: ${r.status}`); return r.json(); }),
-    fetch(SALAH_PATH).then(r => { if (!r.ok) throw new Error(`salah: ${r.status}`); return r.json(); }),
-    fetch(QURAN_PATH).then(r => { if (!r.ok) throw new Error(`quran: ${r.status}`); return r.json(); })
+    fetch(SALAH_PATH).then(r => { if (!r.ok) throw new Error(`salah.json: ${r.status}`); return r.json(); }),
+    fetch(QURAN_PATH).then(r => { if (!r.ok) throw new Error(`quran.json: ${r.status}`); return r.json(); })
   ])
-  .then(([dictData, salahData, quranData]) => {
-    const ui = dictData.ui;
-    buildPage(salahData, quranData, ui);
+  .then(([salahData, quranData]) => {
+    buildPage(salahData, quranData);
     restoreProgress();
     updateProgress();
     activateScrollSpy();
@@ -31,38 +37,45 @@ document.addEventListener('DOMContentLoaded', () => {
     if (main) main.innerHTML = `
       <div class="error-box">
         ${DuaIcons.get('info')}
-        ⚠️ Could not load data files.<br>
-        <code>${err.message}</code><br>
+        Could not load data files — <code>${err.message}</code>
+        <br>Check your connection and try again.
       </div>`;
     console.error('[Dua builder]', err);
   });
 });
 
 /* ── PAGE BUILD ── */
-function buildPage(salah, quran, ui) {
-  const sections  = [];
-  let   secId     = 1;
-  const seenDuas  = new Set();
+function buildPage(salah, quran) {
+  const sections   = [];
+  let   secId      = 1;
+  /*
+   * seenSurahs still prevents the same Surah appearing more than once
+   * (the same Surah should never be in the sequence twice).
+   * seenDuas has been REMOVED — the standard_sequence is authoritative.
+   * sujood legitimately appears twice (First & Second Sujood) and
+   * tashahhud appears twice (Middle & Final Tashahhud).
+   */
   const seenSurahs = new Set();
 
   let sequenceList = [...salah["rak'ah_structure"].standard_sequence];
 
-  // Inject Wajjahtu right after Sana
+  // Inject Wajjahtu right after Sana (alternative opening dua)
   const sanaIdx = sequenceList.findIndex(s => s.dua_id === 'sana');
   if (sanaIdx !== -1) {
     sequenceList.splice(sanaIdx + 1, 0, {
-      step: '2b',
-      name: 'Opening Dua (Wajjahtu)',
-      dua_id: 'sana_wajjahtu',
+      step:    '2b',
+      name:    'Opening Dua — Wajjahtu',
+      dua_id:  'sana_wajjahtu',
       posture: 'standing',
-      notes: 'Alternative to Sana'
+      notes:   'Alternative to Sana — recite one or the other, not both'
     });
   }
 
-  // Parse standard sequence
+  // ── Standard sequence ──
   sequenceList.forEach(step => {
-    if (step.dua_id && !seenDuas.has(step.dua_id)) {
-      seenDuas.add(step.dua_id);
+    if (step.dua_id) {
+      // All dua steps are added — no deduplication. Repeats (sujood ×2,
+      // tashahhud ×2) are intentional and must appear as separate cards.
       const dua = salah.duas[step.dua_id];
       if (dua) {
         sections.push({
@@ -98,7 +111,7 @@ function buildPage(salah, quran, ui) {
     }
   });
 
-  // Append recommended short surahs
+  // ── Recommended short Surahs (appended after main sequence) ──
   salah.surah_usage.recommended_short.forEach(rec => {
     if (!seenSurahs.has(rec.surah_id)) {
       seenSurahs.add(rec.surah_id);
@@ -140,8 +153,8 @@ function buildNav(sections) {
       </a>
     </li>`;
 
-  let salahLinks  = '';
-  let surahLinks  = '';
+  let salahLinks = '';
+  let surahLinks = '';
 
   sections.forEach(s => {
     const shortTitle = s.title.split('—')[0].split('(')[0].trim();
@@ -195,7 +208,7 @@ function buildScheduleCard(schedule) {
       </table>
     </div>
     <p class="sched-note">
-      <strong>Witr:</strong> After Isha Fardh + Sunnah, conclude with Witr rak'ahs (odd number).
+      <strong>Witr:</strong> After Isha Fardh + Sunnah, conclude with Witr rak\'ahs (odd number: 1, 3, or more).
     </p>`;
 }
 
@@ -323,7 +336,7 @@ function buildNotesBlock(notes) {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   SIDEBAR NAV CONTROLS (called from HTML)
+   SIDEBAR NAV CONTROLS
 ══════════════════════════════════════════════════════════════ */
 function toggleNav() {
   document.getElementById('sidebar').classList.toggle('open');
@@ -374,32 +387,32 @@ function updateProgress() {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   AUDIO ENGINE (Preserved from Working Repo)
+   AUDIO ENGINE
+   QuranCDN word audio: /wbw/{surah}/{verse}/{word}.mp3
+   — no zero-padding, forward slashes (not underscores)
 ══════════════════════════════════════════════════════════════ */
 let toastTimer = null;
 
 function playSurahWord(surah, verse, wordNum) {
-  // Padded logic that was confirmed working in your repository
-  const s = String(surah).padStart(3, '0');
-  const v = String(verse).padStart(3, '0');
-  const w = String(wordNum).padStart(3, '0');
-  
-  const audioUrl = `https://audio.qurancdn.com/wbw/${s}_${v}_${w}.mp3`;
-  console.log("Attempting to play:", audioUrl);
-  
+  // QuranCDN format: wbw/{surah}/{verse}/{word}.mp3
+  // Numbers are plain integers — no padding, forward slashes
+  const audioUrl = `https://audio.qurancdn.com/wbw/${surah}/${verse}/${wordNum}.mp3`;
+  console.log('[Dua audio] Playing:', audioUrl);
+
   const audio = new Audio(audioUrl);
   audio.play().catch(err => {
-    console.error("Audio playback failed:", err);
-    showToast('Audio not available. Check browser console.');
+    console.error('[Dua audio] Playback failed:', err);
+    showToast('Audio not available — check console for details.');
   });
 }
 
 function playDuaWord(duaId, wordIndex) {
-  const audio = new Audio(`../assets/audio/words/${duaId}_${wordIndex}.mp3`);
+  // Local dua audio files — served from assets/audio/words/
+  const audioUrl = `../assets/audio/words/${duaId}_${wordIndex}.mp3`;
+  const audio = new Audio(audioUrl);
   audio.play().catch(() => showToast('Audio coming soon for prayer duas.'));
 }
 
-/* ── UPDATED TOAST STYLING (V4) ── */
 function showToast(msg) {
   let t = document.getElementById('dua-toast');
   if (!t) {
@@ -430,9 +443,12 @@ function showToast(msg) {
 
 /* ══════════════════════════════════════════════════════════════
    SCROLL SPY
+   Observes only .card articles and #intro — not generic
+   container divs that start with "s" (sidebar, sections-container).
+   Wider rootMargin (-55% bottom) prevents dead zones on mobile.
 ══════════════════════════════════════════════════════════════ */
 function activateScrollSpy() {
-  const cards = document.querySelectorAll('[id^="s"], #intro');
+  const cards = document.querySelectorAll('.card, #intro');
   const links = document.querySelectorAll('.nav-link');
 
   const obs = new IntersectionObserver(entries => {
@@ -443,7 +459,7 @@ function activateScrollSpy() {
         if (active) active.classList.add('active');
       }
     });
-  }, { rootMargin: '-15% 0px -75% 0px' });
+  }, { rootMargin: '-12% 0px -55% 0px' });
 
   cards.forEach(c => obs.observe(c));
 }
