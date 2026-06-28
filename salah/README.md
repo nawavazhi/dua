@@ -27,30 +27,39 @@ Most people memorise the prayer phonetically without understanding the meaning. 
 ```
 salah/
 └── index.html    ← Clean HTML shell. No Arabic text hardcoded here.
-                    All content is fetched from database.json at runtime.
+                    All content is fetched from JSON data files at runtime.
 ```
 
 ---
 
-## 🏗️ How It Works
+## 🏗️ How It Works (v3.0 Architecture)
 
 ```
-salah/index.html  →  assets/js/builder.js  →  assets/data/database.json
-                            ↓
-         Builds: nav, schedule, word-by-word cards,
-                 complete duas, notes, audio buttons
+salah/index.html
+       │
+       └──▶ assets/js/builder.js  (v3.0)
+                    │
+                    ├──▶ assets/data/dictionary.json   ← word dictionary + UI strings
+                    ├──▶ assets/data/salah.json         ← duas, rak'ah structure, schedule
+                    └──▶ assets/data/quran.json         ← surah verses with word-by-word data
+
+         builder.js builds: nav groups, schedule table,
+                            word-by-word cards (duas + surahs),
+                            complete dua blocks, notes, audio buttons
 ```
 
-Data-driven architecture: fix one entry in `database.json` → it updates everywhere.
+> **Note:** The old single-file `database.json` was split into three separate files in v3.0 for cleaner separation of concerns — Quran data, prayer dua data, and dictionary/UI data are now independently maintainable.
 
 ---
 
 ## 📁 Required Files (outside this folder)
 
 | File | Location | Purpose |
-|------|----------|---------|
-| `database.json` | `assets/data/` | All words, sections, translations |
-| `builder.js` | `assets/js/` | Builds the page from JSON |
+|------|----------|---------| 
+| `dictionary.json` | `assets/data/` | Global word dictionary + UI label strings |
+| `salah.json` | `assets/data/` | Duas, rak'ah sequence, prayer schedule |
+| `quran.json` | `assets/data/` | Surah verses with per-word Arabic / transliteration / English / Malayalam |
+| `builder.js` | `assets/js/` | Builds the entire page from the three JSON files |
 | `style.css` | `assets/css/` | Global theme shared by all modules |
 | Amiri font | Google Fonts CDN | Arabic text rendering |
 
@@ -154,48 +163,99 @@ All Arabic text matches the standard Uthmani script Quran and authenticated Hadi
 
 ---
 
-## ⚙️ builder.js — What It Does
+## ⚙️ builder.js v3.0 — What It Does
+
+### Boot sequence
+
+On `DOMContentLoaded`, builder.js fetches all three JSON files in parallel via `Promise.all`, then calls `buildPage(salahData, quranData, ui)`.
+
+### Key functions
 
 | Function | What it builds |
 |----------|---------------|
-| `buildNav()` | Sidebar links from section data |
-| `buildScheduleCard()` | Daily prayer schedule table |
-| `buildSectionCards()` | All word-by-word section cards |
-| `buildWordRows()` | Looks up each key in `global_dictionary` |
-| `buildDuaBlock()` | Gold "Complete Recitation" block at card bottom |
-| `buildNotesBlock()` | Pronunciation notes list |
+| `buildPage(salah, quran, ui)` | Assembles section list from rak'ah sequence + recommended surahs, then calls all sub-builders |
+| `buildNav(sections)` | Two-group sidebar: "🕌 Salah Steps" and "📖 Short Surahs" |
+| `buildScheduleCard(schedule)` | Prayer schedule table with Sunnah Before / Fardh / Sunnah After columns |
+| `buildSectionCards(sections)` | All word-by-word section cards; inserts section divider before Short Surahs |
+| `buildCard(section)` | Single card: header, word table, complete dua block, notes block |
+| `buildWordRows(item)` | Dua words from `salah.json` **or** verse words from `quran.json` (two separate paths) |
+| `buildDuaBlock(dua)` | Gold "Complete Recitation" block at card bottom |
+| `buildNotesBlock(notes)` | Pronunciation / notes list |
 | `toggleDark()` | Dark/light mode (localStorage) |
-| `markDone()` | Memorised checkbox (localStorage) |
+| `markDone(cb)` | Memorised checkbox (localStorage) |
 | `updateProgress()` | Progress bar + nav tick marks |
-| `playWord()` | Plays `assets/audio/words/{key}.mp3` |
+| `playSurahWord(surah, verse, word)` | Streams word audio from `audio.qurancdn.com/wbw/` for Quranic words |
+| `playDuaWord(duaId, wordIndex)` | Plays `assets/audio/words/{duaId}_{index}.mp3` for prayer dua words |
 | `activateScrollSpy()` | Highlights active section while scrolling |
+| `getPostureIcon(posture)` | Maps posture string → emoji (🧍 🙇 🛐 🧎) |
+
+### Rak'ah structure parsing
+
+`builder.js` reads `salah["rak'ah_structure"].standard_sequence` from `salah.json` and injects the Wajjahtu section right after Sana at runtime. Recommended short surahs are appended after the standard sequence and rendered under a separate nav group.
 
 ---
 
-## 🗃️ database.json — Structure
+## 🗃️ Data File Structures
+
+### dictionary.json
 
 ```json
 {
-  "meta": { ... project + developer info ... },
-  "global_dictionary": { "word_key": { "ar", "tr", "en", "ml" } },
-  "salah_guide": {
-    "schedule": [ ... ],
-    "sections": [
-      {
-        "id": 1,
-        "title": "...",
-        "posture": "...",
-        "posture_icon": "...",
-        "sequence": ["word_key1", "word_key2"],
-        "complete_dua": { "ar", "en", "ml" },
-        "notes": [ "..." ]
-      }
-    ]
+  "ui": { "...UI label strings..." },
+  "global_dictionary": {
+    "word_key": { "ar": "...", "tr": "...", "en": "...", "ml": "..." }
   }
 }
 ```
 
-One word in `global_dictionary` = one row in the table. A word shared across sections is stored once and referenced by key everywhere.
+### salah.json
+
+```json
+{
+  "schedule": [ { "prayer": "Fajr", "time_en": "...", "rak'ahs": { "sunnah_before": 2, "fardh": 2 } } ],
+  "rak'ah_structure": {
+    "standard_sequence": [
+      { "step": "1", "name": "...", "dua_id": "sana", "posture": "standing" },
+      { "step": "3", "surah_id": 1, "posture": "standing" }
+    ]
+  },
+  "surah_usage": {
+    "recommended_short": [ { "surah_id": 112, "note": "..." } ]
+  },
+  "duas": {
+    "sana": {
+      "name_en": "Opening Supplication (Sana)",
+      "posture": "standing",
+      "words": [ { "ar": "سُبْحَانَكَ", "tr": "Subhanaaka", "en": "Glory be to You", "ml": "..." } ],
+      "complete": { "ar": "...", "en": "...", "ml": "..." },
+      "notes": [ "..." ]
+    }
+  }
+}
+```
+
+### quran.json
+
+```json
+{
+  "surahs": [
+    {
+      "number": 1,
+      "name_en": "Al-Fatihah",
+      "verses_data": [
+        {
+          "verse": 1,
+          "words": [ { "ar": "بِسْمِ", "tr": "Bismi", "en": "In (the) name", "ml": "...", "w": 1 } ]
+        }
+      ],
+      "complete_text": { "ar": "...", "en": "...", "ml": "..." },
+      "tajweed_notes": [ "..." ]
+    }
+  ]
+}
+```
+
+> The `w` field in Surah word objects is the word position number used for the Quran CDN audio URL (`audio.qurancdn.com/wbw/{surah}/{verse}/{w}.mp3`).
 
 ---
 
@@ -204,44 +264,54 @@ One word in `global_dictionary` = one row in the table. A word shared across sec
 | Feature | Detail |
 |---------|--------|
 | Word-by-word table | Arabic · Transliteration · English · Malayalam |
-| Arabic font | Amiri (Google Fonts), 1.55rem, full diacritics |
+| Arabic font | Amiri (Google Fonts), full diacritics, RTL |
 | Complete dua block | Full text (Arabic + English + Malayalam) per section |
 | Pronunciation notes | Tajweed + posture notes per section |
 | Dark mode | Toggle, saved in localStorage |
 | Progress tracking | Memorised checkboxes, saved in localStorage |
-| Sidebar navigation | Always on desktop, hamburger on mobile |
+| Sidebar navigation | Two groups (Salah Steps / Short Surahs); hamburger on mobile |
 | Scroll spy | Active section highlights in nav |
-| Audio buttons | Tries `assets/audio/words/{key}.mp3`, shows toast if absent |
+| Surah audio | Streams from Quran CDN (`audio.qurancdn.com/wbw/`) — live, no local files needed |
+| Dua audio | Plays `assets/audio/words/{duaId}_{index}.mp3`; shows toast if absent |
 | Print | Clean A4 format, all interactive elements hidden |
 | Responsive | iPhone, Android, tablet, desktop |
 | No backend | Pure HTML + CSS + JS — GitHub Pages |
 
 ---
 
-## 🔊 Audio Setup (Pending)
+## 🔊 Audio Setup
 
-Audio is wired and waiting. To activate:
+### Surah words (already working)
+Surah word audio is live — it streams directly from `https://audio.qurancdn.com/wbw/{surah}/{verse}/{word}.mp3`. No local files required.
+
+> ⚠️ **Known bug in `playSurahWord()`:** The variable `wordNum` is used but `word` is the correct parameter. Fix:
+> ```js
+> // Current (broken):
+> const w = String(wordNum).padStart(3, '0');
+> // Fix:
+> const w = String(word).padStart(3, '0');
+> ```
+
+### Prayer dua words (pending)
+To activate local dua audio:
 
 1. Create `assets/audio/words/`
-2. Add MP3 files named by `global_dictionary` key: `allahu.mp3`, `akbar.mp3`, etc.
+2. Add MP3 files named `{duaId}_{wordIndex}.mp3` — e.g. `sana_0.mp3`, `sana_1.mp3`, `tashahhud_0.mp3`
 
-**Free audio sources for Quranic words:**
-- [Quran.com Audio API](https://api.quran.com/documentation/v4) — word-by-word audio by verse/word position
-- [EveryAyah.com](https://everyayah.com) — full Surah MP3s by Qari
-
-**For prayer dua audio** (Sana, Tashahhud, etc.) — these are Sunnah, not Quran, so Quran APIs don't cover them. Options:
+**Dua audio sources:**
 - Record with a local scholar for clearest pronunciation
 - Source from open-licence Islamic learning platforms in Kerala
+- Kerala mosque recitations available through SAMASTHA educational audio materials
 
 ---
 
 ## 🌍 Adding a Language
 
-1. Add a field to every `global_dictionary` entry (e.g. `"ur"` for Urdu)
+1. Add a field to every word object in `dictionary.json` (e.g. `"ur"` for Urdu) and in `salah.json`/`quran.json` word entries
 2. In `builder.js`, add a column in `buildWordRows()` and `buildCard()`
-3. Add the column header in the table header
+3. Add the column header in the table header in `buildCard()`
 
-Only one change per place — it propagates to all 16 sections automatically.
+The change propagates to all sections automatically.
 
 ---
 
@@ -253,22 +323,26 @@ Only one change per place — it propagates to all 16 sections automatically.
 - For prayer duas: cite the source you used in a PR comment
 - If unsure, mark the entry with `"ml_unverified": true` so it can be flagged for review
 
-### Adding a section
-1. Add new words to `global_dictionary`
-2. Add the section object to `salah_guide.sections`
-3. Fill `sequence`, `complete_dua`, `notes`
-4. Update `TOTAL_SECTIONS` in `builder.js`
-5. Nav link is built automatically
+### Adding a section / dua
+1. Add new words to the `duas` object in `salah.json`
+2. Add the dua entry with `words`, `complete`, and `notes`
+3. Add the step to `rak'ah_structure.standard_sequence` (or `surah_usage.recommended_short` for surahs)
+4. Nav link and card are built automatically
+
+### Adding a surah
+1. Add the surah object to `quran.json` → `surahs[]`
+2. Include `number`, `name_en`, `verses_data`, `complete_text`, `tajweed_notes`
+3. Reference the surah by `surah_id` in `salah.json` → `surah_usage.recommended_short`
 
 ### Fixing a translation
-Find the key in `global_dictionary`, edit the field. One change fixes it everywhere.
+Find the word entry in the relevant JSON file, edit the field. One change fixes it everywhere that word is used.
 
 ### Code rules
 - No frameworks — vanilla HTML5, CSS3, JavaScript
 - All interactive elements hidden in `@media print`
 - Arabic always: `font-family: var(--amiri); direction: rtl`
 - localStorage keys: `dua-{feature}-{id}`
-- Fetch path in builder.js: `../assets/data/database.json`
+- Fetch paths in builder.js: `../assets/data/{filename}.json`
 
 ### Design tokens
 ```
@@ -281,7 +355,8 @@ Find the key in `global_dictionary`, edit the field. One change fixes it everywh
 
 ## 🗺️ Planned
 
-- [ ] Real word-by-word audio (all 16 sections)
+- [ ] Fix `playSurahWord()` variable bug (`wordNum` → `word`)
+- [ ] Real word-by-word dua audio (all prayer sections)
 - [ ] Full-section recitation audio player
 - [ ] Quiz Mode — hide translations, reveal on tap
 - [ ] Posture SVG illustrations per section
