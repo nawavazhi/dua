@@ -133,7 +133,7 @@ function _buildThemePanel() {
   document.body.appendChild(panel);
 
   document.addEventListener('click', e => {
-    if (!panel.contains(e.target) && e.target.id !== 'theme-btn') {
+    if (!panel.contains(e.target) && !e.target.closest('#theme-btn')) {
       _closeThemePanel();
     }
   });
