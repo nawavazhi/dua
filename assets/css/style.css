@@ -1,5 +1,5 @@
 /*
- * Project Dua — assets/css/style.css  v4.0
+ * dua — assets/css/style.css  v4.0
  * Global stylesheet shared across ALL modules: salah, ablution, quran, reminder.
  *
  * Requires assets/css/theme.css to be loaded first.
@@ -484,7 +484,7 @@ ul { list-style: none; }
 
 /* Arabic cell */
 .ar {
-  font-family: var(--arabic-font, 'Noto Naskh Arabic', 'Amiri', serif);
+  font-family: var(--arabic-font, 'Scheherazade New', 'Noto Naskh Arabic', serif);
   font-size: 1.5rem;
   direction: rtl;
   text-align: right;
@@ -548,8 +548,8 @@ ul { list-style: none; }
   fill: none;
 }
 .dua-ar {
-  font-family: var(--arabic-font, 'Noto Naskh Arabic', 'Amiri', serif);
-  font-size: 1.3rem;
+  font-family: 'Amiri Quran', 'Scheherazade New', serif;
+  font-size: 1.9rem;
   direction: rtl;
   text-align: right;
   color: var(--arabic-color, var(--primary));
