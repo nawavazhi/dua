@@ -95,6 +95,17 @@ function _buildTopbar() {
       </button>
     </div>
   `;
+
+  // Inject print icon into #print-btn if present on this page.
+  // The print button intentionally has no hardcoded SVG in the HTML —
+  // this is the single place that wires it.
+  const printBtn = document.getElementById('print-btn');
+  if (printBtn) {
+    const existingIcon = printBtn.querySelector('svg');
+    if (!existingIcon) {
+      printBtn.insertAdjacentHTML('afterbegin', DuaIcons.get('print'));
+    }
+  }
 }
 
 /* ── 4. THEME PANEL ── */
@@ -151,7 +162,11 @@ function getPostureIconSvg(posture) {
 
 /* ── BOOT ── */
 document.addEventListener('DOMContentLoaded', () => {
-  DuaTheme.init();
+  // _buildTopbar() MUST run before DuaTheme.init() so that #theme-btn
+  // exists when _updateThemeBtn() is called inside init().
+  // Previous order (init → buildTopbar) caused the theme button to always
+  // render as "Light" regardless of the user's saved preference.
   _buildTopbar();
+  DuaTheme.init();
   _buildThemePanel();
 });
