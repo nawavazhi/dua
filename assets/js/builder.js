@@ -259,7 +259,7 @@ function buildWordRows(item) {
     let html = '';
     item.verses.forEach(v => {
       html += `<tr class="verse-divider"><td colspan="4" style="background:var(--alt-row);font-size:0.75rem;color:var(--green);font-weight:bold;text-align:center;letter-spacing:1px;border-bottom:1px solid var(--border)">Verse ${v.verse}</td></tr>`;
-      v.words.forEach(w => {
+      v.words.forEach((w, index) => {
         html += `
         <tr>
           <td class="ar">
@@ -383,6 +383,9 @@ function updateProgress() {
 let toastTimer = null;
 
 function playSurahWord(surah, verse, word) {
+  const s = String(surah).padStart(3, '0');
+  const v = String(verse).padStart(3, '0');
+  const w = String(wordNum).padStart(3, '0');
   const audio = new Audio(`https://audio.qurancdn.com/wbw/${surah}/${verse}/${word}.mp3`);
   audio.play().catch(() => showToast('🔊 Audio not available. Check internet connection.'));
 }
