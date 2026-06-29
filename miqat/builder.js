@@ -42,8 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
     .catch(err => {
-      document.getElementById('loading').innerHTML =
-        `${DuaIcons.get('info')} Could not load — <code>${err.message}</code>`;
+      // Hide loading so the app doesn't appear broken
+      const ld = document.getElementById('loading');
+      if (ld) ld.hidden = true;
+      // Show setup screen — still usable without reminder.json
+      showSetup();
+      showToast('Could not load prayer data. Check your connection.');
+      console.error('[miqat]', err);
     });
 });
 
