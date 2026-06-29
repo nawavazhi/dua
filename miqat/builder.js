@@ -170,6 +170,33 @@ function changeLocation() {
   showSetup();
 }
 
+function fillMissingDays() {
+  const now = new Date();
+  const today = todayStr();
+  
+  // Find the most recent date in the log that isn't today
+  const loggedDates = Object.keys(_log).filter(d => d !== today).sort();
+  if (loggedDates.length === 0) return; 
+  
+  const lastDateStr = loggedDates[loggedDates.length - 1];
+  let checkDate = new Date(lastDateStr);
+  checkDate.setDate(checkDate.getDate() + 1); // Start the day after last log
+  
+  // Loop through every day between the last logged date and today
+  while (dateStr(checkDate) < today) {
+    const missingDateKey = dateStr(checkDate);
+    if (!_log[missingDateKey]) _log[missingDateKey] = {};
+    
+    // Mark all 5 prayers as missed for this fully absent day
+    PRAYER_KEYS.forEach(k => {
+      if (!_log[missingDateKey][k]) _log[missingDateKey][k] = 'missed';
+    });
+    
+    checkDate.setDate(checkDate.getDate() + 1);
+  }
+  saveLog();
+}
+
 /* ══════════════════════════════════════════════════════
    PRAYER TIMES — FETCH + PARSE
 ══════════════════════════════════════════════════════ */
@@ -353,7 +380,13 @@ function tickCountdown() {
 
   let target = timeToDate(_times[prayer]);
 
-  // If prayer time has passed, it's the current window
+  // FIX: If we are looking for Fajr, but the generated time is in the past, 
+  // and it's currently evening/night, it must be tomorrow's Fajr.
+  if (prayer === 'fajr' && target < now && now.getHours() > 12) {
+    target.setDate(target.getDate() + 1);
+  }
+
+  // If prayer time has passed (and it's not tomorrow's Fajr), it's the current window
   if (target < now) {
     // Show time since it started
     const diff = Math.floor((now - target) / 1000);
