@@ -42,13 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })
     .catch(err => {
-      // Always hide the loading screen — show error as a toast instead
-      const ld = document.getElementById('loading');
-      if (ld) ld.hidden = true;
-      // Show setup screen as fallback so app is usable
-      showSetup();
-      showToast('Could not load prayer data. Check your connection.');
-      console.error('[miqat]', err);
+      document.getElementById('loading').innerHTML =
+        `${DuaIcons.get('info')} Could not load — <code>${err.message}</code>`;
     });
 });
 

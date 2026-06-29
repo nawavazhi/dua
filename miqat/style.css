@@ -11,14 +11,6 @@
   padding: 24px; text-align: center;
 }
 
-/* Loading screen is fixed overlay so it covers all content */
-#loading.screen-center {
-  position: fixed;
-  top: 54px; left: 0; right: 0; bottom: 0;
-  background: var(--bg);
-  z-index: 100;
-}
-
 .loading-ring {
   width: 36px; height: 36px;
   border: 3px solid var(--border);
