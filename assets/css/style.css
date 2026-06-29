@@ -513,7 +513,11 @@ ul { list-style: none; }
 .aud-btn svg    { width: 11px; height: 11px; stroke: currentColor; fill: none; }
 
 .tr { font-style: italic; color: var(--muted); }
-.ml { font-size: 0.77rem; }
+.ml {
+  font-size: 0.77rem;
+  font-family: var(--font-ml, 'Manjari', 'Noto Sans Malayalam', sans-serif);
+  line-height: 1.7;
+}
 .en { font-weight: 500; }
 
 .verse-divider td {
