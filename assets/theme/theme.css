@@ -10,7 +10,93 @@
    BASE FONT IMPORT (loaded once here, not repeated per module)
 ════════════════════════════════════════════════════════════════ */
 /* UI fonts — Inter and Plus Jakarta Sans from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+/* ════════════════════════════════════════════════════════════════
+   SELF-HOSTED FONTS — all from assets/fonts/
+   No Google Fonts CDN. Works offline after first load.
+
+   Path note: this file is at assets/theme/theme.css
+   One level up (..) = assets/, then fonts/ = assets/fonts/
+   Correct relative path to fonts = ../fonts/
+════════════════════════════════════════════════════════════════ */
+
+/* ── Arabic: Scheherazade New (word-by-word cells, duas) ── */
+@font-face {
+  font-family: 'Scheherazade New';
+  src: url('../fonts/ScheherazadeNew-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Scheherazade New';
+  src: url('../fonts/ScheherazadeNew-Medium.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Scheherazade New';
+  src: url('../fonts/ScheherazadeNew-SemiBold.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Scheherazade New';
+  src: url('../fonts/ScheherazadeNew-Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+/* ── Arabic: Amiri Quran (complete recitation blocks .dua-ar) ── */
+@font-face {
+  font-family: 'Amiri Quran';
+  src: url('../fonts/AmiriQuran-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+
+/* ── Arabic: Amiri (generic Arabic prose fallback) ── */
+@font-face {
+  font-family: 'Amiri';
+  src: url('../fonts/amiri-regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Amiri';
+  src: url('../fonts/amiri-bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+/* ── UI: Inter variable (body text, labels, table cells) ── */
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/InterVariable.woff2') format('woff2');
+  font-weight: 100 900; font-style: normal; font-display: swap;
+}
+
+/* ── Display: Plus Jakarta Sans variable (headings, buttons, nav) ── */
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('../fonts/PlusJakartaSans%5Bwght%5D.woff2') format('woff2');
+  font-weight: 200 800; font-style: normal; font-display: swap;
+}
+
+/* ── Malayalam: Manjari (word-by-word .ml column) ── */
+@font-face {
+  font-family: 'Manjari';
+  src: url('../fonts/Manjari-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Manjari';
+  src: url('../fonts/Manjari-Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+/* ── Malayalam: Noto Sans Malayalam (fallback if Manjari missing) ── */
+@font-face {
+  font-family: 'Noto Sans Malayalam';
+  src: url('../fonts/NotoSansMalayalam-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Noto Sans Malayalam';
+  src: url('../fonts/NotoSansMalayalam-Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
 
 /* ════════════════════════════════════════════════════════════════
    ARABIC FONTS — self-hosted from assets/fonts/
@@ -18,29 +104,11 @@
    Amiri Quran:      complete recitation display blocks (.dua-ar)
    SIL Open Font License — free to host and redistribute
 ════════════════════════════════════════════════════════════════ */
-@font-face {
-  font-family: 'Scheherazade New';
-  src: url('../assets/fonts/ScheherazadeNew-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
 
-@font-face {
-  font-family: 'Scheherazade New';
-  src: url('../assets/fonts/ScheherazadeNew-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
 
-@font-face {
-  font-family: 'Amiri Quran';
-  src: url('../assets/fonts/AmiriQuran-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+
+
+
 
 /* ════════════════════════════════════════════════════════════════
    THEME: LIGHT  (default — clean daylight)
@@ -203,8 +271,9 @@
   --shadow-bar:  0 1px 8px  rgba(0,0,0,0.08);
 
   /* Typography override */
-  --font-ui:     'Inter', system-ui, sans-serif;
-  --font-display:'Plus Jakarta Sans', 'Inter', sans-serif;
+  --font-ui:      'Inter', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  --font-ml:      'Manjari', 'Noto Sans Malayalam', sans-serif;
 }
 
 /* ════════════════════════════════════════════════════════════════
