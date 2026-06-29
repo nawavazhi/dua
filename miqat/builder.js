@@ -177,6 +177,7 @@ function fetchTimes() {
   const ts  = Math.floor(Date.now() / 1000);
   const url = `https://api.aladhan.com/v1/timings/${ts}?latitude=${_settings.lat}&longitude=${_settings.lon}&method=${_settings.method}`;
   const statusEl = document.getElementById('times-status');
+  
   if (statusEl) { statusEl.innerHTML = '<span class="times-loading"></span>'; }
 
   fetch(url)
@@ -188,19 +189,36 @@ function fetchTimes() {
       startCountdown();
       scheduleNotifications();
       checkMissedPrayers();
-      if (statusEl) statusEl.innerHTML = '';
     })
-    .catch(() => {
+    .catch((err) => {
+      console.error(err);
       if (statusEl) statusEl.textContent = 'No internet — showing last known times.';
-      // Try to render from cache if we have times stored
-      if (Object.keys(_times).length) renderTimes();
+       
+      if (Object.keys(_times).length) {
+        renderTimes();
+      } else {
+        const hero = document.getElementById('next-prayer-card');
+        if (hero) {
+          hero.className = 'next-card';
+          hero.innerHTML = `
+            <div class="hero-label">Connection Error</div>
+            <div class="hero-time">Offline</div>
+            <p style="font-size: 0.8rem; margin-top: 8px; opacity: 0.8">Could not fetch prayer times.</p>`;
+        }
+      }
+    })
+    .finally(() => {
+      if (statusEl && statusEl.innerHTML.includes('times-loading')) {
+        statusEl.innerHTML = '';
+      }
     });
 }
 
 function parseTimes(apiTimings) {
   const result = {};
   PRAYER_KEYS.forEach(key => {
-    result[key] = apiTimings[API_KEYS[key]] || null;
+    let raw = apiTimings[API_KEYS[key]];
+    result[key] = raw ? raw.split(' ')[0] : null; 
   });
   return result;
 }
@@ -639,7 +657,7 @@ function requestNotifications() {
 
 function scheduleNotifications() {
   clearTimers();
-  if (Notification.permission !== 'granted') return;
+  if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return;
 
   const now = new Date();
   PRAYER_KEYS.forEach(key => {
