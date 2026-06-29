@@ -11,6 +11,14 @@
   padding: 24px; text-align: center;
 }
 
+/* Loading screen is fixed overlay so it covers all content */
+#loading.screen-center {
+  position: fixed;
+  top: 54px; left: 0; right: 0; bottom: 0;
+  background: var(--bg);
+  z-index: 100;
+}
+
 .loading-ring {
   width: 36px; height: 36px;
   border: 3px solid var(--border);
@@ -479,7 +487,15 @@
   padding: 20px 0;
   opacity: 0.7;
 }
-.hero-skeleton .loading-ring {
+.hero-skeleton /* Loading screen is fixed overlay so it covers all content */
+#loading.screen-center {
+  position: fixed;
+  top: 54px; left: 0; right: 0; bottom: 0;
+  background: var(--bg);
+  z-index: 100;
+}
+
+.loading-ring {
   border-color: rgba(255,255,255,0.2);
   border-top-color: rgba(255,255,255,0.8);
   width: 28px; height: 28px;

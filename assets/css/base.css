@@ -360,3 +360,6 @@ ul { list-style: none; }
   stroke: var(--primary);
   fill: none;
 }
+
+/* Shared animation */
+@keyframes spin { to { transform: rotate(360deg); }
