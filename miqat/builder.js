@@ -61,8 +61,13 @@ function showApp() {
   document.getElementById('loading').hidden = true;
   document.getElementById('setup-screen').hidden = true;
   document.getElementById('app-screen').hidden  = false;
-  if (_settings.city) {
-    document.getElementById('location-name').textContent = _settings.city;
+  const locEl = document.getElementById('location-name');
+  if (locEl) locEl.textContent = _settings.city || 'Locating...';
+  // Show skeleton hero while prayer times are being fetched
+  const hero = document.getElementById('next-prayer-card');
+  if (hero) {
+    hero.className = 'next-card upcoming';
+    hero.innerHTML = '<div class="hero-skeleton"><div class="loading-ring"></div><p>Fetching prayer times...</p></div>';
   }
   renderChart();
   renderQalah();
@@ -172,7 +177,7 @@ function fetchTimes() {
   const ts  = Math.floor(Date.now() / 1000);
   const url = `https://api.aladhan.com/v1/timings/${ts}?latitude=${_settings.lat}&longitude=${_settings.lon}&method=${_settings.method}`;
   const statusEl = document.getElementById('times-status');
-  if (statusEl) statusEl.textContent = 'Updating times...';
+  if (statusEl) { statusEl.innerHTML = '<span class="times-loading"></span>'; }
 
   fetch(url)
     .then(r => r.json())
@@ -183,10 +188,10 @@ function fetchTimes() {
       startCountdown();
       scheduleNotifications();
       checkMissedPrayers();
-      if (statusEl) statusEl.textContent = '';
+      if (statusEl) statusEl.innerHTML = '';
     })
     .catch(() => {
-      if (statusEl) statusEl.textContent = 'Could not fetch times. Check connection.';
+      if (statusEl) statusEl.textContent = 'No internet — showing last known times.';
       // Try to render from cache if we have times stored
       if (Object.keys(_times).length) renderTimes();
     });
