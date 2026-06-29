@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "file": "miqat/reminder.json",
+    "purpose": "Prayer time API config, reward messages, urgency reminders, and Qalah encouragement for the miqat module.",
+    "version": "1.0.0",
+    "developer": { "name": "Nawavazhi", "github": "https://github.com/nawavazhi" }
+  },
+
+  "prayer_time_api": {
+    "provider": "Aladhan",
+    "docs": "https://aladhan.com/prayer-times-api",
+    "endpoint_by_coords": "https://api.aladhan.com/v1/timings/{timestamp}?latitude={lat}&longitude={lng}&method={method}",
+    "endpoint_by_city":   "https://api.aladhan.com/v1/timingsByCity?city={city}&country={country}&method={method}",
+    "methods": {
+      "1":  { "name": "University of Islamic Sciences, Karachi",   "region": "South Asia" },
+      "2":  { "name": "Islamic Society of North America (ISNA)",   "region": "North America" },
+      "3":  { "name": "Muslim World League",                       "region": "Global" },
+      "4":  { "name": "Umm Al-Qura University, Makkah",           "region": "Gulf / Saudi Arabia" },
+      "5":  { "name": "Egyptian General Authority of Survey",      "region": "Egypt / Africa" },
+      "15": { "name": "Diyanet İşleri Başkanlığı",                "region": "Turkey" },
+      "17": { "name": "Majlis Ugama Islam Singapura",             "region": "Singapore / Southeast Asia" }
+    },
+    "default_method": 1
+  },
+
+  "prayers": {
+    "fajr": {
+      "name_en": "Fajr",
+      "name_ar": "الفجر",
+      "name_ml": "ഫജ്‌ർ",
+      "window": "Dawn until Sunrise",
+      "virtue_en": "The two rak'ahs of Fajr are better than the world and all it contains.",
+      "virtue_source": "Sahih Muslim 725",
+      "call_messages": [
+        { "en": "Fajr time has arrived. The angels of night and day are gathered. Rise and be witnessed.", "ml": "ഫജ്‌ർ സമയമായി. രാത്രി-പകൽ മലക്കുകൾ ഒന്നിക്കുന്നു. എഴുന്നേൽക്കൂ, സാക്ഷ്യം വഹിക്കപ്പെടൂ.", "source": "Sahih Bukhari 555" },
+        { "en": "The world is asleep. This moment belongs to you and Allah alone.", "ml": "ലോകം ഉറങ്ങുന്നു. ഈ നിമിഷം നിനക്കും അല്ലാഹുവിനും മാത്രം.", "source": "reflection" },
+        { "en": "Whoever prays Fajr is under the protection of Allah for the entire day.", "ml": "ഫജ്‌ർ നമസ്കരിക്കുന്നവൻ ദിവസം മുഴുവൻ അല്ലാഹുവിന്റെ ഭദ്രതയിൽ.", "source": "Sahih Muslim 657" }
+      ],
+      "reward_messages": [
+        { "en": "MashaAllah. The angels have witnessed your Fajr. Your day begins under Allah's protection.", "ml": "മാശാ അല്ലാഹ്. മലക്കുകൾ നിന്റെ ഫജ്‌ർ സാക്ഷ്യം വഹിച്ചു. അല്ലാഹുവിന്റെ സംരക്ഷണത്തിൽ നിന്റെ ദിനം ആരംഭിക്കുന്നു.", "source": "Sahih Muslim 657" },
+        { "en": "The light of Fajr does not only light up the sky — it lights up the heart that rose to meet it.", "ml": "ഫജ്‌റിന്റെ പ്രകാശം ആകാശത്ത് മാത്രമല്ല — അതിനെ സ്വീകരിക്കാൻ എഴുന്നേൽക്കുന്ന ഹൃദയത്തിലും.", "source": "reflection" },
+        { "en": "You chose Allah over your pillow. That choice is recorded and beloved to Him.", "ml": "നീ തലയണയേക്കാൾ അല്ലാഹുവിനെ തിരഞ്ഞെടുത്തു. ആ തിരഞ്ഞെടുപ്പ് അല്ലാഹുവിന്റെ അടുക്കൽ ഏറ്റവും പ്രിയമായി രേഖപ്പെടുത്തപ്പെട്ടു.", "source": "reflection" }
+      ],
+      "urgency_message": { "en": "Fajr time is ending soon. The window of dawn is closing.", "ml": "ഫജ്‌ർ സമയം അവസാനിക്കുന്നു. പ്രഭാതത്തിന്റെ ജാലകം അടയുകയാണ്." }
+    },
+
+    "dhuhr": {
+      "name_en": "Dhuhr",
+      "name_ar": "الظهر",
+      "name_ml": "ദുഹ്‌ർ",
+      "window": "Noon until mid-afternoon",
+      "virtue_en": "The gates of heaven are opened at midday. No deed rises to Allah at that time except prayer.",
+      "virtue_source": "Tirmidhi 478",
+      "call_messages": [
+        { "en": "The gates of heaven open now. Pause the world for four minutes.", "ml": "ഇപ്പോൾ ആകാശ കവാടങ്ങൾ തുറക്കപ്പെടുന്നു. നാല് മിനിറ്റ് ലോകത്തെ നിർത്തൂ.", "source": "Tirmidhi 478" },
+        { "en": "Dhuhr time. The morning is done. Account for it before the afternoon slips away.", "ml": "ദുഹ്‌ർ സമയം. പ്രഭാതം കഴിഞ്ഞു. ഉച്ചതിരിഞ്ഞ് കടന്നുപോകും മുൻപ് അതിന് കണക്ക് പറയൂ.", "source": "reflection" },
+        { "en": "The Prophet ﷺ never let the noise of the world delay his prayer. Neither should you.", "ml": "നബി ﷺ ദുനിയാവിന്റെ ശബ്ദം ഒരിക്കലും നമസ്കാരം വൈകിപ്പിക്കാൻ അനുവദിച്ചില്ല. നീയും അതുപോലെ.", "source": "reflection" }
+      ],
+      "reward_messages": [
+        { "en": "Dhuhr prayed. The gates of heaven carried your deeds upward. Well done.", "ml": "ദുഹ്‌ർ നമസ്കരിച്ചു. ആകാശ കവാടങ്ങൾ നിന്റെ കർമ്മം ഉയർത്തിക്കൊണ്ടുപോയി.", "source": "Tirmidhi 478" },
+        { "en": "You paused the dunya and stood before Allah. Everything else can wait — and it did.", "ml": "നീ ദുനിയാവ് നിർത്തി അല്ലാഹുവിന്റെ മുൻപിൽ നിന്നു. ബാക്കിയെല്ലാം കാത്തിരുന്നു — അതങ്ങനെ ചെയ്തു.", "source": "reflection" }
+      ],
+      "urgency_message": { "en": "Dhuhr time is ending. Stand before Allah while the window is still open.", "ml": "ദുഹ്‌ർ സമയം അവസാനിക്കുന്നു. ജാലകം തുറന്നിരിക്കുന്നപ്പോൾ അല്ലാഹുവിന്റെ മുൻപിൽ നിൽക്കൂ." }
+    },
+
+    "asr": {
+      "name_en": "Asr",
+      "name_ar": "العصر",
+      "name_ml": "അസ്‌ർ",
+      "window": "Mid-afternoon until Sunset",
+      "virtue_en": "Guard the middle prayer — Asr. Stand up for Allah devoutly obedient.",
+      "virtue_source": "Quran 2:238",
+      "call_messages": [
+        { "en": "Asr — the middle prayer. Allah named it specifically in the Quran. Guard it.", "ml": "അസ്‌ർ — മദ്ധ്യ നമസ്കാരം. അല്ലാഹു ഖുർആനിൽ പ്രത്യേകം പേരെടുത്ത് പറഞ്ഞത്. സൂക്ഷിക്കൂ.", "source": "Quran 2:238" },
+        { "en": "Whoever misses Asr — it is as if he has lost his family and his wealth.", "ml": "അസ്‌ർ നഷ്ടപ്പെടുന്നവൻ കുടുംബത്തെയും സ്വത്തിനെയും നഷ്ടപ്പെട്ടവനെ പോലെ.", "source": "Sahih Bukhari 552" },
+        { "en": "The afternoon is ending. The recording angels shift is almost over. Make it count.", "ml": "ഉച്ചതിരിഞ്ഞ് അവസാനിക്കുന്നു. കർമ്മ രേഖ മലക്കുകളുടെ ഊഴം മാറാറായി. ഇത് ഉൾക്കൊള്ളൂ.", "source": "Sahih Bukhari 7426" }
+      ],
+      "reward_messages": [
+        { "en": "Asr prayed. You guarded what Allah specifically commanded you to guard.", "ml": "അസ്‌ർ നമസ്കരിച്ചു. അല്ലാഹു പ്രത്യേകം കൽപ്പിച്ചതിനെ നീ സൂക്ഷിച്ചു.", "source": "Quran 2:238" },
+        { "en": "The day is not over, but you have already given Allah the best of it. SubhanAllah.", "ml": "ദിനം തീർന്നിട്ടില്ല, എങ്കിലും നീ ഏറ്റവും നല്ലത് ഇതിനകം അല്ലാഹുവിന് നൽകിക്കഴിഞ്ഞു. സുബ്ഹാനല്ലാഹ്.", "source": "reflection" }
+      ],
+      "urgency_message": { "en": "Asr is almost over. The sun is setting — do not let this one slip.", "ml": "അസ്‌ർ മിക്കവാറും കഴിഞ്ഞു. സൂര്യൻ അസ്തമിക്കുന്നു — ഇത് നഷ്ടപ്പെടുത്തരുത്." }
+    },
+
+    "maghrib": {
+      "name_en": "Maghrib",
+      "name_ar": "المغرب",
+      "name_ml": "മഗ്‌രിബ്",
+      "window": "Sunset — short window, hasten to it",
+      "virtue_en": "Hasten to Maghrib — do not delay it, for when the sun sets the gates of mercy open.",
+      "virtue_source": "Abu Dawud 418",
+      "call_messages": [
+        { "en": "The sun has set. Hasten — Maghrib does not wait. This window closes quickly.", "ml": "സൂര്യൻ അസ്തമിച്ചു. ധൃതിപ്പെടൂ — മഗ്‌രിബ് കാത്തിരിക്കില്ല. ഈ ജാലകം വേഗം അടയും.", "source": "Abu Dawud 418" },
+        { "en": "The evening brings the gates of mercy. Step through them now in prayer.", "ml": "സന്ധ്യ കരുണയുടെ കവാടങ്ങൾ കൊണ്ടുവരുന്നു. ഇപ്പോൾ നമസ്കരിച്ച് അതിലൂടെ കടക്കൂ.", "source": "Tirmidhi 3551" },
+        { "en": "Between Maghrib and Isha is a time of special dua acceptance. Start with your prayer.", "ml": "മഗ്‌രിബിനും ഇഷായ്ക്കും ഇടയിൽ ദുആ സ്വീകരിക്കപ്പെടുന്ന സവിശേഷ സമയമുണ്ട്. നമസ്കാരത്തോടെ തുടങ്ങൂ.", "source": "Abu Dawud 1277" }
+      ],
+      "reward_messages": [
+        { "en": "Maghrib prayed. The day gave you everything. You gave Allah its ending. A beautiful exchange.", "ml": "മഗ്‌രിബ് നമസ്കരിച്ചു. ദിനം നിനക്ക് എല്ലാം നൽകി. നീ അല്ലാഹുവിന് അതിന്റെ അന്ത്യം നൽകി. മനോഹരമായ കൈമാറ്റം.", "source": "reflection" },
+        { "en": "You hastened to Maghrib as the Prophet ﷺ commanded. This obedience is itself a form of worship.", "ml": "നബി ﷺ കൽപ്പിച്ചതുപോലെ നീ മഗ്‌രിബിലേക്ക് ഒടുക്കി. ഈ അനുസരണം തന്നെ ആരാധനയുടെ ഒരു രൂപമാണ്.", "source": "Abu Dawud 418" }
+      ],
+      "urgency_message": { "en": "Maghrib window is closing fast. This is the shortest prayer window of the day.", "ml": "മഗ്‌രിബ് ജാലകം വേഗം അടയുന്നു. ദിവസത്തിലെ ഏറ്റവും ചെറിയ നമസ്കാര ജാലകമാണിത്." }
+    },
+
+    "isha": {
+      "name_en": "Isha",
+      "name_ar": "العشاء",
+      "name_ml": "ഇഷാ",
+      "window": "Nightfall until Midnight (preferred before midnight)",
+      "virtue_en": "Whoever prays Isha in congregation, it is as if he prayed half the night.",
+      "virtue_source": "Sahih Muslim 656",
+      "call_messages": [
+        { "en": "Isha — close the day the right way. Meet Allah before sleep takes you.", "ml": "ഇഷാ — ദിനം ശരിയായ രീതിയിൽ അടയ്ക്കൂ. ഉറക്കം വരും മുൻപ് അല്ലാഹുവിനെ കണ്ടുമുട്ടൂ.", "source": "reflection" },
+        { "en": "If people knew the reward of Isha, they would come to it even if they had to crawl.", "ml": "ഇഷായുടെ പ്രതിഫലം ആളുകൾ അറിഞ്ഞിരുന്നെങ്കിൽ, ഇഴഞ്ഞെങ്കിലും വരുമായിരുന്നു.", "source": "Sahih Bukhari 615" },
+        { "en": "Isha in congregation equals half the night of worship. A gift for the tired.", "ml": "ജമാഅത്തായി ഇഷാ — അർദ്ധ രാത്രി ആരാധനയ്ക്ക് തുല്യം. ക്ഷീണിതർക്ക് ഒരു സമ്മാനം.", "source": "Sahih Muslim 656" }
+      ],
+      "reward_messages": [
+        { "en": "Isha prayed. All five prayers are complete. Allah sealed your day with His remembrance. Rest well.", "ml": "ഇഷാ നമസ്കരിച്ചു. അഞ്ച് നമസ്കാരങ്ങളും പൂർത്തിയായി. അല്ലാഹു നിന്റെ ദിനം അവന്റെ ഓർമ്മ കൊണ്ട് മുദ്ര വെച്ചു. നന്നായി വിശ്രമിക്കൂ.", "source": "reflection" },
+        { "en": "Five prayers, five promises kept with Allah today. Sleep knowing you honoured them.", "ml": "അഞ്ച് നമസ്കാരങ്ങൾ, ഇന്ന് അല്ലാഹുവോടുള്ള അഞ്ച് വാഗ്ദാനങ്ങൾ നിറവേറ്റി. അത് ബഹുമാനിച്ചു എന്ന ബോധ്യത്തോടെ ഉറങ്ങൂ.", "source": "reflection" }
+      ],
+      "urgency_message": { "en": "Isha time is passing. Complete your day before midnight.", "ml": "ഇഷാ സമയം കടന്നുപോകുന്നു. അർദ്ധ രാത്രിക്ക് മുൻപ് നിന്റെ ദിനം പൂർത്തിയാക്കൂ." }
+    }
+  },
+
+  "qalah_messages": [
+    { "en": "Making up a missed prayer is still a good deed. Allah sees your effort to return.", "ml": "നഷ്ടപ്പെട്ട നമസ്കാരം ഖളാ ആക്കുന്നത് ഇനിയും ഒരു നല്ല കർമ്മം. തിരിച്ചുവരാനുള്ള നിന്റെ ശ്രമം അല്ലാഹു കാണുന്നുണ്ട്." },
+    { "en": "Ibn Abbas said: 'Make up missed prayers as you would repay a debt — sincerely and without delay.'", "ml": "ഇബ്‌നു അബ്ബാസ് (റ) പറഞ്ഞു: 'കടം വീട്ടുന്നത് പോലെ — ആത്മാർഥതയോടെ, വൈകാതെ — നഷ്ടപ്പെട്ട നമസ്കാരം ഖളാ ആക്കൂ.'" },
+    { "en": "One prayer made up today reduces the burden by one. Start where you are.", "ml": "ഇന്ന് ഒരു നമസ്കാരം ഖളാ ആക്കിയാൽ ഭാരം ഒന്ന് കുറഞ്ഞു. ഇപ്പോൾ ഉള്ളിടത്ത് നിന്ന് തുടങ്ങൂ." }
+  ],
+
+  "streak_messages": {
+    "1":  { "en": "First day complete. Every journey begins here.", "ml": "ആദ്യ ദിനം പൂർത്തി. എല്ലാ യാത്രയും ഇവിടെ നിന്ന് തുടങ്ങുന്നു." },
+    "3":  { "en": "3 days. A habit is beginning to form.", "ml": "3 ദിവസം. ഒരു ശീലം രൂപപ്പെടാൻ തുടങ്ങുന്നു." },
+    "7":  { "en": "One full week. SubhanAllah. Keep going.", "ml": "ഒരാഴ്ച പൂർണ്ണം. സുബ്ഹാനല്ലാഹ്. തുടരൂ." },
+    "30": { "en": "30 days. The Prophet ﷺ said the best deeds are those done consistently. You are living this.", "ml": "30 ദിവസം. നബി ﷺ പറഞ്ഞു: ഏറ്റവും ഉത്തമ കർമ്മം നിരന്തരം ചെയ്യുന്നതാണ്. നീ ഇത് ജീവിക്കുകയാണ്." }
+  }
+}

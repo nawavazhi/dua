@@ -1,0 +1,362 @@
+/*
+ * dua — assets/css/common.css
+ * Shared layout used by ALL modules: salah, reminder, ablution, quran.
+ * Contains: reset, topbar, sidebar, nav, progress, overlay, print base, utilities.
+ * Module-specific styles (word tables, dua blocks, etc.) live in each module's style.css.
+ *
+ * Load order in every module HTML:
+ *   <link rel="stylesheet" href="../assets/theme/theme.css">
+ *   <link rel="stylesheet" href="../assets/css/common.css">
+ *   <link rel="stylesheet" href="./style.css">
+ */
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-ui, 'Inter', system-ui, sans-serif);
+  font-size: 15px;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* ── TOP BAR ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  height: 54px;
+  background: var(--primary);
+  display: flex; align-items: center;
+  padding: 0 14px; gap: 10px;
+  box-shadow: var(--shadow-bar);
+}
+
+.topbar-logo {
+  display: flex; align-items: center; gap: 8px;
+  flex: 1; min-width: 0;
+}
+
+.topbar-logo .dua-icon {
+  width: 22px; height: 22px;
+  color: var(--accent);
+  flex-shrink: 0;
+  display: block;
+}
+
+.topbar-title {
+  color: var(--primary-fg);
+  font-family: var(--font-display, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar-title span {
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 400;
+  opacity: 0.7;
+  font-family: var(--font-ui);
+}
+
+.topbar-actions {
+  display: flex; align-items: center; gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Icon button — used for menu, theme switcher, etc. */
+.icon-btn {
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: var(--primary-fg);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.icon-btn:hover { background: rgba(255,255,255,0.22); }
+.icon-btn svg  { width: 18px; height: 18px; stroke: currentColor; fill: none; }
+
+/* Theme switcher button — slightly wider for label */
+.theme-btn {
+  background: rgba(255,255,255,0.12);
+  border: none;
+  color: var(--primary-fg);
+  height: 34px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.theme-btn:hover { background: rgba(255,255,255,0.22); }
+.theme-btn svg  { width: 14px; height: 14px; stroke: currentColor; fill: none; }
+
+/* ── THEME PANEL ── */
+.theme-panel {
+  position: fixed;
+  top: 62px; right: 14px;
+  z-index: 600;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card), 0 8px 32px rgba(0,0,0,0.12);
+  padding: 12px;
+  min-width: 220px;
+  display: none;
+}
+.theme-panel.open { display: block; }
+
+.theme-panel-title {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted);
+  margin-bottom: 10px;
+  padding: 0 4px;
+}
+
+.theme-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.theme-option {
+  border: 2px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 8px;
+  cursor: pointer;
+  background: var(--bg);
+  transition: border-color 0.15s, background 0.15s;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  text-align: center;
+}
+.theme-option:hover { border-color: var(--primary-mid); }
+.theme-option.active { border-color: var(--accent); background: var(--accent-bg); }
+
+.theme-option-swatch {
+  width: 32px; height: 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+.theme-option-name {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.theme-option-desc {
+  font-size: 0.58rem;
+  color: var(--muted);
+}
+
+/* Swatch colors per theme */
+.swatch-light  { background: linear-gradient(135deg, #FAFBFC 50%, #1f4e3d 50%); }
+.swatch-dark   { background: linear-gradient(135deg, #0D1110 50%, #3DB882 50%); }
+.swatch-dua    { background: linear-gradient(135deg, #4a4d50 50%, #1f4e3d 50%); }
+.swatch-noor   { background: linear-gradient(135deg, #F6EFE7 50%, #6F88A5 50%); }
+
+/* ── PROGRESS BAR ── */
+.prog-wrap {
+  position: fixed; top: 54px; left: 0; right: 0; z-index: 490;
+  height: 2px;
+  background: rgba(0,0,0,0.08);
+}
+.prog-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.4s ease;
+  width: 0;
+}
+.prog-label {
+  position: fixed; top: 60px; right: 12px; z-index: 491;
+  font-size: 0.62rem;
+  background: var(--primary);
+  color: rgba(255,255,255,0.9);
+  padding: 2px 10px;
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  position: fixed; top: 54px; left: 0; bottom: 0; z-index: 400;
+  width: var(--nav-w, 255px);
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 16px 0 24px;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+.sidebar.open { transform: translateX(0); }
+
+.nav-group-label {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: var(--subtle);
+  padding: 14px 16px 5px;
+  font-weight: 600;
+}
+.nav-group-label svg {
+  width: 12px; height: 12px;
+  stroke: var(--muted);
+  fill: none;
+  flex-shrink: 0;
+}
+
+.nav-list { padding: 0; }
+
+.nav-link {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 16px;
+  text-decoration: none;
+  color: var(--text);
+  font-size: 0.78rem;
+  border-left: 2px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+.nav-link:hover  {
+  background: var(--alt-row);
+  border-left-color: var(--accent);
+}
+.nav-link.active {
+  background: var(--alt-row);
+  border-left-color: var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Constrain inline SVG icons inside nav links — without this they auto-size
+   to their viewBox (24px) which makes the schedule icon much bigger than text */
+.nav-link svg {
+  width: 15px; height: 15px;
+  stroke: currentColor;
+  fill: none;
+  flex-shrink: 0;
+}
+
+.nav-check {
+  width: 16px; height: 16px;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.nav-check svg {
+  width: 12px; height: 12px;
+  stroke: var(--accent);
+  fill: none;
+}
+/* Hide check icon when not done */
+.nav-check:empty { visibility: hidden; }
+
+.nav-separator {
+  height: 1px;
+  background: var(--divider);
+  margin: 8px 16px;
+}
+
+.overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 399;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(2px);
+}
+.overlay.show { display: block; }
+
+/* ── MAIN CONTENT ── */
+.main {
+  padding-top: 74px;
+  padding-bottom: 96px;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ── INTRO CARD ── */
+.intro-card {
+  background: var(--card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 28px 24px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+}
+
+.intro-card h1 {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--primary);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 4px;
+  justify-content: center;
+}
+.intro-card h1 svg {
+  width: 22px; height: 22px;
+  stroke: var(--accent);
+  fill: none;
+  flex-shrink: 0;
+}
+
+.intro-tag {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-bottom: 20px;
+}
+
+.study-tip {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  margin-bottom: 20px;
+  line-height: 1.65;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.study-tip svg {
+  width: 16px; height: 16px;
+  stroke: var(--accent);
+  fill: none;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.study-tip strong { color: var(--accent); }
+
+.sec-label {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.sec-label svg {
+  width: 13px; height: 13px;
+  stroke: var(--primary);
+  fill: none;
+}
