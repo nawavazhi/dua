@@ -110,10 +110,13 @@ function useGPS() {
       fetchTimes();
     },
     err => {
-      showSetupError('Location access denied. Type your city below instead.');
+      // FIX: Differentiate between a timeout and a denial for better UX
+      const msg = err.code === 3 ? 'GPS signal too weak. Type your city below.' : 'Location access denied. Type your city below instead.';
+      showSetupError(msg);
       btn.textContent = 'Use my location';
       btn.disabled = false;
-    }
+    },
+    { timeout: 10000, enableHighAccuracy: false } // FIX: Force failure after 10 seconds to prevent infinite hanging
   );
 }
 
@@ -787,7 +790,9 @@ function showToast(msg) {
 
 // Refresh times at midnight and every hour
 setInterval(() => {
-  if (_settings.lat) { _times = {}; fetchTimes(); }
+  // FIX: Do not wipe _times before fetching. If the fetch fails due to being offline, 
+  // the app will retain the current valid times on the screen instead of crashing to an error state.
+  if (_settings.lat) { fetchTimes(); }
 }, 3600000);
 
 /* ── NAV STUBS ─────────────────────────────────────────────
