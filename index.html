@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>dua — Pray with Understanding</title>
-<meta name="description" content="Learn every word of your Salah in Arabic, English, and Malayalam. Word-by-word Islamic prayer guide.">
+<meta name="description" content="Learn every word of your prayer in Arabic, English, and Malayalam. Word-by-word Islamic prayer guide.">
 
 <link rel="stylesheet" href="./assets/theme/theme.css">
 <link rel="stylesheet" href="./assets/css/style.css">
@@ -452,12 +452,12 @@
     </h1>
 
     <p class="hero-tagline">
-      Every word of your Salah — Arabic, transliteration, English, and Malayalam
+      Every word of your prayer — Arabic, transliteration, English, and Malayalam
       — laid out side by side so you understand every syllable you recite.
     </p>
 
     <div class="hero-actions">
-      <a href="./salah/index.html" class="btn-primary">
+      <a href="./sujood/index.html" class="btn-primary">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
@@ -492,7 +492,7 @@
     <div class="modules-grid">
 
       <!-- Salah — LIVE -->
-      <a href="./salah/index.html" class="module-card active">
+      <a href="./sujood/index.html" class="module-card active">
         <div class="module-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -502,7 +502,7 @@
         </div>
         <span class="module-status status-live">Live</span>
         <div>
-          <div class="module-name">Salah Guide</div>
+          <div class="module-name">sujood</div>
           <span class="module-name-ar">الصَّلَاة</span>
           <div class="module-desc">
             Every dua of your prayer — word by word. From Takbeer to Tasleem,
@@ -749,7 +749,7 @@
         </svg>
         GitHub
       </a>
-      <a href="./salah/index.html" class="footer-link">
+      <a href="./sujood/index.html" class="footer-link">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
              stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 2c-1.1 0-2 .45-2 1v1H8.5C7.67 4 7 4.67 7 5.5V7H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1h-2V5.5C17 4.67 16.33 4 15.5 4H14V3c0-.55-.9-1-2-1z"/>
@@ -772,7 +772,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!topbar) return;
   topbar.innerHTML = `
     <div class="topbar-logo">
-      ${DuaIcons.get('mosque','dua-icon')}
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1.1 0-2 .45-2 1v1H8.5C7.67 4 7 4.67 7 5.5V7H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1h-2V5.5C17 4.67 16.33 4 15.5 4H14V3c0-.55-.9-1-2-1z"/><path d="M9 12a3 3 0 0 1 6 0v7H9v-7z"/><line x1="12" y1="2" x2="12" y2="4"/></svg>
       <div class="topbar-title">
         dua
         <span>Word-by-Word Islamic Prayer Guide</span>
@@ -780,7 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
     <div class="topbar-actions">
       <button class="theme-btn" id="theme-btn" onclick="_openThemePanel()" aria-label="Switch theme">
-        ${DuaIcons.get('sun')}<span>Light</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg><span>Light</span>
       </button>
     </div>
   `;

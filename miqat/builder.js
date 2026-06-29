@@ -405,7 +405,22 @@ function showReward(prayer, isQalah) {
 /* ══════════════════════════════════════════════════════
    MISSED PRAYER DETECTION
 ══════════════════════════════════════════════════════ */
+
+/* Check if yesterday's Isha was never confirmed — mark missed.
+   Without this, Isha from previous days stays null permanently. */
+function checkYesterdayIsha() {
+  const y = new Date();
+  y.setDate(y.getDate() - 1);
+  const yKey = dateStr(y);
+  if (!_log[yKey]) _log[yKey] = {};
+  if (_log[yKey]['isha'] === undefined || _log[yKey]['isha'] === null) {
+    _log[yKey]['isha'] = 'missed';
+    saveLog();
+  }
+}
+
 function checkMissedPrayers() {
+  checkYesterdayIsha();
   const todayKey = todayStr();
   if (!_log[todayKey]) _log[todayKey] = {};
   const todayLog = _log[todayKey];
@@ -602,7 +617,10 @@ function updateStreakDisplay() {
 ══════════════════════════════════════════════════════ */
 function requestNotifications() {
   if (!('Notification' in window)) {
-    showToast('Notifications not supported on this browser.');
+    const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent);
+    showToast(isIOS
+      ? 'On iPhone: use Share → Add to Home Screen to enable reminders.'
+      : 'Notifications not supported on this browser.');
     return;
   }
   Notification.requestPermission().then(perm => {
@@ -654,6 +672,12 @@ function clearTimers() {
    SETTINGS PANEL
 ══════════════════════════════════════════════════════ */
 function openSettings() {
+  const sel = document.getElementById('settings-method');
+  if (sel && _data) {
+    sel.innerHTML = Object.entries(_data.prayer_time_api.methods)
+      .map(([id,m]) => `<option value="${id}"${_settings.method==id?' selected':''}>${m.name}</option>`)
+      .join('');
+  }
   document.getElementById('settings-overlay').hidden = false;
 }
 function closeSettings() {
@@ -709,3 +733,10 @@ function showToast(msg) {
 setInterval(() => {
   if (_settings.lat) { _times = {}; fetchTimes(); }
 }, 3600000);
+
+/* ── NAV STUBS ─────────────────────────────────────────────
+   theme.js injects a hamburger button calling toggleNav().
+   miqat has no sidebar — stubs prevent ReferenceError.
+─────────────────────────────────────────────────────────── */
+function toggleNav() { /* miqat has no sidebar */ }
+function closeNav()  { /* miqat has no sidebar */ }

@@ -35,7 +35,7 @@
   <!-- SETUP SCREEN -->
   <div id="setup-screen" class="screen-center" hidden>
     <div class="setup-card">
-      <div class="setup-icon">${DuaIcons ? DuaIcons.get('mosque') : ''}</div>
+      <div class="setup-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c-1.1 0-2 .45-2 1v1H8.5C7.67 4 7 4.67 7 5.5V7H5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1h-2V5.5C17 4.67 16.33 4 15.5 4H14V3c0-.55-.9-1-2-1z"/><path d="M9 12a3 3 0 0 1 6 0v7H9v-7z"/><line x1="12" y1="2" x2="12" y2="4"/></svg></div>
       <h1 class="setup-title">Set your location</h1>
       <p class="setup-sub">Prayer times depend on your location. Your coordinates are never stored on any server — only on this device.</p>
 
@@ -149,5 +149,24 @@
     }
   });
 </script>
+
+<!-- Settings overlay -->
+<div id="settings-overlay" class="settings-overlay" hidden>
+  <div class="settings-panel">
+    <div class="settings-head">
+      Settings
+      <button class="settings-close" onclick="closeSettings()">&#x2715;</button>
+    </div>
+    <div class="settings-body">
+      <div class="settings-group">
+        <label class="settings-label">Calculation method</label>
+        <select id="settings-method" class="setup-select"
+          onchange="_settings.method=parseInt(this.value);saveSettings();fetchTimes();">
+        </select>
+      </div>
+      <button class="btn-primary btn-small" onclick="changeLocation()">Change location</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>

@@ -9,7 +9,8 @@ const CACHE = 'dua-v1';
 const STATIC = [
   '/dua/',
   '/dua/index.html',
-  '/dua/salah/index.html',
+  '/dua/sujood/index.html',
+  '/dua/miqat/index.html',
   '/dua/assets/theme/theme.css',
   '/dua/assets/theme/theme.js',
   '/dua/assets/css/style.css',
