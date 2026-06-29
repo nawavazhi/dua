@@ -3,7 +3,7 @@
 > Word-by-word Islamic prayer guide — Arabic, English, Malayalam.  
 > No ads. No accounts. No tracking. Open source.
 
-**[Open Salah Guide](https://nawavazhi.github.io/dua/salah/)** · [GitHub](https://github.com/nawavazhi/dua)
+**[Open sujood](https://nawavazhi.github.io/dua/sujood/)** · [GitHub](https://github.com/nawavazhi/dua)
 
 ---
 
@@ -17,14 +17,14 @@ Most Muslims recite Salah in Arabic without fully understanding each word. dua f
 
 | Module | Status |
 |---|---|
-| **Salah Guide** | Live |
-| **Prayer Reminders** | In development |
-| **Ablution Guide** | Planned |
-| **Quran Reader** | Planned |
+| **[sujood](https://nawavazhi.github.io/dua/sujood/)** — Salah word-by-word guide | Live |
+| **miqat** — Prayer times, reminders, Qalah tracking | In development |
+| **wudu** — Ablution guide (Wudu, Tayammum, Ghusl) | Planned |
+| **quran** — Full Quran reader | Planned |
 
 ---
 
-## Salah Guide — steps covered
+## sujood — steps covered
 
 | # | Step | Posture |
 |---|---|---|
@@ -216,15 +216,48 @@ AUDIO — DO NOT CHANGE
     Web Speech API lang='en-US'. Works offline. Siri/Google TTS engine.
 
 MODULES STATUS
-  salah/index.html    LIVE
-    - 15-step sequence, all duas complete
-    - 6 short surahs stored locally in quran.json (1,103,108,112,113,114)
-    - Audio: word-by-word working (QuranCDN padded underscore)
-    - Missing: full verse audio, TTS buttons, dua word audio
-    - meta tags: added (description, og:title, og:description, theme-color)
-    - print button: id="print-btn", icon injected by theme.js _buildTopbar()
+  sujood/      LIVE  (was: salah/ — renamed)
+    - builder.js v5.0, 15-step sequence, sujood x2, tashahhud x2
+    - 6 short surahs locally: Al-Fatihah, Al-Asr, Al-Kawtar, Al-Ikhlas, Al-Falaq, An-Nas
+    - Arabic: Uthmani Hafs from ara-quranuthmanihaf.json (extracted into sujood/quran.json)
+    - English: Saheeh International from eng-ummmuhammad.json (extracted)
+    - Malayalam: Abdul Hameed Madani from mal-abdulhameedmada.json (extracted)
+    - Audio: QuranCDN word-by-word (108_001_001.mp3 padded underscore — DO NOT CHANGE)
+    - Audio: EveryAyah verse audio, reciter selector (5 reciters), stored in localStorage
+    - TTS: Web Speech API for dua words (ar-SA), English (en-US), Malayalam (ml-IN)
+    - Verse translations displayed per verse below word table
+    - sujood/index.html title: "sujood — dua"
 
-  reminder/    IN DEVELOPMENT
+  miqat/       IN DEVELOPMENT  (was: reminder/ — renamed)
+    Files: miqat/index.html, miqat/builder.js, miqat/style.css, miqat/reminder.json
+    miqat builder.js: 711 lines, Aladhan API, 5 calculation methods
+    miqat features: prayer times, countdown, confirmation, rewards, chart, qalah
+    miqat data: miqat/reminder.json (per-prayer hadith in EN+ML, qalah messages)
+    miqat notifications: Web Notifications API with iOS Safari guard (isIOS check)
+    miqat persistence: localStorage 'miqat-settings' + 'miqat-log'
+    - Prayer times from Aladhan API (free, no key, by GPS or city)
+    - Calculation methods: Karachi/ISNA/MWL/UmmAlQura/Egyptian
+    - Countdown timer to next prayer, turns urgent at <15 min
+    - Prayer confirmation per prayer with hadith reward message
+    - Auto-miss detection when next prayer window opens
+    - checkYesterdayIsha() prevents Isha staying null overnight
+    - Qalah tracker: counts owed prayers, markQalah() clears oldest
+    - 7/30 day prayer chart (CSS grid heatmap)
+    - Streak counter with milestone messages (1/3/7/30 days)
+    - Browser notifications via Notification API (iOS guard added)
+    - toggleNav/closeNav stubs (theme.js topbar compatibility)
+    - settings-overlay: method change + location reset
+    - ALL data in localStorage — no server, no account
+
+  wudu/        PLANNED  (was: ablution/ — renamed)
+    - ablution.json complete: wudu 13 steps, tayammum 6 steps
+    - NOTE: ghusl uses fardh_parts/sunnah_steps keys (not steps[]) — handle differently
+    - No HTML yet
+
+  quran/       PLANNED
+    - quran.json will have 114 surah metadata + API config (not embedded verses)
+    - Will fetch from ../assets/translations/ on demand
+    - No HTML yet
     - reminder.json complete: prayer time API config (Aladhan), quotes per prayer
     - notifications.js: 0-byte placeholder, nothing references it
     - No HTML yet
