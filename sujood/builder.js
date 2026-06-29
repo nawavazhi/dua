@@ -264,15 +264,15 @@ function buildWordRows(item) {
       <tr class="verse-translation">
         <td colspan="4">
           ${v.ar ? `<div class="vtrans vtrans-ar">
-            <button class="tts-btn" onclick="speakText('${escAr(v.ar)}','ar-SA')" title="Listen in Arabic">${DuaIcons.get('audio')}</button>
+            <button class="tts-btn" onclick="speakText('${safeStr(v.ar)}','ar-SA')" title="Listen in Arabic">${DuaIcons.get('audio')}</button>
             <span>${v.ar}</span>
           </div>` : ''}
           ${v.en ? `<div class="vtrans vtrans-en">
-            <button class="tts-btn" onclick="speakText(\`${v.en.replace(/`/g,"'")}\`,'en-US')" title="Listen in English">${DuaIcons.get('audio')}</button>
+            <button class="tts-btn" onclick="speakText('${safeStr(v.en)}','en-US')" title="Listen in English">${DuaIcons.get('audio')}</button>
             <span>${v.en}</span>
           </div>` : ''}
           ${v.ml ? `<div class="vtrans vtrans-ml">
-            <button class="tts-btn" onclick="speakText(\`${v.ml.replace(/`/g,"'")}\`,'ml-IN')" title="Listen in Malayalam">${DuaIcons.get('audio')}</button>
+            <button class="tts-btn" onclick="speakText('${safeStr(v.ml)}','ml-IN')" title="Listen in Malayalam">${DuaIcons.get('audio')}</button>
             <span>${v.ml}</span>
           </div>` : ''}
         </td>
@@ -307,22 +307,19 @@ function buildWordRows(item) {
 ══════════════════════════════════════════════════════ */
 function buildDuaBlock(dua) {
   if (!dua) return '';
-  const arEsc = dua.ar ? escAr(dua.ar) : '';
-  const enEsc = dua.en ? dua.en.replace(/`/g,"'") : '';
-  const mlEsc = dua.ml ? dua.ml.replace(/`/g,"'") : '';
   return `
   <div class="dua-block">
     <div class="dua-block-header">${DuaIcons.get('scroll')} Complete Recitation</div>
     ${dua.ar ? `<div class="dua-ar-wrap">
-      <button class="tts-btn tts-block" onclick="speakText('${arEsc}','ar-SA')" title="Listen in Arabic">${DuaIcons.get('audio')} Arabic</button>
+      <button class="tts-btn tts-block" onclick="speakText('${safeStr(dua.ar)}','ar-SA')" title="Listen in Arabic">${DuaIcons.get('audio')} Arabic</button>
       <div class="dua-ar">${dua.ar}</div>
     </div>` : ''}
     ${dua.en ? `<div class="dua-row">
-      <button class="tts-btn" onclick="speakText(\`${enEsc}\`,'en-US')" title="Listen in English">${DuaIcons.get('audio')}</button>
+      <button class="tts-btn" onclick="speakText('${safeStr(dua.en)}','en-US')" title="Listen in English">${DuaIcons.get('audio')}</button>
       <strong>English:</strong> ${dua.en}
     </div>` : ''}
     ${dua.ml ? `<div class="dua-row">
-      <button class="tts-btn" onclick="speakText(\`${mlEsc}\`,'ml-IN')" title="Listen in Malayalam">${DuaIcons.get('audio')}</button>
+      <button class="tts-btn" onclick="speakText('${safeStr(dua.ml)}','ml-IN')" title="Listen in Malayalam">${DuaIcons.get('audio')}</button>
       <strong>Malayalam:</strong> ${dua.ml}
     </div>` : ''}
   </div>`;
@@ -337,9 +334,14 @@ function buildNotesBlock(notes) {
   </div>`;
 }
 
-// Escape Arabic text for single-quoted HTML attribute
-function escAr(text) {
-  return text.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+// FIX: Safely escape all text to prevent HTML attribute injection breaks
+function safeStr(text) {
+  if (!text) return '';
+  return text.replace(/\\/g, '\\\\')
+             .replace(/'/g, "\\'")
+             .replace(/"/g, '&quot;')
+             .replace(/`/g, "\\`")
+             .replace(/\n/g, ' ');
 }
 
 /* ══════════════════════════════════════════════════════
@@ -394,6 +396,17 @@ function updateProgress() {
    AUDIO ENGINE
 ══════════════════════════════════════════════════════ */
 let toastTimer = null;
+window._activeAudio = null; // FIX: Track active audio to prevent overlap
+
+function stopAllAudio() {
+  if (window._activeAudio) {
+    window._activeAudio.pause();
+    window._activeAudio.currentTime = 0;
+  }
+  if ('speechSynthesis' in window) {
+    window.speechSynthesis.cancel();
+  }
+}
 
 /* ── Reciter ── */
 function setReciter(id) {
@@ -401,32 +414,30 @@ function setReciter(id) {
   localStorage.setItem('dua-reciter', id);
 }
 
-/* ── Quran word audio — QuranCDN padded underscore format ──
-   Format: 108_001_001.mp3  (surah_verse_word, zero-padded to 3 digits)
-   DO NOT change to slash format — it was tested and failed.         */
+/* ── Quran word audio — QuranCDN padded underscore format ── */
 function playSurahWord(surah, verse, word) {
+  stopAllAudio(); // FIX: Stop existing audio
   const s = String(surah).padStart(3,'0');
   const v = String(verse).padStart(3,'0');
   const w = String(word).padStart(3,'0');
   const url = `https://audio.qurancdn.com/wbw/${s}_${v}_${w}.mp3`;
-  console.log('[dua word]', url);
-  new Audio(url).play().catch(() => {
-    // Fallback to Web Speech if CDN fails
-    const wd = window._DUA_WORDS;
-    speakText(null, 'ar-SA'); // silent fallback
+  
+  window._activeAudio = new Audio(url);
+  window._activeAudio.play().catch(() => {
+    showToast('Word audio not available.');
   });
 }
 
-/* ── Full verse audio — EveryAyah.com ──
-   Format: Alafasy_128kbps/108001.mp3  (reciter/surah3dverse3d.mp3)  */
+/* ── Full verse audio — EveryAyah.com ── */
 function playVerse(surah, verse) {
+  stopAllAudio(); // FIX: Stop existing audio
   const reciter = window._currentReciter || 'Alafasy_128kbps';
   const s = String(surah).padStart(3,'0');
   const v = String(verse).padStart(3,'0');
   const url = `https://everyayah.com/data/${reciter}/${s}${v}.mp3`;
-  console.log('[dua verse]', url);
-  new Audio(url).play().catch(err => {
-    console.error('[dua verse]', err);
+  
+  window._activeAudio = new Audio(url);
+  window._activeAudio.play().catch(err => {
     showToast('Verse audio not available. Try a different reciter.');
   });
 }
@@ -446,7 +457,11 @@ function speakText(text, lang) {
     showToast('Text-to-speech not supported on this device.');
     return;
   }
-  window.speechSynthesis.cancel();
+  
+  // FIX: This new function call stops BOTH MP3s and Text-to-Speech 
+  // (it has window.speechSynthesis.cancel() safely inside it!)
+  stopAllAudio(); 
+  
   const utt  = new SpeechSynthesisUtterance(text);
   utt.lang   = lang || 'ar-SA';
   utt.rate   = lang === 'ar-SA' ? 0.85 : 0.95;
