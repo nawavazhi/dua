@@ -2,6 +2,10 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
+<meta name="author" content="Nawavazhi">
+<meta name="contact" content="nawavazhi@gmail.com">
+
+<link rel="icon" type="image/png" href="/dua/assets/icons/icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>sujood — dua</title>
 <meta name="description" content="sujood — learn every word of your prayer. Arabic, English, Malayalam, word by word. Verse audio, pronunciation, memorisation tracking.">
@@ -18,20 +22,12 @@
 <link rel="stylesheet" href="./style.css">
 
 <!-- Amiri fallback for Arabic (legacy support) -->
-<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <header class="topbar">
   <!-- theme.js rebuilds this with SVG icons on DOMContentLoaded -->
-  <button class="icon-btn" id="nav-toggle" onclick="toggleNav()" aria-label="Open menu">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="3" y1="6" x2="21" y2="6"/>
-      <line x1="3" y1="12" x2="21" y2="12"/>
-      <line x1="3" y1="18" x2="21" y2="18"/>
-    </svg>
-  </button>
+  <span data-icon="menu" class="icon-btn-svg"></span>
   <div class="topbar-title">
     sujood
     <span>Pray with Understanding</span>

@@ -4,7 +4,7 @@
  * After first load, the entire Salah guide works offline (except CDN audio).
  */
 
-const CACHE = 'dua-v1';
+const CACHE = 'dua-v2';
 
 const STATIC = [
   '/dua/',
@@ -13,11 +13,15 @@ const STATIC = [
   '/dua/miqat/index.html',
   '/dua/assets/theme/theme.css',
   '/dua/assets/theme/theme.js',
-  '/dua/assets/css/style.css',
   '/dua/assets/icons/icons.js',
-  '/dua/assets/js/builder.js',
-  '/dua/assets/data/salah.json',
-  '/dua/assets/data/quran.json',
+  '/dua/assets/css/base.css',
+  '/dua/sujood/builder.js',
+  '/dua/sujood/style.css',
+  '/dua/sujood/salah.json',
+  '/dua/sujood/quran.json',
+  '/dua/miqat/builder.js',
+  '/dua/miqat/style.css',
+  '/dua/miqat/reminder.json',
   '/dua/assets/fonts/ScheherazadeNew-Regular.woff2',
   '/dua/assets/fonts/ScheherazadeNew-Bold.woff2',
   '/dua/assets/fonts/AmiriQuran-Regular.woff2',

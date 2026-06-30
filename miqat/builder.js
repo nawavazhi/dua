@@ -74,6 +74,14 @@ function showApp() {
     hero.className = 'next-card upcoming';
     hero.innerHTML = '<div class="hero-skeleton"><div class="loading-ring"></div><p>Fetching prayer times...</p></div>';
   }
+  // Timeout: if API doesn't respond in 8s, show retry
+  window._fetchTimeoutId = setTimeout(() => {
+    const h2 = document.getElementById('next-prayer-card');
+    if (h2 && h2.querySelector('.hero-skeleton')) {
+      h2.innerHTML = '<div class="hero-label">Could not load times</div>' +
+        '<button class="prayed-btn" style="margin-top:16px" onclick="fetchTimes()">Retry</button>';
+    }
+  }, 8000);
   renderChart();
   renderQalah();
 }
@@ -280,6 +288,7 @@ function fmt12(timeStr) {
    RENDER PRAYER TIMES
 ══════════════════════════════════════════════════════ */
 function renderTimes() {
+  clearTimeout(window._fetchTimeoutId);
   const todayKey = todayStr();
   const todayLog = _log[todayKey] || {};
   const now = new Date();
@@ -696,6 +705,24 @@ function requestNotifications() {
   });
 }
 
+/* Plays a short two-tone chime. No external file — generated in code. */
+function playChime() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    [660, 880].forEach((freq, i) => {
+      const osc  = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.frequency.value = freq;
+      osc.type = 'sine';
+      gain.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.25);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.25 + 0.4);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(ctx.currentTime + i * 0.25);
+      osc.stop(ctx.currentTime + i * 0.25 + 0.4);
+    });
+  } catch (e) { /* silent fail if AudioContext unsupported */ }
+}
+
 function scheduleNotifications() {
   clearTimers();
   if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return;
@@ -715,6 +742,7 @@ function scheduleNotifications() {
     const call   = calls[Math.floor(Math.random() * calls.length)] || {};
 
     const tid = setTimeout(() => {
+      playChime();
       new Notification(`${PRAYER_EN[key]} — ${fmt12(_times[key])}`, {
         body: call.en || `${PRAYER_EN[key]} prayer time`,
         icon: '/dua/assets/icons/icon-192.png',

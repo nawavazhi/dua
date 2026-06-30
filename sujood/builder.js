@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     restoreProgress();
     updateProgress();
     activateScrollSpy();
+  loadTTSVoices();
   })
   .catch(err => {
     const main = document.getElementById('main-content');
@@ -175,6 +176,15 @@ function buildScheduleCard(schedule) {
       ${DuaIcons.get('audio')}
       <label for="reciter-select">Verse reciter:</label>
       <select id="reciter-select" onchange="setReciter(this.value)">${opts}</select>
+    </div>
+    <div class="voice-pickers">
+      <div class="voice-pickers-head">${DuaIcons.get('audio')} Text-to-Speech Voice</div>
+      <div class="voice-row"><label>Arabic</label>
+        <select id="voice-ar" onchange="setTTSVoice('ar-SA',this.value)"><option value="">System default</option></select></div>
+      <div class="voice-row"><label>English</label>
+        <select id="voice-en" onchange="setTTSVoice('en-US',this.value)"><option value="">System default</option></select></div>
+      <div class="voice-row"><label>Malayalam</label>
+        <select id="voice-ml" onchange="setTTSVoice('ml-IN',this.value)"><option value="">System default</option></select></div>
     </div>`;
 }
 
@@ -217,7 +227,7 @@ function buildCard(section) {
         <tbody>${buildWordRows(section)}</tbody>
       </table>
     </div>
-    ${buildDuaBlock(section.complete_dua)}
+    ${buildDuaBlock(section.complete_dua, section)}
     ${buildNotesBlock(section.notes)}
   </article>`;
 }
@@ -234,7 +244,7 @@ function buildWordRows(item) {
       <tr class="verse-divider">
         <td colspan="4">
           <span class="verse-label">Verse ${v.verse}</span>
-          <button class="verse-play-btn" onclick="playVerse(${item.surah_number}, ${v.verse})"
+          <button class="verse-play-btn" onclick="playVerse(${item.surah_number},${v.verse},this)"
                   title="Play verse recitation" aria-label="Play verse">
             ${DuaIcons.get('audio')}
           </button>
@@ -246,7 +256,7 @@ function buildWordRows(item) {
         html += `
       <tr>
         <td class="ar">
-          <button class="aud-btn" onclick="playSurahWord(${item.surah_number},${v.verse},${i+1})"
+          <button class="aud-btn" onclick="playSurahWord(${item.surah_number},${v.verse},${i+1},this)"
                   title="Play word" aria-label="Play word audio">
             ${DuaIcons.get('audio')}
           </button>
@@ -305,13 +315,20 @@ function buildWordRows(item) {
 /* ══════════════════════════════════════════════════════
    DUA BLOCK (complete recitation)
 ══════════════════════════════════════════════════════ */
-function buildDuaBlock(dua) {
+function buildDuaBlock(dua, section) {
+  // section is passed so surahs can use EveryAyah verse audio instead of TTS
+  const isSurah   = section && section.isSurah;
+  const surahNum  = section && section.surah_number;
+  const verseCount= section && section.verses ? section.verses.length : 0;
   if (!dua) return '';
   return `
   <div class="dua-block">
     <div class="dua-block-header">${DuaIcons.get('scroll')} Complete Recitation</div>
     ${dua.ar ? `<div class="dua-ar-wrap">
-      <button class="tts-btn tts-block" onclick="speakText('${safeStr(dua.ar)}','ar-SA')" title="Listen in Arabic">${DuaIcons.get('audio')} Arabic</button>
+      ${isSurah && surahNum && verseCount
+        ? '<button class="tts-btn tts-block" onclick="stopAllAudio();playSurahSequence(' + surahNum + ',' + verseCount + ')" title="Play full surah">' + DuaIcons.get('audio') + ' Play Surah</button>'
+        : '<button class="tts-btn tts-block" onclick="speakText(\'' + safeStr(dua.ar) + '\',\'ar-SA\')" title="Listen in Arabic">' + DuaIcons.get('audio') + ' Arabic</button>'
+      }
       <div class="dua-ar">${dua.ar}</div>
     </div>` : ''}
     ${dua.en ? `<div class="dua-row">
@@ -396,16 +413,83 @@ function updateProgress() {
    AUDIO ENGINE
 ══════════════════════════════════════════════════════ */
 let toastTimer = null;
-window._activeAudio = null; // FIX: Track active audio to prevent overlap
+window._activeAudio    = null;  // active Audio element
+window._activeAudioBtn = null;  // button element currently "playing"
+window._activeAudioUrl = null;  // url of active audio (for toggle detection)
+let _ttsVoicePrefs   = JSON.parse(localStorage.getItem('dua-tts-voices') || '{}');
+let _availableVoices = [];
+
+function loadTTSVoices() {
+  if (!('speechSynthesis' in window)) return;
+  const fill = () => {
+    _availableVoices = speechSynthesis.getVoices();
+    ['voice-ar','voice-en','voice-ml'].forEach(id => {
+      const sel = document.getElementById(id);
+      if (!sel) return;
+      const prefix = id === 'voice-ar' ? 'ar' : id === 'voice-en' ? 'en' : 'ml';
+      const langKey = id === 'voice-ar' ? 'ar-SA' : id === 'voice-en' ? 'en-US' : 'ml-IN';
+      const voices  = _availableVoices.filter(v => v.lang.startsWith(prefix));
+      const saved   = _ttsVoicePrefs[langKey] || '';
+      sel.innerHTML = '<option value="">System default</option>' +
+        voices.map(v => '<option value="' + v.name + '"' + (v.name===saved?' selected':'') + '>' +
+          v.name + ' (' + v.lang + ')' + '</option>').join('');
+      if (!voices.length) sel.disabled = true;
+    });
+  };
+  if (speechSynthesis.getVoices().length) fill();
+  else speechSynthesis.onvoiceschanged = fill;
+}
+
+function setTTSVoice(lang, voiceName) {
+  _ttsVoicePrefs[lang] = voiceName;
+  localStorage.setItem('dua-tts-voices', JSON.stringify(_ttsVoicePrefs));
+}
 
 function stopAllAudio() {
   if (window._activeAudio) {
     window._activeAudio.pause();
     window._activeAudio.currentTime = 0;
+    window._activeAudio = new Audio(); // single reusable element — fixes iOS chained playback
   }
-  if ('speechSynthesis' in window) {
-    window.speechSynthesis.cancel();
+  if (window._activeAudioBtn) {
+    window._activeAudioBtn.classList.remove('audio-playing');
+    window._activeAudioBtn = null;
   }
+  window._activeAudioUrl = null;
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+}
+
+/* Toggle play/pause on same button. Pass this from onclick. */
+function toggleAudio(url, btn) {
+  if (window._activeAudioUrl === url) { stopAllAudio(); return; } // pause
+  stopAllAudio();
+  window._activeAudioUrl = url;
+  window._activeAudioBtn = btn;
+  if (btn) btn.classList.add('audio-playing');
+  window._activeAudio = new Audio(url);
+  window._activeAudio.onended = () => {
+    if (btn) btn.classList.remove('audio-playing');
+    window._activeAudio = window._activeAudioBtn = window._activeAudioUrl = null;
+  };
+  window._activeAudio.play().catch(() => {
+    if (btn) btn.classList.remove('audio-playing');
+    window._activeAudio = window._activeAudioBtn = window._activeAudioUrl = null;
+    showToast('Audio not available.');
+  });
+}
+
+/* Chain all verses of a surah via EveryAyah — for Complete Recitation block */
+function playSurahSequence(surahNum, totalVerses, startVerse) {
+  startVerse = startVerse || 1;
+  if (startVerse > totalVerses) { window._activeAudio = null; return; }
+  stopAllAudio();
+  const reciter = window._currentReciter || 'Alafasy_128kbps';
+  const s = String(surahNum).padStart(3,'0');
+  const v = String(startVerse).padStart(3,'0');
+  const url = 'https://everyayah.com/data/' + reciter + '/' + s + v + '.mp3';
+  window._activeAudio = new Audio(url);
+  window._activeAudio.onended = () => playSurahSequence(surahNum, totalVerses, startVerse + 1);
+  window._activeAudio.play().catch(() => showToast('Verse audio not available. Try another reciter.'));
 }
 
 /* ── Reciter ── */
@@ -415,27 +499,27 @@ function setReciter(id) {
 }
 
 /* ── Quran word audio — QuranCDN padded underscore format ── */
-function playSurahWord(surah, verse, word) {
-  stopAllAudio(); // FIX: Stop existing audio
+function playSurahWord(surah, verse, word, btn) {
   const s = String(surah).padStart(3,'0');
   const v = String(verse).padStart(3,'0');
   const w = String(word).padStart(3,'0');
-  const url = `https://audio.qurancdn.com/wbw/${s}_${v}_${w}.mp3`;
-  
-  window._activeAudio = new Audio(url);
-  window._activeAudio.play().catch(() => {
-    showToast('Word audio not available.');
-  });
+  toggleAudio('https://audio.qurancdn.com/wbw/' + s + '_' + v + '_' + w + '.mp3', btn);
 }
 
 /* ── Full verse audio — EveryAyah.com ── */
-function playVerse(surah, verse) {
-  stopAllAudio(); // FIX: Stop existing audio
+function playVerse(surah, verse, btn) {
+  const reciter = window._currentReciter || 'Alafasy_128kbps';
+  const s = String(surah).padStart(3,'0');
+  const v = String(verse).padStart(3,'0');
+  toggleAudio('https://everyayah.com/data/' + reciter + '/' + s + v + '.mp3', btn);
+}
+
+function _playVerse_OLD(surah, verse) {
+  stopAllAudio();
   const reciter = window._currentReciter || 'Alafasy_128kbps';
   const s = String(surah).padStart(3,'0');
   const v = String(verse).padStart(3,'0');
   const url = `https://everyayah.com/data/${reciter}/${s}${v}.mp3`;
-  
   window._activeAudio = new Audio(url);
   window._activeAudio.play().catch(err => {
     showToast('Verse audio not available. Try a different reciter.');
@@ -457,17 +541,22 @@ function speakText(text, lang) {
     showToast('Text-to-speech not supported on this device.');
     return;
   }
-  
-  // FIX: This new function call stops BOTH MP3s and Text-to-Speech 
-  // (it has window.speechSynthesis.cancel() safely inside it!)
-  stopAllAudio(); 
-  
+  stopAllAudio(); // stop any playing MP3 first
+  window.speechSynthesis.cancel();
   const utt  = new SpeechSynthesisUtterance(text);
   utt.lang   = lang || 'ar-SA';
   utt.rate   = lang === 'ar-SA' ? 0.85 : 0.95;
   utt.pitch  = 1;
+  window._currentUtterance = utt; // keep reference alive — iOS Safari GC bug
+  // Use user-selected voice if available
+  const voiceName = _ttsVoicePrefs[lang];
+  if (voiceName && _availableVoices.length) {
+    const v = _availableVoices.find(v => v.name === voiceName);
+    if (v) utt.voice = v;
+  }
   window.speechSynthesis.speak(utt);
 }
+
 
 function showToast(msg) {
   let t = document.getElementById('dua-toast');

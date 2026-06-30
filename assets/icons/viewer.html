@@ -1,50 +1,149 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <title>DuaIcons Viewer</title>
-  <style>
-    body { font-family: system-ui, sans-serif; background: #f4f5f7; padding: 40px; color: #333; }
-    h1 { text-align: center; color: #1f4e3d; margin-bottom: 40px; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 20px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .icon-card {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      transition: transform 0.2s;
-    }
-    .icon-card:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
-    .icon-card svg { width: 32px; height: 32px; color: #1f4e3d; margin-bottom: 10px; }
-    .icon-name { font-size: 13px; font-weight: 600; color: #555; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Nawavazhi">
+<meta name="contact" content="nawavazhi@gmail.com">
+<title>Icon Registry — dua</title>
+<meta name="description" content="Internal reference page listing every SVG icon used across the dua app, with exact dimensions, for replacement reference.">
+<link rel="stylesheet" href="../theme/theme.css">
+<link rel="stylesheet" href="../css/base.css">
+<style>
+  body { padding: 24px; max-width: 1100px; margin: 0 auto; background: var(--bg); }
+  h1 { font-family: var(--font-display); color: var(--primary); margin-bottom: 4px; }
+  .sub { color: var(--muted); font-size: 0.85rem; margin-bottom: 28px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+  }
+  .icon-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg, 14px);
+    padding: 16px;
+    text-align: center;
+  }
+  .icon-stage {
+    display: flex; align-items: center; justify-content: center;
+    height: 64px; margin-bottom: 10px;
+    color: var(--primary);
+  }
+  .icon-stage svg { width: 32px; height: 32px; stroke: currentColor; fill: none; }
+  .icon-name {
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem; font-weight: 700;
+    color: var(--text); margin-bottom: 4px;
+  }
+  .icon-dims {
+    font-size: 0.68rem; color: var(--muted);
+  }
+  .icon-usage {
+    font-size: 0.65rem; color: var(--subtle);
+    margin-top: 6px; line-height: 1.4;
+  }
+  .size-toggle {
+    display: flex; gap: 6px; margin-bottom: 20px;
+  }
+  .size-toggle button {
+    background: var(--alt-row); border: 1px solid var(--border);
+    border-radius: var(--radius-pill); padding: 5px 14px;
+    font-size: 0.75rem; cursor: pointer; font-family: var(--font-ui);
+  }
+  .size-toggle button.active { background: var(--primary); color: var(--primary-fg); }
+</style>
 </head>
 <body>
 
-  <h1>DuaIcons Database</h1>
-  <div class="grid" id="icon-grid"></div>
+<h1>Icon Registry</h1>
+<p class="sub">
+  Every SVG icon currently defined in <code>assets/icons/icons.js</code>.
+  All icons share: 24×24 viewBox, 1.75px stroke, round caps/joins, no fill except posture icons (filled head).
+  Use this page as a reference when designing replacement logos — match the displayed pixel size for each usage context.
+</p>
 
-  <script src="icons.js"></script>
-  
-  <script>
-    // Dynamically generate the grid based on your icons.js file
-    const grid = document.getElementById('icon-grid');
-    Object.entries(DuaIcons.all).forEach(([name, svgCode]) => {
-      const card = document.createElement('div');
-      card.className = 'icon-card';
-      card.innerHTML = `
-        ${svgCode}
-        <div class="icon-name">${name}</div>
-      `;
-      grid.appendChild(card);
+<div class="size-toggle">
+  <button class="active" onclick="setSize(24,this)">24px (default)</button>
+  <button onclick="setSize(16,this)">16px (nav)</button>
+  <button onclick="setSize(15,this)">15px (nav-link)</button>
+  <button onclick="setSize(22,this)">22px (topbar logo)</button>
+  <button onclick="setSize(12,this)">12px (posture pill)</button>
+</div>
+
+<div class="grid" id="icon-grid"></div>
+
+<script src="./icons.js"></script>
+<script>
+  const USAGE_NOTES = {
+    mosque:   'Topbar logo (.topbar-logo .dua-icon, 22px)',
+    sun:      'Theme button — light mode indicator',
+    moon:     'Theme button — dark mode indicator',
+    crescent: 'Theme button — alternate icon',
+    palette:  'Theme panel trigger',
+    menu:     'Hamburger nav toggle (sujood sidebar)',
+    close:    'Close button (panels, overlays)',
+    check:    'Memorised checkbox, prayer confirmed badge',
+    print:    'Print button (sujood topbar)',
+    info:     'Error/info banners',
+    tip:      'Pronunciation note bullets',
+    audio:    'Play buttons — word, verse, TTS, reciter label',
+    schedule: 'Nav link — prayer schedule section',
+    quran:    'Nav group label — short surahs section',
+    scroll:   'Complete Recitation block header',
+    calendar: 'Date-related UI (planned)',
+    star:     'Reward panel icon (miqat)',
+    beads:    'All-prayers-complete message (miqat)',
+    bell:     'Notifications (planned)',
+    drop:     'Wudu module (planned)',
+    book_open:'Quran module (planned)',
+    layers:   'Stacked/multi content (planned)',
+    home:     'Hub navigation (planned)',
+    arrow_right: 'CTA buttons, links',
+    external: 'External link indicator',
+    lock:     'Privacy/security messaging',
+    github:   'Footer GitHub link',
+    lantern:  'Decorative — Islamic theme',
+    prayer:   'Generic prayer icon (planned)',
+    standing: 'Posture pill — standing (12px)',
+    bowing:   'Posture pill — bowing/ruku (12px)',
+    sujood:   'Posture pill — prostration (12px)',
+    sitting:  'Posture pill — sitting/qa\'dah (12px)',
+    separator:'Decorative divider (planned)'
+  };
+
+  function setSize(px, btn) {
+    document.querySelectorAll('.icon-stage svg').forEach(s => {
+      s.style.width = px + 'px';
+      s.style.height = px + 'px';
     });
-  </script>
+    document.querySelectorAll('.size-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.icon-dims').forEach(d => d.dataset.current = px);
+    renderDims(px);
+  }
+
+  function renderDims(px) {
+    document.querySelectorAll('.icon-dims').forEach(el => {
+      el.textContent = px + '×' + px + 'px';
+    });
+  }
+
+  function build() {
+    const grid = document.getElementById('icon-grid');
+    const names = Object.keys(DuaIcons.all).sort();
+    grid.innerHTML = names.map(name => `
+      <div class="icon-card">
+        <div class="icon-stage">${DuaIcons.get(name)}</div>
+        <div class="icon-name">${name}</div>
+        <div class="icon-dims">24×24px</div>
+        <div class="icon-usage">${USAGE_NOTES[name] || 'General use'}</div>
+      </div>
+    `).join('');
+    document.title = `Icon Registry (${names.length} icons) — dua`;
+  }
+
+  build();
+</script>
 </body>
 </html>

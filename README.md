@@ -308,6 +308,51 @@ ICONS REGISTRY (assets/icons/icons.js)
   Islamic: mosque, quran, star, lantern, prayer, beads, calendar, schedule, scroll, bell, drop, book_open, layers
   Posture: standing, bowing, sujood, sitting, separator
 
+AUDIO ENGINE (sujood/builder.js v5.x)
+    toggleAudio(url, btn)  — replaces anonymous new Audio().play()
+      Same button click = pause. Different button = stop current, play new.
+      Buttons get .audio-playing CSS class while active.
+    playSurahSequence(surahNum, totalVerses, startVerse)
+      Chains EveryAyah verse audio for full surah playback.
+      Used in "Play Surah" button in Complete Recitation block.
+      buildDuaBlock(dua, section) — now receives section object.
+      For surahs: uses playSurahSequence(). For duas: uses speakText().
+    TTS VOICE SELECTION
+      loadTTSVoices() — populates voice dropdowns via speechSynthesis.getVoices()
+      setTTSVoice(lang, voiceName) — saves to localStorage 'dua-tts-voices'
+      speakText() — uses _ttsVoicePrefs[lang] to set utt.voice
+      Voice pickers for ar-SA, en-US, ml-IN in the schedule/intro card.
+
+  FONT SYSTEM (complete — all self-hosted)
+    assets/fonts/ has 12 active font files declared in @font-face (theme.css)
+    UNUSED (safe to delete): all 18 InterDisplay-*, all 18 Inter-* static,
+    InterVariable-Italic.woff2, ara-quransimple.json, all 6 .min.json files
+    Estimated savings: ~16MB after deletion
+
+  BUGS FIXED SINCE LAST UPDATE
+    index.html loaded assets/css/style.css (404) → fixed to base.css
+    miqat catch() never hid loading div → fixed, now hides + shows toast
+    miqat CSS corruption .hero-skeleton /* → removed, restored clean rules
+    miqat hero skeleton shows 8s timeout then Retry button
+    sujood subtitle: "Salah — Interactive Word-by-Word Guide" → "Pray with Understanding"
+
+  LOCAL DEVELOPMENT
+    python3 -m http.server 8000 from repo root
+    Open: http://localhost:8000/sujood/ or /miqat/ or /
+    SW registration errors are expected locally — ignore them
+    All fetch(), API calls, audio work on http://localhost
+    SW uses /dua/ prefix — only works on GitHub Pages correctly
+
+  FILES TO DELETE FROM REPO
+    assets/fonts/InterDisplay-*.woff2  (18 files, ~3.5MB)
+    assets/fonts/Inter-*.woff2         (18 static files, ~3.5MB)  
+    assets/fonts/InterVariable-Italic.woff2
+    assets/translations/*.min.json     (6 files, ~5MB)
+    assets/translations/ara-quransimple.json (~1.9MB)
+    quran/README.md
+    assets/data/dictionary.json
+    Total savings: ~16MB
+
 PENDING — NEXT SESSION
   HIGH PRIORITY (audio):
     builder.js: Add playVerse(surah, verse) using EveryAyah.com

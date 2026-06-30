@@ -486,3 +486,50 @@
   cursor: pointer;
 }
 .reciter-row select:focus { outline: 2px solid var(--primary); outline-offset: 1px; }
+
+/* ── AUDIO PLAYING STATE ── */
+.aud-btn.audio-playing,
+.verse-play-btn.audio-playing,
+.tts-btn.audio-playing {
+  background: var(--primary);
+  color: var(--primary-fg);
+  border-color: var(--primary);
+}
+.aud-btn.audio-playing::after {
+  content: '⏸';
+  font-size: 0.6rem;
+  margin-left: 2px;
+}
+
+/* ── VOICE PICKERS ── */
+.voice-pickers {
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: var(--alt-row);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.voice-pickers-head {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.72rem; font-weight: 700;
+  color: var(--muted); margin-bottom: 10px;
+}
+.voice-pickers-head svg { width: 13px; height: 13px; stroke: var(--accent); fill: none; }
+.voice-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 7px;
+}
+.voice-row:last-child { margin-bottom: 0; }
+.voice-row label {
+  font-size: 0.72rem; font-weight: 600;
+  color: var(--text); min-width: 70px;
+}
+.voice-row select {
+  flex: 1;
+  background: var(--card); color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 4px 8px; font-size: 0.72rem;
+  font-family: var(--font-ui); cursor: pointer;
+}
+.voice-row select:disabled { opacity: 0.4; cursor: not-allowed; }
