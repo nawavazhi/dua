@@ -2,715 +2,175 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="/dua/assets/icons/icon-192.png">
 <meta name="author" content="Nawavazhi">
 <meta name="contact" content="nawavazhi@gmail.com">
+
+<link rel="icon" type="image/png" href="/dua/assets/icons/icon-192.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>dua — Pray with Understanding</title>
-<meta name="description" content="Learn every word of your prayer in Arabic, English, and Malayalam. Word-by-word Islamic prayer guide.">
+<title>miqat — Prayer Times</title>
+<meta name="description" content="Prayer times, reminders, and tracking. Know your salah times. Never miss a prayer.">
+<meta property="og:title" content="miqat — Prayer Times">
+<meta property="og:description" content="Prayer times specific to your location. Track every prayer. Qalah management.">
+<meta name="theme-color" content="#1f4e3d">
 <link rel="manifest" href="/dua/manifest.json">
 <script>if('serviceWorker' in navigator) navigator.serviceWorker.register('/dua/sw.js');</script>
-
-<link rel="stylesheet" href="./assets/theme/theme.css">
-<link rel="stylesheet" href="./assets/css/base.css">
-
-<style>
-/* ── HOME-ONLY STYLES ── */
-
-/* Remove topbar fixed offset for hero */
-.page-wrap { padding-top: 54px; }
-
-/* ── HERO ── */
-.hero {
-  min-height: calc(100vh - 54px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 60px 24px 80px;
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-ar {
-  font-family: 'Noto Naskh Arabic', 'Amiri', serif;
-  font-size: clamp(2.8rem, 8vw, 6rem);
-  color: var(--primary);
-  opacity: 0.10;
-  line-height: 1.3;
-  letter-spacing: 0.02em;
-  user-select: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  white-space: nowrap;
-  pointer-events: none;
-  width: max-content;
-}
-
-.hero-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--accent);
-  font-weight: 700;
-  margin-bottom: 20px;
-  font-family: var(--font-display);
-}
-.hero-eyebrow svg {
-  width: 13px; height: 13px;
-  stroke: var(--accent);
-  fill: none;
-}
-
-.hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 6vw, 4rem);
-  font-weight: 700;
-  color: var(--primary);
-  line-height: 1.1;
-  margin-bottom: 8px;
-  letter-spacing: -0.02em;
-}
-
-.hero-arabic-inline {
-  display: block;
-  font-family: 'Noto Naskh Arabic', 'Amiri', serif;
-  font-size: clamp(1.4rem, 4vw, 2.6rem);
-  color: var(--accent);
-  font-weight: 400;
-  line-height: 1.5;
-  direction: rtl;
-  margin-bottom: 18px;
-}
-
-.hero-tagline {
-  font-size: clamp(0.95rem, 2vw, 1.15rem);
-  color: var(--muted);
-  max-width: 520px;
-  line-height: 1.65;
-  margin: 0 auto 36px;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--primary);
-  color: var(--primary-fg);
-  padding: 13px 28px;
-  border-radius: var(--radius-pill);
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-decoration: none;
-  font-family: var(--font-display);
-  transition: background 0.2s, transform 0.15s;
-  border: none;
-  cursor: pointer;
-}
-.btn-primary:hover { background: var(--primary-mid); transform: translateY(-1px); }
-.btn-primary svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
-
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: transparent;
-  color: var(--primary);
-  padding: 13px 22px;
-  border-radius: var(--radius-pill);
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-decoration: none;
-  font-family: var(--font-display);
-  border: 1.5px solid var(--border);
-  transition: border-color 0.2s, background 0.2s;
-}
-.btn-ghost:hover { border-color: var(--primary); background: var(--alt-row); }
-.btn-ghost svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
-
-/* ── SECTION WRAPPER ── */
-.section {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 72px 24px;
-}
-
-.section-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 0.63rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--accent);
-  font-weight: 700;
-  margin-bottom: 10px;
-  font-family: var(--font-display);
-}
-.section-eyebrow svg { width: 13px; height: 13px; stroke: var(--accent); fill: none; }
-
-.section-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 4vw, 2rem);
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 8px;
-  line-height: 1.2;
-}
-
-.section-body {
-  color: var(--muted);
-  font-size: 0.9rem;
-  line-height: 1.7;
-  max-width: 540px;
-  margin-bottom: 40px;
-}
-
-/* ── MODULE CARDS ── */
-.modules-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-}
-
-.module-card {
-  background: var(--card);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 24px 20px;
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-  position: relative;
-  overflow: hidden;
-}
-.module-card.active { border-color: var(--primary); }
-.module-card.active:hover {
-  box-shadow: var(--shadow-card);
-  transform: translateY(-2px);
-}
-.module-card.inactive {
-  opacity: 0.55;
-  cursor: default;
-}
-.module-card.active::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--primary);
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-}
-
-.module-icon {
-  width: 42px; height: 42px;
-  background: var(--alt-row);
-  border-radius: var(--radius-md);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--primary);
-}
-.module-card.active .module-icon { background: var(--primary); color: var(--primary-fg); }
-.module-icon svg { width: 20px; height: 20px; stroke: currentColor; fill: none; }
-
-.module-status {
-  font-size: 0.6rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 3px 9px;
-  border-radius: var(--radius-pill);
-  align-self: flex-start;
-}
-.status-live   { background: var(--primary); color: var(--primary-fg); }
-.status-soon   { background: var(--alt-row); color: var(--subtle); }
-
-.module-name {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.2;
-  margin-bottom: 4px;
-}
-.module-name-ar {
-  font-family: 'Noto Naskh Arabic', 'Amiri', serif;
-  font-size: 0.85rem;
-  color: var(--accent);
-  direction: rtl;
-  display: block;
-  margin-bottom: 8px;
-}
-.module-desc {
-  font-size: 0.78rem;
-  color: var(--muted);
-  line-height: 1.55;
-}
-
-.module-cta {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--primary);
-  margin-top: auto;
-}
-.module-cta svg { width: 13px; height: 13px; stroke: currentColor; fill: none; }
-.module-card.inactive .module-cta { color: var(--subtle); }
-
-/* ── HOW IT WORKS ── */
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-.step {
-  padding: 28px 24px;
-  border-right: 1px solid var(--border);
-  background: var(--card);
-}
-.step:last-child { border-right: none; }
-
-.step-num {
-  font-family: var(--font-display);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent);
-  opacity: 0.4;
-  line-height: 1;
-  margin-bottom: 12px;
-}
-.step-title {
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 8px;
-}
-.step-desc {
-  font-size: 0.78rem;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-/* ── FEATURE STRIP ── */
-.features {
-  background: var(--primary);
-  padding: 48px 24px;
-}
-.features-inner {
-  max-width: 960px;
-  margin: 0 auto;
-}
-.features-title {
-  font-family: var(--font-display);
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--primary-fg);
-  margin-bottom: 28px;
-  opacity: 0.9;
-}
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-}
-.feature {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-}
-.feature-icon {
-  width: 32px; height: 32px;
-  background: rgba(255,255,255,0.12);
-  border-radius: var(--radius-sm);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  color: var(--accent);
-}
-.feature-icon svg { width: 15px; height: 15px; stroke: currentColor; fill: none; }
-.feature-text { }
-.feature-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--primary-fg);
-  margin-bottom: 3px;
-}
-.feature-sub {
-  font-size: 0.7rem;
-  color: rgba(255,255,255,0.55);
-  line-height: 1.5;
-}
-
-/* ── FOOTER ── */
-.footer {
-  border-top: 1px solid var(--border);
-  padding: 28px 24px;
-  max-width: 960px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.footer-left {
-  font-size: 0.75rem;
-  color: var(--subtle);
-  line-height: 1.6;
-}
-.footer-left strong { color: var(--muted); font-weight: 600; }
-.footer-right {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-.footer-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.72rem;
-  color: var(--muted);
-  text-decoration: none;
-  padding: 5px 10px;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--border);
-  transition: border-color 0.15s, color 0.15s;
-}
-.footer-link:hover { border-color: var(--primary); color: var(--primary); }
-.footer-link svg { width: 13px; height: 13px; stroke: currentColor; fill: none; }
-
-/* ── DIVIDER ── */
-.page-divider {
-  height: 1px;
-  background: var(--divider);
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 600px) {
-  .hero { min-height: auto; padding: 48px 20px 60px; }
-  .hero-ar { font-size: 2.4rem; }
-  .steps { border-radius: 0; border-left: none; border-right: none; }
-  .step { border-right: none; border-bottom: 1px solid var(--border); }
-  .step:last-child { border-bottom: none; }
-  .footer { flex-direction: column; align-items: flex-start; }
-}
-</style>
+<link rel="stylesheet" href="../assets/theme/theme.css">
+<link rel="stylesheet" href="../assets/css/base.css">
+<link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
 <header class="topbar">
-  <button class="icon-btn" id="nav-toggle" aria-label="Home" onclick="window.location.href='./'">
-    <span data-icon="home"></span>
-  </button>
-  <div class="topbar-title">
-    dua
-    <span>Word-by-Word Islamic Prayer Guide</span>
+  <div class="topbar-logo">
+    <div class="topbar-title">
+      miqat
+      <span>Prayer Times</span>
+    </div>
   </div>
 </header>
 
-<div class="page-wrap">
+<div class="page-wrap" id="miqat-app">
 
-  <!-- ── HERO ── -->
-  <section class="hero">
-    <div class="hero-ar" aria-hidden="true">صَلِّ بِفَهْم</div>
+  <!-- Loading -->
+  <div id="loading" class="screen-center">
+    <div class="loading-ring"></div>
+  </div>
 
-    <div class="hero-eyebrow">
-      <span data-icon="mosque"></span>
-      dua
-    </div>
+  <!-- SETUP SCREEN -->
+  <div id="setup-screen" class="screen-center" hidden>
+    <div class="setup-card">
+      <div class="setup-icon"><span data-icon="mosque"></span></div>
+      <h1 class="setup-title">Set your location</h1>
+      <p class="setup-sub">Prayer times depend on your location. Your coordinates are never stored on any server — only on this device.</p>
 
-    <h1 class="hero-title">
-      Pray with understanding
-      <span class="hero-arabic-inline">صَلِّ بِفَهْم</span>
-    </h1>
+      <div id="setup-error" class="setup-error" hidden></div>
 
-    <p class="hero-tagline">
-      Every word of your prayer — Arabic, transliteration, English, and Malayalam
-      — laid out side by side so you understand every syllable you recite.
-    </p>
+      <button class="btn-primary setup-gps-btn" id="gps-btn" onclick="useGPS()">
+        Use my location (GPS)
+      </button>
 
-    <div class="hero-actions">
-      <a href="./sujood/index.html" class="btn-primary">
-        <span data-icon="arrow_right"></span>
-        Open Salah Guide
-      </a>
-      <a href="https://github.com/nawavazhi/dua" class="btn-ghost" target="_blank" rel="noopener">
-        <span data-icon="github"></span>
-        View on GitHub
-      </a>
-    </div>
-  </section>
+      <div class="setup-divider">or enter your city</div>
 
-  <!-- ── MODULES ── -->
-  <section class="section">
-    <div class="section-eyebrow">
-      <span data-icon="layers"></span>
-      Modules
-    </div>
-    <h2 class="section-title">Four pillars of Islamic practice</h2>
-    <p class="section-body">
-      Each module covers one essential part of daily worship — built word-by-word,
-      sourced from authentic hadith, with Arabic, English, and Malayalam throughout.
-    </p>
-
-    <div class="modules-grid">
-
-      <!-- Salah — LIVE -->
-      <a href="./sujood/index.html" class="module-card active">
-        <div class="module-icon">
-          <span data-icon="mosque"></span>
-        </div>
-        <span class="module-status status-live">Live</span>
-        <div>
-          <div class="module-name">sujood</div>
-          <span class="module-name-ar">الصَّلَاة</span>
-          <div class="module-desc">
-            Every dua of your prayer — word by word. From Takbeer to Tasleem,
-            with posture cues, progress tracking, and full audio.
-          </div>
-        </div>
-        <div class="module-cta">
-          Open guide
-          <span data-icon="arrow_right"></span>
-        </div>
-      </a>
-
-      <!-- Reminder — COMING SOON -->
-      <div class="module-card inactive">
-        <div class="module-icon">
-          <span data-icon="bell"></span>
-        </div>
-        <span class="module-status status-soon">Coming soon</span>
-        <div>
-          <div class="module-name">Prayer Reminders</div>
-          <span class="module-name-ar">تَذْكِير</span>
-          <div class="module-desc">
-            Prayer-time alerts with motivational reminders for each salah.
-            Location-based, with soft notifications.
-          </div>
-        </div>
-        <div class="module-cta">
-          <span data-icon="lock" style="display:inline-flex;width:18px;height:11px"></span>
-          In development
-        </div>
+      <div class="setup-city-row">
+        <input id="city-input" type="text" placeholder="City (e.g. Kozhikode)" class="setup-input" onkeydown="if(event.key==='Enter') searchCity()">
+        <input id="country-input" type="text" placeholder="Country (optional)" class="setup-input">
       </div>
 
-      <!-- Ablution — COMING SOON -->
-      <div class="module-card inactive">
-        <div class="module-icon">
-          <span data-icon="drop"></span>
-        </div>
-        <span class="module-status status-soon">Coming soon</span>
-        <div>
-          <div class="module-name">Ablution Guide</div>
-          <span class="module-name-ar">الوُضُوء</span>
-          <div class="module-desc">
-            Wudu, Tayammum, and Ghusl — step by step with duas, nullifiers,
-            and fiqh notes from authenticated sources.
-          </div>
-        </div>
-        <div class="module-cta">
-          <span data-icon="lock" style="display:inline-flex;width:18px;height:11px"></span>
-          In development
-        </div>
+      <div class="setup-method-row">
+        <label class="setup-label">Calculation method</label>
+        <select id="method-select" class="setup-select"></select>
       </div>
 
-      <!-- Quran — COMING SOON -->
-      <div class="module-card inactive">
-        <div class="module-icon">
-          <span data-icon="quran"></span>
-        </div>
-        <span class="module-status status-soon">Coming soon</span>
-        <div>
-          <div class="module-name">Quran Reader</div>
-          <span class="module-name-ar">الْقُرْآن</span>
-          <div class="module-desc">
-            Browse all 114 surahs with word-by-word translation, audio recitation,
-            and tajweed guidance.
-          </div>
-        </div>
-        <div class="module-cta">
-          <span data-icon="lock" style="display:inline-flex;width:18px;height:11px"></span>
-          In development
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="page-divider"></div>
-
-  <!-- ── HOW IT WORKS ── -->
-  <section class="section">
-    <div class="section-eyebrow">
-      <span data-icon="tip"></span>
-      How it works
-    </div>
-    <h2 class="section-title">Learn the way it was meant to be taught</h2>
-    <p class="section-body">
-      Classical Islamic scholarship always taught prayer word by word.
-      This project brings that tradition online — at no cost, with no ads, for everyone.
-    </p>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-title">Read word by word</div>
-        <div class="step-desc">
-          Each word of every dua is shown alongside its transliteration,
-          English meaning, and Malayalam translation in a clean table.
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-title">Hear the pronunciation</div>
-        <div class="step-desc">
-          Tap any Arabic word in the Quran surahs to hear it pronounced clearly
-          by a reciter — straight from QuranCDN.
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-title">Track what you know</div>
-        <div class="step-desc">
-          Mark each section as memorised. Your progress is saved locally on your
-          device — no account, no tracking, no data shared.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── FEATURE STRIP ── -->
-  <div class="features">
-    <div class="features-inner">
-      <div class="features-title">Built for focused, meaningful study</div>
-      <div class="features-grid">
-        <div class="feature">
-          <div class="feature-icon">
-            <span data-icon="quran"></span>
-          </div>
-          <div class="feature-text">
-            <div class="feature-label">Authenticated sources</div>
-            <div class="feature-sub">Every dua cited from Bukhari, Muslim, Abu Dawud or verified hadith</div>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">
-            <span data-icon="audio"></span>
-          </div>
-          <div class="feature-text">
-            <div class="feature-label">Word audio</div>
-            <div class="feature-sub">Tap any Quran word to hear it from QuranCDN — every ayah, every word</div>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">
-            <span data-icon="schedule"></span>
-          </div>
-          <div class="feature-text">
-            <div class="feature-label">Three languages</div>
-            <div class="feature-sub">Arabic, English, and Malayalam — all in one view, no switching</div>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">
-            <span data-icon="calendar" style="display:inline-flex;width:18px;height:18px"></span>
-          </div>
-          <div class="feature-text">
-            <div class="feature-label">Four themes</div>
-            <div class="feature-sub">Light, Dark, Dua, and Noor — saved to your device automatically</div>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">
-            <span data-icon="print" style="display:inline-flex;width:12px;height:8px"></span>
-          </div>
-          <div class="feature-text">
-            <div class="feature-label">Print-ready</div>
-            <div class="feature-sub">Save any guide as a clean PDF — all chrome hidden, text optimised for print</div>
-          </div>
-        </div>
-        <div class="feature">
-          <div class="feature-icon">
-            <span data-icon="check"></span>
-          </div>
-          <div class="feature-text">
-            <div class="feature-label">Progress tracking</div>
-            <div class="feature-sub">Mark each section as memorised — stored locally, never uploaded</div>
-          </div>
-        </div>
-      </div>
+      <button class="btn-primary" id="city-search-btn" onclick="searchCity()">Set location</button>
     </div>
   </div>
 
-  <!-- ── FOOTER ── -->
-  <footer class="footer">
-    <div class="footer-left">
-      <strong>dua</strong> — built by Nawavazhi, freely shared for all.<br>
-      No ads. No accounts. No tracking. Open source.
-    </div>
-    <div class="footer-right">
-      <a href="https://github.com/nawavazhi/dua" class="footer-link" target="_blank" rel="noopener">
-        <span data-icon="github"></span>
-        GitHub
-      </a>
-      <a href="./sujood/index.html" class="footer-link">
-        <span data-icon="mosque"></span>
-        Salah Guide
-      </a>
-    </div>
-  </footer>
+  <!-- MAIN APP SCREEN -->
+  <div id="app-screen" hidden>
 
-</div><!-- end .page-wrap -->
-
-<script src="./assets/icons/icons.js"></script>
-<script src="./assets/theme/theme.js"></script>
-<script>
-// Home page: rebuild the topbar to use a Home icon (not a hamburger)
-// and remove the nav-toggle's menu behaviour since there's no sidebar here.
-document.addEventListener('DOMContentLoaded', () => {
-  const topbar = document.querySelector('.topbar');
-  if (!topbar) return;
-  topbar.innerHTML = `
-    <div class="topbar-logo">
-      <span data-icon="mosque" style="display:inline-flex;width:22px;height:22px"></span>
-      <div class="topbar-title">
-        dua
-        <span>Word-by-Word Islamic Prayer Guide</span>
-      </div>
-    </div>
-    <div class="topbar-actions">
-      <button class="theme-btn" id="theme-btn" onclick="_openThemePanel()" aria-label="Switch theme">
-        <span data-icon="sun" style="display:inline-flex;width:16px;height:16px"></span><span>Light</span>
+    <!-- Location bar -->
+    <div class="location-bar" id="location-bar">
+      <span id="times-status" class="times-status"></span>
+      <span id="location-name" class="location-name"></span>
+      <button class="location-change-btn" onclick="changeLocation()">Change</button>
+      <button class="notif-btn" id="notif-btn" onclick="requestNotifications()" title="Enable reminders">
+        Reminders
       </button>
+      <span id="notif-granted" hidden class="notif-on">Reminders on</span>
     </div>
-  `;
-  // Trigger theme button update now topbar is rebuilt
-  DuaTheme.init();
-  _buildThemePanel();
-});
+
+    <!-- Hero — next prayer countdown -->
+    <div id="next-prayer-card" class="next-card upcoming">
+      <div class="hero-label">Loading...</div>
+    </div>
+
+    <!-- Streak -->
+    <div class="streak-bar">
+      <span id="streak-display" class="streak-count"></span>
+      <span id="streak-milestone" class="streak-milestone" hidden></span>
+    </div>
+
+    <!-- Reward panel -->
+    <div id="reward-panel" class="reward-panel" hidden></div>
+
+    <!-- Prayer list — today -->
+    <section class="section-card">
+      <div class="section-head">
+        Today's Prayers
+      </div>
+      <div id="prayer-list" class="prayer-list"></div>
+    </section>
+
+    <!-- Notifications prompt -->
+    <section class="section-card notif-prompt-card" id="notif-prompt-card">
+      <div class="section-head">Reminders</div>
+      <p class="notif-desc">Enable browser notifications to receive reminders at each prayer time, even when the app is in the background.</p>
+      <button class="btn-primary btn-small" onclick="requestNotifications()">
+        Enable prayer reminders
+      </button>
+      <p class="notif-note">Works best when installed as an app (Add to Home Screen).</p>
+    </section>
+
+    <!-- 7-day prayer chart -->
+    <section class="section-card">
+      <div class="section-head">
+        Prayer history
+        <div class="chart-toggle">
+          <button class="chart-tab active" onclick="renderChart(7); this.parentNode.querySelectorAll('.chart-tab').forEach(b=>b.classList.remove('active')); this.classList.add('active')">7 days</button>
+          <button class="chart-tab" onclick="renderChart(30); this.parentNode.querySelectorAll('.chart-tab').forEach(b=>b.classList.remove('active')); this.classList.add('active')">30 days</button>
+        </div>
+      </div>
+      <div id="prayer-chart"></div>
+    </section>
+
+    <!-- Qalah tracker -->
+    <section class="section-card">
+      <div class="section-head">Qalah — القضاء</div>
+      <p class="qalah-desc">Prayers missed and not yet made up. Each one you complete here brings you closer to clearing your account with Allah.</p>
+      <div id="qalah-tracker"></div>
+    </section>
+
+  </div><!-- end app-screen -->
+
+</div><!-- end page-wrap -->
+
+<script src="../assets/icons/icons.js"></script>
+<script src="../assets/theme/theme.js"></script>
+<script src="./builder.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/dua/sw.js').catch(console.error);
+  }
+  // Check notification permission on load
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+      const nb = document.getElementById('notif-btn');
+      const ng = document.getElementById('notif-granted');
+      const np = document.getElementById('notif-prompt-card');
+      if (nb) nb.hidden = true;
+      if (ng) ng.hidden = false;
+      if (np) np.hidden = true;
+    }
+  });
 </script>
+
+<!-- Settings overlay -->
+<div id="settings-overlay" class="settings-overlay" hidden>
+  <div class="settings-panel">
+    <div class="settings-head">
+      Settings
+      <button class="settings-close" onclick="closeSettings()">&#x2715;</button>
+    </div>
+    <div class="settings-body">
+      <div class="settings-group">
+        <label class="settings-label">Calculation method</label>
+        <select id="settings-method" class="setup-select"
+          onchange="_settings.method=parseInt(this.value);saveSettings();fetchTimes();">
+        </select>
+      </div>
+      <button class="btn-primary btn-small" onclick="changeLocation()">Change location</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>

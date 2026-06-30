@@ -413,7 +413,7 @@ function updateProgress() {
    AUDIO ENGINE
 ══════════════════════════════════════════════════════ */
 let toastTimer = null;
-window._activeAudio    = null;  // active Audio element
+window._activeAudio    = new Audio();  // single reusable element — iOS Safari requires reuse across gestures
 window._activeAudioBtn = null;  // button element currently "playing"
 window._activeAudioUrl = null;  // url of active audio (for toggle detection)
 let _ttsVoicePrefs   = JSON.parse(localStorage.getItem('dua-tts-voices') || '{}');
@@ -449,7 +449,6 @@ function stopAllAudio() {
   if (window._activeAudio) {
     window._activeAudio.pause();
     window._activeAudio.currentTime = 0;
-    window._activeAudio = new Audio(); // single reusable element — fixes iOS chained playback
   }
   if (window._activeAudioBtn) {
     window._activeAudioBtn.classList.remove('audio-playing');
@@ -466,14 +465,16 @@ function toggleAudio(url, btn) {
   window._activeAudioUrl = url;
   window._activeAudioBtn = btn;
   if (btn) btn.classList.add('audio-playing');
-  window._activeAudio = new Audio(url);
+  window._activeAudio.src = url;
   window._activeAudio.onended = () => {
     if (btn) btn.classList.remove('audio-playing');
-    window._activeAudio = window._activeAudioBtn = window._activeAudioUrl = null;
+    window._activeAudioBtn = null;
+    window._activeAudioUrl = null;
   };
   window._activeAudio.play().catch(() => {
     if (btn) btn.classList.remove('audio-playing');
-    window._activeAudio = window._activeAudioBtn = window._activeAudioUrl = null;
+    window._activeAudioBtn = null;
+    window._activeAudioUrl = null;
     showToast('Audio not available.');
   });
 }
@@ -481,13 +482,13 @@ function toggleAudio(url, btn) {
 /* Chain all verses of a surah via EveryAyah — for Complete Recitation block */
 function playSurahSequence(surahNum, totalVerses, startVerse) {
   startVerse = startVerse || 1;
-  if (startVerse > totalVerses) { window._activeAudio = null; return; }
+  if (startVerse > totalVerses) { window._activeAudioUrl = null; return; }
   stopAllAudio();
   const reciter = window._currentReciter || 'Alafasy_128kbps';
   const s = String(surahNum).padStart(3,'0');
   const v = String(startVerse).padStart(3,'0');
   const url = 'https://everyayah.com/data/' + reciter + '/' + s + v + '.mp3';
-  window._activeAudio = new Audio(url);
+  window._activeAudio.src = url;
   window._activeAudio.onended = () => playSurahSequence(surahNum, totalVerses, startVerse + 1);
   window._activeAudio.play().catch(() => showToast('Verse audio not available. Try another reciter.'));
 }
@@ -547,13 +548,13 @@ function speakText(text, lang) {
   utt.lang   = lang || 'ar-SA';
   utt.rate   = lang === 'ar-SA' ? 0.85 : 0.95;
   utt.pitch  = 1;
-  window._currentUtterance = utt; // keep reference alive — iOS Safari GC bug
   // Use user-selected voice if available
   const voiceName = _ttsVoicePrefs[lang];
   if (voiceName && _availableVoices.length) {
     const v = _availableVoices.find(v => v.name === voiceName);
     if (v) utt.voice = v;
   }
+  window._currentUtterance = utt; // keep reference alive — iOS Safari GC bug
   window.speechSynthesis.speak(utt);
 }
 
