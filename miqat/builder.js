@@ -353,6 +353,7 @@ function renderTimes() {
       if (status === 'prayed')  { statusIcon = `<span class="badge badge-prayed">${DuaIcons.get('check')} Prayed</span>`; rowClass += ' row-prayed'; }
       else if (status === 'qalah')  { statusIcon = `<span class="badge badge-qalah">Qalah</span>`; rowClass += ' row-qalah'; }
       else if (status === 'missed') { statusIcon = `<span class="badge badge-missed">Missed</span>`; rowClass += ' row-missed'; }
+      else if (status === 'unconfirmed') { statusIcon = `<span class="badge badge-unconfirmed">${DuaIcons.get('info')} Did you pray?</span>`; rowClass += ' row-unconfirmed'; }
       else if (isCurr) { statusIcon = `<span class="badge badge-now">Now</span>`; rowClass += ' row-current'; }
       else if (isNext) { statusIcon = `<span class="badge badge-next">Next</span>`; rowClass += ' row-next'; }
 
@@ -365,10 +366,11 @@ function renderTimes() {
         </div>
         <div class="row-time">${fmt12(t)}</div>
         <div class="row-status">${statusIcon}</div>
-        ${!status && (isCurr || isNext) ? `
-          <button class="row-btn" onclick="confirmPrayed('${key}', false)">
-            ${DuaIcons.get('check')}
-          </button>` : ''}
+        ${(!status || status === 'unconfirmed') && (isCurr || isNext || status === 'unconfirmed') ? `
+  <button class="row-btn row-btn-prayed" onclick="confirmPrayed('${key}', false)" title="Prayed on time">${DuaIcons.get('check')}</button>
+  <button class="row-btn row-btn-qalah" onclick="confirmPrayed('${key}', true)" title="Prayed as Qalah">Q</button>
+  <button class="row-btn row-btn-miss" onclick="markMissed('${key}')" title="Did not pray">✕</button>
+` : ''}
       </div>`;
     }).join('');
   }
@@ -462,10 +464,12 @@ function showReward(prayer, isQalah) {
       <div class="reward-text-ml">${msg.ml}</div>
       ${msg.source !== 'reflection' ? `<div class="reward-source">${msg.source}</div>` : ''}
       ${allDone ? `
-        <div class="all-done-msg">
-          ${DuaIcons.get('beads')}
-          All five prayers complete today. May Allah accept them.
-        </div>` : ''}
+  <div class="all-done-banner">
+    <div class="all-done-ar">الصَّلَوَاتُ الْخَمْسُ</div>
+    <div class="all-done-title">${DuaIcons.get('beads')} All Five Prayers Complete</div>
+    <div class="all-done-msg">The Prophet ﷺ said: Between the five prayers, sins are expiated as water extinguishes fire.</div>
+    <div class="all-done-source">Tirmidhi 614</div>
+  </div>` : ''}
       <button class="reward-close" onclick="document.getElementById('reward-panel').hidden=true">
         Close
       </button>
@@ -473,6 +477,41 @@ function showReward(prayer, isQalah) {
 
   // Auto-hide after 12 seconds
   setTimeout(() => { if (panel) panel.hidden = true; }, 12000);
+}
+
+function togglePastPanel(btn) {
+  const panel = document.getElementById('past-panel');
+  const open = panel.hidden;
+  panel.hidden = !open;
+  btn.textContent = open ? 'Hide' : 'Show';
+  if (open) renderPastPanel();
+}
+
+function renderPastPanel() {
+  const panel = document.getElementById('past-panel');
+  let html = '';
+  for (let i = 6; i >= 1; i--) {
+    const d = new Date(); d.setDate(d.getDate() - i);
+    const dk = dateStr(d);
+    const dayLog = _log[dk] || {};
+    const label = d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+    html += `<div class="past-day"><div class="past-date">${label}</div>`;
+    PRAYER_KEYS.forEach(key => {
+      const st = dayLog[key] || 'not set';
+      html += `<div class="past-row">
+        <span>${PRAYER_EN[key]}</span>
+        <select onchange="markPastPrayer('${dk}','${key}',this.value)">
+          <option value="" ${!dayLog[key]?'selected':''}>— not set</option>
+          <option value="prayed" ${st==='prayed'?'selected':''}>✓ Prayed</option>
+          <option value="qalah"  ${st==='qalah'?'selected':''}>Qalah</option>
+          <option value="missed" ${st==='missed'?'selected':''}>Missed</option>
+        </select>
+      </div>`;
+    });
+    html += '</div>';
+  }
+  panel.innerHTML = html;
+  panel.hidden = false;
 }
 
 /* ══════════════════════════════════════════════════════
@@ -509,14 +548,32 @@ function checkMissedPrayers() {
     const nextTime = nextKey ? timeToDate(_times[nextKey]) : null;
 
     if (nextTime && now > nextTime) {
-      // Window has passed without confirmation
-      todayLog[key] = 'missed';
+      // Don't auto-mark — flag as needing user confirmation
+      todayLog[key] = 'unconfirmed';
     }
   });
 
   saveLog();
   renderChart();
   renderQalah();
+}
+
+function markMissed(prayer) {
+  const todayKey = todayStr();
+  if (!_log[todayKey]) _log[todayKey] = {};
+  _log[todayKey][prayer] = 'missed';
+  saveLog();
+  renderTimes();
+  renderQalah();
+}
+
+function markPastPrayer(dateKey, prayer, status) {
+  if (!_log[dateKey]) _log[dateKey] = {};
+  _log[dateKey][prayer] = status;
+  saveLog();
+  renderChart();
+  renderQalah();
+  showToast(`${PRAYER_EN[prayer]} updated.`);
 }
 
 /* ══════════════════════════════════════════════════════

@@ -488,3 +488,29 @@
   font-size: 0.78rem; color: rgba(255,255,255,0.7);
   font-family: var(--font-ui);
 }
+
+.badge-unconfirmed { background: rgba(199,156,96,0.15); color: #8B6914; border: 1px dashed #c79c60; }
+.row-unconfirmed   { background: rgba(199,156,96,0.04); }
+.row-btn-qalah { background: #c79c60; color: #fff; }
+.row-btn-miss  { background: #8B3A3A; color: #fff; }
+.past-day   { padding: 10px 16px; border-bottom: 1px solid var(--border); }
+.past-date  { font-weight: 700; font-size: 0.75rem; color: var(--primary); margin-bottom: 8px; }
+.past-row   { display: flex; align-items: center; justify-content: space-between;
+              padding: 4px 0; font-size: 0.8rem; }
+.past-row select { font-size: 0.75rem; border: 1px solid var(--border);
+                   border-radius: var(--radius-sm); padding: 3px 6px;
+                   background: var(--card); color: var(--text); cursor: pointer; }
+
+.all-done-banner {
+  margin: 14px 0 0;
+  background: linear-gradient(135deg, var(--primary) 0%, #2a6953 100%);
+  color: var(--primary-fg);
+  border-radius: var(--radius);
+  padding: 18px 16px; text-align: center;
+}
+.all-done-ar   { font-family: 'Scheherazade New', serif; font-size: 1.4rem; opacity: 0.9; margin-bottom: 6px; }
+.all-done-title{ font-family: var(--font-display); font-weight: 700; font-size: 0.95rem;
+                 display: flex; align-items: center; justify-content: center; gap: 7px; margin-bottom: 8px; }
+.all-done-title svg { width: 16px; height: 16px; stroke: currentColor; fill: none; }
+.all-done-msg  { font-size: 0.8rem; line-height: 1.6; opacity: 0.88; margin-bottom: 4px; }
+.all-done-source{ font-size: 0.68rem; opacity: 0.65; font-style: italic; }

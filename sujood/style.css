@@ -34,6 +34,13 @@
 .fardh       { font-weight: 700; color: var(--text); }
 .sched-note  { font-size: 0.77rem; color: var(--muted); margin-top: 10px; line-height: 1.55; }
 
+.dua-source {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.72rem; color: var(--muted);
+  font-style: italic; padding: 6px 14px 0;
+}
+.dua-source svg { width: 11px; height: 11px; stroke: var(--accent); fill: none; }
+
 /* ── SECTION CARDS ── */
 .card {
   background: var(--card);

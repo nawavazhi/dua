@@ -227,6 +227,14 @@ function buildCard(section) {
         <tbody>${buildWordRows(section)}</tbody>
       </table>
     </div>
+  ${section.isSurah && section.revelation ? `
+  <div class="note-block">
+    ${DuaIcons.get('info')}
+    <div>
+      <strong>${section.name_en} — ${section.revelation} Surah</strong><br>
+      ${section.salah_note || section.special_note || ''}
+    </div>
+  </div>` : ''}
     ${buildDuaBlock(section.complete_dua, section)}
     ${buildNotesBlock(section.notes)}
   </article>`;
@@ -274,7 +282,7 @@ function buildWordRows(item) {
       <tr class="verse-translation">
         <td colspan="4">
           ${v.ar ? `<div class="vtrans vtrans-ar">
-            <button class="tts-btn" onclick="speakText('${safeStr(v.ar)}','ar-SA')" title="Listen in Arabic">${DuaIcons.get('audio')}</button>
+            <button class="tts-btn" onclick="playVerse(${item.surah_number},${v.verse},this)" title="Play verse audio">${DuaIcons.get('audio')}</button>
             <span>${v.ar}</span>
           </div>` : ''}
           ${v.en ? `<div class="vtrans vtrans-en">
@@ -324,6 +332,7 @@ function buildDuaBlock(dua, section) {
   return `
   <div class="dua-block">
     <div class="dua-block-header">${DuaIcons.get('scroll')} Complete Recitation</div>
+    ${section && section.source ? `<div class="dua-source">${DuaIcons.get('scroll')} ${section.source}</div>` : ''}
     ${dua.ar ? `<div class="dua-ar-wrap">
       ${isSurah && surahNum && verseCount
         ? '<button class="tts-btn tts-block" onclick="stopAllAudio();playSurahSequence(' + surahNum + ',' + verseCount + ')" title="Play full surah">' + DuaIcons.get('audio') + ' Play Surah</button>'
