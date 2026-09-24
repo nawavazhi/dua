@@ -1,10 +1,10 @@
 /**
  * dua — Service Worker (sw.js)
- * Cache-first for static assets, network-first for data files.
+ * Cache-first for versioned assets, network-first for content and pages.
  * After first load, the entire Salah guide works offline (except CDN audio).
  */
 
-const CACHE = 'dua-v2';
+const CACHE = 'dua-v3';
 
 const STATIC = [
   '/dua/',
@@ -33,11 +33,8 @@ const STATIC = [
 // Install — cache all static files
 self.addEventListener('install', e => {
   self.skipWaiting();
-  e.waitUntil(
-    caches.open(CACHE).then(c => c.addAll(STATIC)).catch(err => {
-      console.warn('[dua sw] Some cache installs failed:', err);
-    })
-  );
+  // If a required resource fails, keep the previous worker active.
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(STATIC)));
 });
 
 // Activate — delete old caches
@@ -51,40 +48,38 @@ self.addEventListener('activate', e => {
 
 // Fetch — cache-first for static, skip for CDN audio
 self.addEventListener('fetch', e => {
-  const url = e.request.url;
+  const url = new URL(e.request.url);
+  if (e.request.method !== 'GET' || url.origin !== self.location.origin) return;
 
   // Never intercept CDN audio requests (EveryAyah, QuranCDN)
-  if (url.includes('everyayah.com') || url.includes('qurancdn.com') || url.includes('gstatic.com')) {
+  // Content can change independently of the application code.
+  if (url.pathname.endsWith('.json') && !url.pathname.endsWith('/manifest.json')) {
+    e.respondWith(
+      fetch(e.request).then(res => {
+        if (res.ok) e.waitUntil(caches.open(CACHE).then(c => c.put(e.request, res.clone())));
+        return res;
+      }).catch(async () => (await caches.match(e.request)) || Response.error())
+    );
     return;
   }
 
-  // Cache-first for fonts and assets
-  if (url.includes('/assets/fonts/') || url.includes('/assets/icons/') ||
-      url.includes('.css') || url.includes('.js')) {
+  // Cache-first for files managed by the cache version.
+  if (url.pathname.includes('/assets/fonts/') || url.pathname.includes('/assets/icons/') ||
+      url.pathname.endsWith('.css') || url.pathname.endsWith('.js')) {
     e.respondWith(
       caches.match(e.request).then(cached => cached || fetch(e.request).then(res => {
-        const clone = res.clone();
-        caches.open(CACHE).then(c => c.put(e.request, clone));
+        if (res.ok) e.waitUntil(caches.open(CACHE).then(c => c.put(e.request, res.clone())));
         return res;
       }))
     );
     return;
   }
 
-  // Network-first for JSON data (may be updated)
-  if (url.includes('/assets/data/') || url.includes('/assets/translations/')) {
-    e.respondWith(
-      fetch(e.request).then(res => {
-        const clone = res.clone();
-        caches.open(CACHE).then(c => c.put(e.request, clone));
-        return res;
-      }).catch(() => caches.match(e.request))
-    );
-    return;
-  }
-
-  // Cache-first for HTML pages
+  // Check for updated pages, with cached pages available offline.
   e.respondWith(
-    caches.match(e.request).then(cached => cached || fetch(e.request))
+    fetch(e.request).then(res => {
+      if (res.ok) e.waitUntil(caches.open(CACHE).then(c => c.put(e.request, res.clone())));
+      return res;
+    }).catch(async () => (await caches.match(e.request)) || Response.error())
   );
 });

@@ -20,9 +20,12 @@ const API_KEYS = { fajr:'Fajr', dhuhr:'Dhuhr', asr:'Asr', maghrib:'Maghrib', ish
 let _data     = null; // reminder.json
 let _settings = {};   // { lat, lon, city, method }
 let _times    = {};   // { fajr:'05:12', ... } for today
+let _timesDate = null; // YYYY-MM-DD in the prayer location's timezone
 let _log      = {};   // { 'YYYY-MM-DD': { fajr:'prayed', ... } }
 let _countdown = null;
 let _notifTimers = [];
+let _lastRenderedMinute = null;
+let _lastDailyAttempt = null;
 
 /* ══════════════════════════════════════════════════════
    BOOT
@@ -155,15 +158,18 @@ function searchCity() {
         lat: parseFloat(meta.latitude),
         lon: parseFloat(meta.longitude),
         city: city + (country ? `, ${country}` : ''),
-        method: parseInt(method)
+        method: parseInt(method),
+        timezone: meta.timezone
       };
       saveSettings();
       _times = parseTimes(json.data.timings);
+      _timesDate = apiDateStr(json.data.date);
+      _lastDailyAttempt = todayStr();
       showApp();
+      checkMissedPrayers();
       renderTimes();
       startCountdown();
       scheduleNotifications();
-      checkMissedPrayers();
     })
     .catch(err => {
       showSetupError(`Could not find "${city}". Check spelling and try again.`);
@@ -181,42 +187,19 @@ function showSetupError(msg) {
 
 function changeLocation() {
   _settings = {};
+  _times = {};
+  _timesDate = null;
   saveSettings();
   clearTimers();
   showSetup();
-}
-
-function fillMissingDays() {
-  const now = new Date();
-  const today = todayStr();
-  
-  // Find the most recent date in the log that isn't today
-  const loggedDates = Object.keys(_log).filter(d => d !== today).sort();
-  if (loggedDates.length === 0) return; 
-  
-  const lastDateStr = loggedDates[loggedDates.length - 1];
-  let checkDate = new Date(lastDateStr);
-  checkDate.setDate(checkDate.getDate() + 1); // Start the day after last log
-  
-  // Loop through every day between the last logged date and today
-  while (dateStr(checkDate) < today) {
-    const missingDateKey = dateStr(checkDate);
-    if (!_log[missingDateKey]) _log[missingDateKey] = {};
-    
-    // Mark all 5 prayers as missed for this fully absent day
-    PRAYER_KEYS.forEach(k => {
-      if (!_log[missingDateKey][k]) _log[missingDateKey][k] = 'missed';
-    });
-    
-    checkDate.setDate(checkDate.getDate() + 1);
-  }
-  saveLog();
 }
 
 /* ══════════════════════════════════════════════════════
    PRAYER TIMES — FETCH + PARSE
 ══════════════════════════════════════════════════════ */
 function fetchTimes() {
+  if (!_settings.lat) return;
+  _lastDailyAttempt = todayStr();
   const ts  = Math.floor(Date.now() / 1000);
   const url = `https://api.aladhan.com/v1/timings/${ts}?latitude=${_settings.lat}&longitude=${_settings.lon}&method=${_settings.method}`;
   const statusEl = document.getElementById('times-status');
@@ -227,17 +210,22 @@ function fetchTimes() {
     .then(r => r.json())
     .then(json => {
       if (json.code !== 200) throw new Error(json.status);
+      if (json.data.meta?.timezone) {
+        _settings.timezone = json.data.meta.timezone;
+        saveSettings();
+      }
       _times = parseTimes(json.data.timings);
+      _timesDate = apiDateStr(json.data.date);
+      checkMissedPrayers();
       renderTimes();
       startCountdown();
       scheduleNotifications();
-      checkMissedPrayers();
     })
     .catch((err) => {
       console.error(err);
       if (statusEl) statusEl.textContent = 'No internet — showing last known times.';
        
-      if (Object.keys(_times).length) {
+      if (Object.keys(_times).length && _timesDate === todayStr()) {
         renderTimes();
       } else {
         const hero = document.getElementById('next-prayer-card');
@@ -266,13 +254,35 @@ function parseTimes(apiTimings) {
   return result;
 }
 
-/* Convert "HH:MM" to today's Date object */
+function apiDateStr(date) {
+  const g = date?.gregorian;
+  return g ? `${g.year}-${String(g.month.number).padStart(2,'0')}-${String(g.day).padStart(2,'0')}` : todayStr();
+}
+
+/* Convert the prayer location's wall-clock time to an absolute instant. */
 function timeToDate(timeStr) {
   if (!timeStr) return null;
   const [h, m] = timeStr.split(':').map(Number);
-  const d = new Date();
-  d.setHours(h, m, 0, 0);
-  return d;
+  const [y, mo, day] = (_timesDate || todayStr()).split('-').map(Number);
+  const wallTime = Date.UTC(y, mo - 1, day, h, m);
+  const zone = _settings.timezone;
+  if (!zone) return new Date(y, mo - 1, day, h, m);
+  try {
+    const formatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: zone, year:'numeric', month:'2-digit', day:'2-digit',
+      hour:'2-digit', minute:'2-digit', second:'2-digit', hourCycle:'h23'
+    });
+    const offset = instant => {
+      const p = Object.fromEntries(formatter.formatToParts(new Date(instant)).map(x => [x.type, Number(x.value)]));
+      return Date.UTC(p.year, p.month - 1, p.day, p.hour, p.minute, p.second) - instant;
+    };
+    let instant = wallTime - offset(wallTime);
+    instant = wallTime - offset(instant); // account for a DST change near midnight
+    return new Date(instant);
+  } catch (err) {
+    console.warn('Invalid prayer timezone:', zone, err);
+    return new Date(y, mo - 1, day, h, m);
+  }
 }
 
 /* Format "HH:MM" to 12h display */
@@ -330,7 +340,7 @@ function renderTimes() {
       <div class="hero-ml">${PRAYER_ML[highlight] || ''}</div>
       <div class="hero-time">${fmt12(hlTime)}</div>
       <div id="countdown-display" class="hero-countdown"></div>
-      ${!isPrayed && highlight ? `
+      ${!isPrayed && currentPrayer ? `
         <button class="prayed-btn" onclick="confirmPrayed('${highlight}', false)">
           ${DuaIcons.get('check')} I prayed ${PRAYER_EN[highlight]}
         </button>
@@ -366,10 +376,10 @@ function renderTimes() {
         </div>
         <div class="row-time">${fmt12(t)}</div>
         <div class="row-status">${statusIcon}</div>
-        ${(!status || status === 'unconfirmed') && (isCurr || isNext || status === 'unconfirmed') ? `
+        ${(!status || status === 'unconfirmed') && (isCurr || status === 'unconfirmed') ? `
   <button class="row-btn row-btn-prayed" onclick="confirmPrayed('${key}', false)" title="Prayed on time">${DuaIcons.get('check')}</button>
   <button class="row-btn row-btn-qalah" onclick="confirmPrayed('${key}', true)" title="Prayed as Qalah">Q</button>
-  <button class="row-btn row-btn-miss" onclick="markMissed('${key}')" title="Did not pray">✕</button>
+  ${status === 'unconfirmed' ? `<button class="row-btn row-btn-miss" onclick="markMissed('${key}')" title="Did not pray">✕</button>` : ''}
 ` : ''}
       </div>`;
     }).join('');
@@ -389,6 +399,17 @@ function startCountdown() {
 }
 
 function tickCountdown() {
+  const today = todayStr();
+  if (_timesDate && _timesDate !== today) {
+    if (_lastDailyAttempt !== today) fetchTimes();
+    return;
+  }
+  const minute = Math.floor(Date.now() / 60000);
+  if (_lastRenderedMinute !== minute && Object.keys(_times).length) {
+    _lastRenderedMinute = minute;
+    checkMissedPrayers();
+    renderTimes();
+  }
   const el = document.getElementById('countdown-display');
   if (!el) return;
 
@@ -398,12 +419,6 @@ function tickCountdown() {
   if (!prayer || !_times[prayer]) { el.textContent = ''; return; }
 
   let target = timeToDate(_times[prayer]);
-
-  // FIX: If we are looking for Fajr, but the generated time is in the past, 
-  // and it's currently evening/night, it must be tomorrow's Fajr.
-  if (prayer === 'fajr' && target < now && now.getHours() > 12) {
-    target.setDate(target.getDate() + 1);
-  }
 
   // If prayer time has passed (and it's not tomorrow's Fajr), it's the current window
   if (target < now) {
@@ -434,6 +449,7 @@ function tickCountdown() {
    PRAYER CONFIRMATION
 ══════════════════════════════════════════════════════ */
 function confirmPrayed(prayer, isQalah) {
+  if (!_times[prayer] || new Date() < timeToDate(_times[prayer])) return;
   const todayKey = todayStr();
   if (!_log[todayKey]) _log[todayKey] = {};
   _log[todayKey][prayer] = isQalah ? 'qalah' : 'prayed';
@@ -491,7 +507,7 @@ function renderPastPanel() {
   const panel = document.getElementById('past-panel');
   let html = '';
   for (let i = 6; i >= 1; i--) {
-    const d = new Date(); d.setDate(d.getDate() - i);
+    const d = locationCalendarDate(-i);
     const dk = dateStr(d);
     const dayLog = _log[dk] || {};
     const label = d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
@@ -518,15 +534,14 @@ function renderPastPanel() {
    MISSED PRAYER DETECTION
 ══════════════════════════════════════════════════════ */
 
-/* Check if yesterday's Isha was never confirmed — mark missed.
-   Without this, Isha from previous days stays null permanently. */
+/* Flag yesterday's Isha for review only if yesterday already has a log. */
 function checkYesterdayIsha() {
-  const y = new Date();
-  y.setDate(y.getDate() - 1);
+  // An absent record is not proof that a prayer was missed.
+  const y = locationCalendarDate(-1);
   const yKey = dateStr(y);
-  if (!_log[yKey]) _log[yKey] = {};
+  if (!_log[yKey]) return;
   if (_log[yKey]['isha'] === undefined || _log[yKey]['isha'] === null) {
-    _log[yKey]['isha'] = 'missed';
+    _log[yKey]['isha'] = 'unconfirmed';
     saveLog();
   }
 }
@@ -585,9 +600,7 @@ function renderChart(days = 7) {
 
   const dates = [];
   for (let i = days - 1; i >= 0; i--) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
-    dates.push(d);
+    dates.push(locationCalendarDate(-i));
   }
 
   const dayLabels = dates.map(d =>
@@ -600,7 +613,7 @@ function renderChart(days = 7) {
       <div class="chart-grid" style="--chart-cols:${days}">
         <div class="chart-col-header"></div>
         ${dates.map(d => {
-          const isToday = d.toDateString() === new Date().toDateString();
+          const isToday = dateStr(d) === todayStr();
           return `<div class="chart-day-label ${isToday?'today':''}">${
             d.toLocaleDateString('en-US',{weekday:'short'}).charAt(0)
           }<span>${d.getDate()}</span></div>`;
@@ -616,8 +629,8 @@ function renderChart(days = 7) {
     dates.forEach(d => {
       const dateKey = dateStr(d);
       const status  = (_log[dateKey] || {})[key] || null;
-      const isToday = d.toDateString() === new Date().toDateString();
-      const isFuture = d > new Date();
+      const isToday = dateStr(d) === todayStr();
+      const isFuture = dateStr(d) > todayStr();
 
       let cls = 'chart-cell';
       let tip = '';
@@ -721,8 +734,7 @@ function updateStreakDisplay() {
 
   let streak = 0;
   for (let i = 0; i <= 365; i++) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
+    const d = locationCalendarDate(-i);
     const key = dateStr(d);
     const log = _log[key] || {};
     const allPrayed = PRAYER_KEYS.every(k => log[k] === 'prayed' || log[k] === 'qalah');
@@ -757,6 +769,8 @@ function requestNotifications() {
     if (perm === 'granted') {
       document.getElementById('notif-btn').hidden = true;
       document.getElementById('notif-granted').hidden = false;
+      const prompt = document.getElementById('notif-prompt-card');
+      if (prompt) prompt.hidden = true;
       scheduleNotifications();
     }
   });
@@ -854,7 +868,21 @@ function loadLog() {
 /* ══════════════════════════════════════════════════════
    UTILITIES
 ══════════════════════════════════════════════════════ */
-function todayStr() { return dateStr(new Date()); }
+function todayStr() {
+  try {
+    if (_settings.timezone) {
+      const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
+        timeZone: _settings.timezone, year:'numeric', month:'2-digit', day:'2-digit'
+      }).formatToParts(new Date()).map(x => [x.type, x.value]));
+      return `${parts.year}-${parts.month}-${parts.day}`;
+    }
+  } catch (err) { console.warn('Invalid prayer timezone:', _settings.timezone, err); }
+  return dateStr(new Date());
+}
+function locationCalendarDate(offset) {
+  const [y, m, d] = todayStr().split('-').map(Number);
+  return new Date(y, m - 1, d + offset, 12);
+}
 function dateStr(d) {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }

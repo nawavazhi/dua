@@ -2,7 +2,7 @@
   "name": "dua — Islamic Prayer Guide",
   "short_name": "dua",
   "description": "Word-by-word Salah guide in Arabic, English, and Malayalam",
-  "start_url": "/dua/salah/",
+  "start_url": "/dua/sujood/",
   "display": "standalone",
   "background_color": "#FAFBFC",
   "theme_color": "#1f4e3d",
