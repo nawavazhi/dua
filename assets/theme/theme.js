@@ -78,10 +78,12 @@ function _buildTopbar() {
     titleText = clone.textContent.trim() || 'Project Dua';
   }
 
+  const navigation = document.getElementById('sidebar')
+    ? `<button class="icon-btn" id="nav-toggle" onclick="toggleNav()" aria-label="Open menu">${DuaIcons.get('menu')}</button>`
+    : `<a class="icon-btn" id="nav-toggle" href="../" aria-label="Back to dua home">${DuaIcons.get('home')}</a>`;
+
   topbar.innerHTML = `
-    <button class="icon-btn" id="nav-toggle" onclick="toggleNav()" aria-label="Open menu">
-      ${DuaIcons.get('menu')}
-    </button>
+    ${navigation}
     <div class="topbar-logo">
       ${DuaIcons.get('mosque', 'dua-icon')}
       <div class="topbar-title">
