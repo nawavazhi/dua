@@ -139,7 +139,10 @@ function buildNav(sections) {
     ${salahLinks}
     <div class="nav-separator"></div>
     <div class="nav-group-label">${DuaIcons.get('quran')} Short Surahs</div>
-    ${surahLinks}`;
+    ${surahLinks}
+    <div class="nav-separator"></div>
+    <li><a class="nav-link" href="../">${DuaIcons.get('home')} Home</a></li>
+    <li><a class="nav-link" href="../miqat/">${DuaIcons.get('calendar')} Miqat preview</a></li>`;
 }
 
 /* ══════════════════════════════════════════════════════
